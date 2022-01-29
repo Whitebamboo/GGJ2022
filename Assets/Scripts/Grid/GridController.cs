@@ -16,10 +16,23 @@ public class GridController : MonoBehaviour
 
     void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         grid = new GridSpaceController[height, width];
-
         CreateGrid();
+    }
+
+    public void SetLevel(List<MapElement> mapElements) 
+    {
+        // TODO: move player to the level data, create grid here
+        // CreateGrid(); 
+        foreach (MapElement mapElement in mapElements) {
+            int r = mapElement.Row; int c = mapElement.Col;
+            GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
+            elementPrefab.transform.position = GetPosition(r, c);
+
+            // TODO: set position object when all the prefab have the correct classes
+            //SetPositionObject(r, c, mapElement.Prefab);
+        }
     }
 
     void CreateGrid()

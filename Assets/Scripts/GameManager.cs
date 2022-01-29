@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class GameManager : CSingletonMono<GameManager>
 {
-    // Start is called before the first frame update
+    public List<LevelData> levels;
+
+    public GridController leftGridController;
+    public GridController rightGridController;
+
+    int currentLevel = 0;
+
     void Start()
     {
-        
+        leftGridController.SetLevel(levels[0].LeftPlayerLevel);
+        rightGridController.SetLevel(levels[0].RightPlayerLevel);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
