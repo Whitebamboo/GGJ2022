@@ -3,35 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// Was used to control the appearance of a grid tile based on its value
-// Probably not needed for our project
 public class GridSpaceController : MonoBehaviour
 {
-    public Material emptyMaterial;
-    public Material destinationMaterial;
-    public Material fullMaterial;
+    GridObject gridObject;
 
-    GridValue gridValue;
-
-    public void SetValue(GridValue value)
+    public void SetObject(GridObject gridObject)
     {
-        gridValue = value;
-        switch (value)
-        {
-            case GridValue.Space:
-                GetComponent<MeshRenderer>().material = emptyMaterial;
-                break;
-            case GridValue.Destination:
-                GetComponent<MeshRenderer>().material = destinationMaterial;
-                break;
-            default:
-                GetComponent<MeshRenderer>().material = fullMaterial;
-                break;
-        }
+        this.gridObject = gridObject;
     }
 
-    public GridValue GetValue()
+    public GridObject GetObject()
     {
-        return gridValue;
+        return gridObject;
     }
 }

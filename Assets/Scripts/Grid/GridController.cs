@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// We should expand into an interface rather than using enum values
-public enum GridValue { Space, Player, Box, Destination }
-
 public class GridController : MonoBehaviour
 {
     public GameObject gridPrefab;
@@ -40,14 +37,14 @@ public class GridController : MonoBehaviour
         bottomLeft.SetActive(false);
     }
 
-    public void SetPositionValue(int row, int col, GridValue value)
+    public void SetPositionObject(int row, int col, GridObject gridObj)
     {
-        grid[row, col].SetValue(value);
+        grid[row, col].SetObject(gridObj);
     }
 
-    public GridValue GetPositionValue(int row, int col)
+    public GridObject GetPositionObject(int row, int col)
     {
-        return grid[row, col].GetValue();
+        return grid[row, col].GetObject();
     }
 
     public Vector3 GetPosition(int row, int col)
