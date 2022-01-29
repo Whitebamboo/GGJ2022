@@ -6,9 +6,6 @@ public class Seed : MoveWithoutTimeChange
 {
     public GameObject treePrefab;
 
- 
-
-
     public override void interactive()
     {
         base.interactive();
@@ -16,5 +13,10 @@ public class Seed : MoveWithoutTimeChange
         EventBus.Broadcast(EventTypes.Create, go, this.gameObject);
         EventBus.Broadcast(EventTypes.Destroy, this.gameObject);
         Destroy(this.gameObject, .1f);
+    }
+
+    public override bool Equals(GridObject otherObject)
+    {
+        return otherObject.GetComponent<Seed>() != null;
     }
 }

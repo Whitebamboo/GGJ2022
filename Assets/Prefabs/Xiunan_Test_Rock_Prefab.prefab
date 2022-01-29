@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5618024528044982804}
   - component: {fileID: 7361708068453895896}
   - component: {fileID: 6777007898235342348}
-  - component: {fileID: 3364692000772260752}
+  - component: {fileID: 5388316111776238929}
+  - component: {fileID: 8231337526225271818}
   m_Layer: 0
   m_Name: Xiunan_Test_Rock_Prefab
   m_TagString: Untagged
@@ -114,7 +115,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3364692000772260752
+--- !u!95 &5388316111776238929
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6266697286741533633}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8231337526225271818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +143,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6266697286741533633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 983ffd9b6ac0f414f82fa5f7d44dd15b, type: 3}
+  m_Script: {fileID: 11500000, guid: 714679cfdfa9846a29263cb13470d44b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isForward: 1
+  isForward: 0
+  stateLists: []
+  currentState: 0
+  isCycle: 0
   speed: 3
   threshold: 0.1
   isChangeWithTime: 0

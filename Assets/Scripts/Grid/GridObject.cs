@@ -6,6 +6,7 @@ public abstract class GridObject : MonoBehaviour
 {
     [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
     public bool isForward;
+    GridObject passedObject;
 
     /// <summary>
     /// Returns whether the grid object is pushable by the player
@@ -22,6 +23,18 @@ public abstract class GridObject : MonoBehaviour
     {
         return false;
     }
+
+    public void SetPassedObject(GridObject passedObject) 
+    {
+        if (!IsPassable()) return;
+        this.passedObject = passedObject;
+    }
+
+    public GridObject GetPassedObject() 
+    {
+        return passedObject;
+    }
+
 
     public abstract void MoveTo(Vector3 newPosition);
 

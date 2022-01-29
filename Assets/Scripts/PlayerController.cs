@@ -29,7 +29,7 @@ public class PlayerController : GridObject
 
     void Start()
     {
-        EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
+        EventBus.AddListener(EventTypes.StopAll, StopAll);
     }
 
     void Update()
@@ -42,6 +42,7 @@ public class PlayerController : GridObject
             if (currentTime >= 1)
             {
                 transform.position = targetPosition;
+                EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
                 isMoving = false;
             }
         }
@@ -96,7 +97,6 @@ public class PlayerController : GridObject
 
     public override void MoveTo(Vector3 newPosition)
     {
-        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
         newPosition.y = transform.position.y;
 
         targetPosition = newPosition;
@@ -105,9 +105,9 @@ public class PlayerController : GridObject
         isMoving = true;
     }
 
-    public void ReachTarget(bool isForward) 
+    public void StopAll() 
     {
-        if (this.isForward == isForward) canMove = false;
+        canMove = false;
     }
 
     public override bool Equals(GridObject otherObject)

@@ -11,12 +11,23 @@ public class TargetPoint : GridObject
 
     private void OnTriggerEnter(Collider other)
     {
-        //when player reach point if it at left info 1 at right info 2
+        //when player reach point
         if(other.tag == "Player")
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             print("reach target");
             EventBus.Broadcast(EventTypes.PlayerReachTarget, player.isForward);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //when player leaves point
+        if(other.tag == "Player")
+        {
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            print("leave target");
+            EventBus.Broadcast(EventTypes.PlayerLeaveTarget, player.isForward);
         }
     }
 

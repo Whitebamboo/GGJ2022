@@ -75,7 +75,6 @@ public abstract class fatherObject : GridObject
     /// <param name="leftRight"></param>
     public void TimeChange(bool leftRight)
     {
-        print("be call");
         if (leftRight == isForward && isChangeWithTime)
         {
             if (isForward)
@@ -97,8 +96,6 @@ public abstract class fatherObject : GridObject
     /// </summary>
     public void ChangeState(Animator animator)
     {
-
-
         if (currentState + 1 < stateLists.Count)
         {
             if (isForward)
@@ -124,5 +121,4 @@ public abstract class fatherObject : GridObject
             }
         }
     }
-
 }

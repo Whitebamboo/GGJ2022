@@ -24,8 +24,9 @@ public class GameManager : CSingletonMono<GameManager>
         rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
 
         EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
+        EventBus.AddListener<bool>(EventTypes.PlayerLeaveTarget, LeaveTarget);
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
-        ResetTime(50); // TODO: get info from level
+        ResetTime(20); // TODO: get info from level
     }
 
     void ResetTime(int totalTime) 
@@ -59,7 +60,7 @@ public class GameManager : CSingletonMono<GameManager>
             player2ReachTarget = false;
             resetLevel = false;
 
-            ResetTime(50);
+            ResetTime(20);
         }
     }
 
@@ -67,16 +68,23 @@ public class GameManager : CSingletonMono<GameManager>
     {
         if (isForward) player1ReachTarget = true;
         else player2ReachTarget = true;
-
-        CheckPassCondition();
     }
 
-    void CheckPassCondition() {
+    void LeaveTarget(bool isForward) 
+    {
+        if (isForward) player1ReachTarget = false;
+        else player2ReachTarget = false;
+    }
+
+    void CheckPassCondition() 
+    {
+        if (leftTime != rightTime) return;
+
+        EventBus.Broadcast(EventTypes.StopAll);
         if (player1ReachTarget && player2ReachTarget && AreGridsEqual()) {
-            // Also check leftTime == rightTime
             Debug.Log("WIN");
-            currentLevel++;
-            if (currentLevel < levels.Count) {
+            if (currentLevel < levels.Count - 1) {
+                currentLevel++;
                 resetLevel = true;
             }
             return;
@@ -86,7 +94,8 @@ public class GameManager : CSingletonMono<GameManager>
         resetLevel = true;
     }
 
-    bool AreGridsEqual() {
+    bool AreGridsEqual() 
+    {
         int width = leftGridController.width;
         int height = leftGridController.height;
 

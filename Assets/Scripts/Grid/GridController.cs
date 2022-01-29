@@ -127,7 +127,10 @@ public class GridController : MonoBehaviour
 
     public bool TryPush(int row, int col, Direction dir) 
     {
-        GridObject gridObject = GetPositionObject(row, col);
+        GridObject pushObject = GetPositionObject(row, col);
+        if (pushObject.IsPassable()) {
+            pushObject = pushObject.GetPassedObject();
+        }
 
         int xOff = GetXOffset(dir);
         int yOff = GetYOffset(dir);
@@ -135,14 +138,39 @@ public class GridController : MonoBehaviour
         int newRow = row + yOff;
         int newCol = col + xOff;
 
-        if (IsValidPosition(newRow, newCol) && GetPositionObject(newRow, newCol) == null)
+        if (IsValidPosition(newRow, newCol))
         {
-            gridObject.MoveTo(GetPosition(newRow, newCol));
-            SetPositionObject(row, col, null);
-            SetPositionObject(newRow, newCol, gridObject);
+            GridObject newPositionObject = GetPositionObject(newRow, newCol);
+            if (newPositionObject == null) 
+            {
+                if (GetPositionObject(row, col).IsPassable()) {
+                    GetPositionObject(row, col).SetPassedObject(null);
+                }
 
-            objectMapping[gridObject.gameObject] = (newRow, newCol);
-            return true;
+                pushObject.MoveTo(GetPosition(newRow, newCol));
+                if (GetPositionObject(row, col) == pushObject) {
+                    SetPositionObject(row, col, null);
+                }
+                SetPositionObject(newRow, newCol, pushObject);
+
+                objectMapping[pushObject.gameObject] = (newRow, newCol);
+                return true;
+            }
+            else if (newPositionObject.IsPassable()) 
+            {
+                if (GetPositionObject(row, col).IsPassable()) {
+                    GetPositionObject(row, col).SetPassedObject(null);
+                }
+
+                pushObject.MoveTo(GetPosition(newRow, newCol));
+                if (GetPositionObject(row, col) == pushObject) {
+                    SetPositionObject(row, col, null);
+                }
+                newPositionObject.SetPassedObject(pushObject);
+
+                objectMapping[pushObject.gameObject] = (newRow, newCol);
+                return true;
+            }
         }
 
         return false;
@@ -181,15 +209,21 @@ public class GridController : MonoBehaviour
 
             // Try to push the object
             if (gridObject.IsPushable()) {
-                if (TryPush(newRow, newCol, playerDirection)) {
-                    // TODO: maybe do something based on whether push was successful
-                }
+                TryPush(newRow, newCol, playerDirection);
             }
 
             if (gridObject.IsPassable()) {
-                SetPositionObject(playerRow, playerCol, null);
-                player.MoveTo(GetPosition(newRow, newCol));
-                objectMapping[player.gameObject] = (newRow, newCol);
+                GridObject passedObject = gridObject.GetPassedObject();
+                if (passedObject != null && passedObject.IsPushable()) {
+                    TryPush(newRow, newCol, playerDirection);
+                }
+                else {
+                    SetPositionObject(playerRow, playerCol, null);
+                    gridObject.SetPassedObject(player);
+
+                    player.MoveTo(GetPosition(newRow, newCol));
+                    objectMapping[player.gameObject] = (newRow, newCol);
+                }
             }
 
             return;

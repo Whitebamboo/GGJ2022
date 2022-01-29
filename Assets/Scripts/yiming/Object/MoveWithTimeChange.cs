@@ -27,7 +27,6 @@ public class MoveWithTimeChange : fatherObject
         animator.SetInteger("State", currentState);
     }
 
-
     private void Update()
     {
         Move();
