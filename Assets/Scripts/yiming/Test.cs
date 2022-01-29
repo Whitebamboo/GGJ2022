@@ -5,6 +5,7 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     public bool isleft = true;
+    public SeedSample seed;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,10 @@ public class Test : MonoBehaviour
         {
             print("click mouse");
             EventBus.Broadcast(EventTypes.TimeMove, isleft);
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (seed) { seed.interactive(); }
         }
     }
 }
