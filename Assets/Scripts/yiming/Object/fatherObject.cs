@@ -29,8 +29,7 @@ public abstract class fatherObject : GridObject
     private Vector3 endPoint = Vector3.zero;
     private Rigidbody rigidbody;
 
-    private int startState;
-    private int startAge;
+   
     
     // Start is called before the first frame update
     void Awake()
@@ -38,8 +37,7 @@ public abstract class fatherObject : GridObject
         rigidbody = this.GetComponent<Rigidbody>();
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
         // print("add event Timemove");
-        startState = currentState;
-        startAge = age;
+      
 
     }
     private void OnDestroy()
@@ -116,8 +114,8 @@ public abstract class fatherObject : GridObject
                 {
                     if (age >= stateLists[stateLists.Count - 1].ageThreshold +offset && isCycle)
                     {
-                        currentState = startState;
-                        age = startAge;
+                        currentState = 0;
+                        age = 0;
                         animator.SetInteger("State", currentState);
                         animator.SetFloat("Speed", 1f);
                     }
@@ -140,8 +138,8 @@ public abstract class fatherObject : GridObject
                 {
                     if (age <= stateLists[0].ageThreshold- offset && isCycle)
                     {
-                        currentState = startState;
-                        age = startAge;
+                        currentState = stateLists.Count-1;
+                        age = stateLists[stateLists.Count-1].ageThreshold;
                         animator.SetInteger("State", currentState);
                         animator.SetFloat("Speed", -1f);
                     }
