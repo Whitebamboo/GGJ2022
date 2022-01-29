@@ -16,4 +16,8 @@ public class SeedSample : fatherObject
     {
         
     }
+
+    public override bool IsPushable() {
+        return false;
+    }
 }
