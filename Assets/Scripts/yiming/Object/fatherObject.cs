@@ -17,7 +17,7 @@ public abstract class fatherObject : GridObject
     public List<State> stateLists = new List<State>();
     public int currentState = 0;//a pointer to State ,will be the same as State.state
 
-
+   
     public bool isCycle = false;//can this object  can cycle in the state 
     public float speed = 10;
     public float threshold = 0.02f;
@@ -29,6 +29,8 @@ public abstract class fatherObject : GridObject
     private Vector3 endPoint = Vector3.zero;
     private Rigidbody rigidbody;
 
+    private int startState;
+    private int startAge;
     
     // Start is called before the first frame update
     void Awake()
@@ -36,6 +38,8 @@ public abstract class fatherObject : GridObject
         rigidbody = this.GetComponent<Rigidbody>();
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
         // print("add event Timemove");
+        startState = currentState;
+        startAge = age;
 
     }
     private void OnDestroy()
@@ -96,29 +100,53 @@ public abstract class fatherObject : GridObject
     /// </summary>
     public void ChangeState(Animator animator)
     {
-        if (currentState + 1 < stateLists.Count)
-        {
+       
             if (isForward)
             {
-                if (age >= stateLists[currentState + 1].ageThreshold)
+                if (currentState + 1 < stateLists.Count)
                 {
-                    currentState = stateLists[currentState + 1].state;
-                    animator.SetInteger("State", currentState);
-                    animator.SetFloat("Speed", 1f);
+                    if (age >= stateLists[currentState + 1].ageThreshold)
+                    {
+                        currentState = stateLists[currentState + 1].state;
+                        animator.SetInteger("State", currentState);
+                        animator.SetFloat("Speed", 1f);
+                    }
+                }
+                else
+                {
+                    if (age > stateLists[stateLists.Count - 1].ageThreshold)
+                    {
+                        currentState = startState;
+                        age = startAge;
+                        animator.SetInteger("State", currentState);
+                        animator.SetFloat("Speed", 1f);
+                    }
                 }
             }
-        }
-        if (currentState - 1 >= 0)//
-        {
+        
+       
             if (!isForward)
             {
-                if (age <= stateLists[currentState - 1].ageThreshold)
+                if (currentState - 1 >= 0)//
                 {
-                    currentState = stateLists[currentState - 1].state;
-                    animator.SetInteger("State", currentState);
-                    animator.SetFloat("Speed", -1f);
+                    if (age <= stateLists[currentState - 1].ageThreshold)
+                    {
+                        currentState = stateLists[currentState - 1].state;
+                        animator.SetInteger("State", currentState);
+                        animator.SetFloat("Speed", -1f);
+                    }
+                }
+                else
+                {
+                    if (age < stateLists[0].ageThreshold)
+                    {
+                        currentState = startState;
+                        age = startAge;
+                        animator.SetInteger("State", currentState);
+                        animator.SetFloat("Speed", -1f);
+                    }
                 }
             }
-        }
+        
     }
 }
