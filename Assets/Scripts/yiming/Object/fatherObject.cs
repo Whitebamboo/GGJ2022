@@ -88,7 +88,7 @@ public abstract class fatherObject : GridObject
             else
             {
                 age--;
-                age = Mathf.Max(age, 0);
+                
             }
         }
     }
@@ -100,7 +100,7 @@ public abstract class fatherObject : GridObject
     /// </summary>
     public void ChangeState(Animator animator)
     {
-       
+        int offset = (stateLists[stateLists.Count - 1].ageThreshold - stateLists[0].ageThreshold) / Mathf.Max(stateLists.Count-1,0);
             if (isForward)
             {
                 if (currentState + 1 < stateLists.Count)
@@ -114,7 +114,7 @@ public abstract class fatherObject : GridObject
                 }
                 else
                 {
-                    if (age > stateLists[stateLists.Count - 1].ageThreshold)
+                    if (age >= stateLists[stateLists.Count - 1].ageThreshold +offset)
                     {
                         currentState = startState;
                         age = startAge;
@@ -138,7 +138,7 @@ public abstract class fatherObject : GridObject
                 }
                 else
                 {
-                    if (age < stateLists[0].ageThreshold)
+                    if (age <= stateLists[0].ageThreshold-offset)
                     {
                         currentState = startState;
                         age = startAge;

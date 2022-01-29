@@ -17,7 +17,7 @@ public class Test : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(1))
         {
-            print("click mouse");
+            //print("click mouse");
             EventBus.Broadcast(EventTypes.TimeMove, isForward);
         }
         if(Input.GetKeyDown(KeyCode.Space))
