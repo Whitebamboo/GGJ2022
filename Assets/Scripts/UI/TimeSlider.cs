@@ -48,13 +48,10 @@ public class TimeSlider : MonoBehaviour
 
     void UpdateUI() 
     {
-        Debug.Log("Left: " + leftTime + "; Right: " + rightTime);
         leftHandle.position = leftStart + new Vector3(changeAmount * leftTime, 0, 0);
         rightHandle.position = rightStart - new Vector3(changeAmount * (totalTime - rightTime), 0, 0);
-        Debug.Log(fill.sizeDelta);
-        float fillRatio = ((float)(rightTime - leftTime)) / ((float)totalTime);
-        Debug.Log(fillRatio);
 
+        float fillRatio = ((float)(rightTime - leftTime)) / ((float)totalTime);
         fill.sizeDelta = new Vector2 (originalFillSize * fillRatio, fill.sizeDelta.y);
         fill.position = (leftHandle.position + rightHandle.position)/2;
     }

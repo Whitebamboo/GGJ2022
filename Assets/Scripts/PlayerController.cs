@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Direction { Up, Down, Left, Right };
+public enum PlayerAction { Move, Interact };
 
 public class PlayerController : GridObject
 {
@@ -12,15 +13,10 @@ public class PlayerController : GridObject
     public KeyCode leftKeycode;
     public KeyCode rightKeycode;
 
-    public GridController gridController;
-
     [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
     public bool isForward;
 
     int moveSpeed = 4;
-    
-    int playerRow = 0;
-    int playerCol = 0;
     Direction playerDirection;
 
     bool keyDown;
@@ -34,7 +30,7 @@ public class PlayerController : GridObject
 
     void Start()
     {
-        gridController.SetPositionObject(playerRow, playerCol, this);
+
     }
 
     void Update()
@@ -57,57 +53,36 @@ public class PlayerController : GridObject
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 playerDirection = Direction.Up;
-                TryMove(playerRow + 1, playerCol);
+                TryMove();
             }
             else if (Input.GetKey(downKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 playerDirection = Direction.Down;
-                TryMove(playerRow - 1, playerCol);
+                TryMove();
             }
             else if (Input.GetKey(leftKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, -90, 0);
                 playerDirection = Direction.Left;
-                TryMove(playerRow, playerCol - 1);
+                TryMove();
             }
             else if (Input.GetKey(rightKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, 90, 0);
                 playerDirection = Direction.Right;
-                TryMove(playerRow, playerCol + 1);
+                TryMove();
             }
         }
     }
 
-    void TryMove(int newRow, int newCol)
+    void TryMove() 
     {
         keyDown = true;
         Invoke(nameof(KeyCooldown), cooldownTime);
 
-        if (!gridController.IsValidPosition(newRow, newCol)) return;
-        if (gridController.GetPositionObject(newRow, newCol) != null) {
-            // Something is in the position we want to move to
-            GridObject gridObject = gridController.GetPositionObject(newRow, newCol);
-
-            // Check if is pushable/movable, otherwise we return
-            if (!gridObject.IsPushable()) return;
-            if (gridController.Push(newRow, newCol, playerDirection)) {
-                // TODO: maybe do something based on whether push was successful
-            }
-            return;
-        }
-
-        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
-
-        gridController.SetPositionObject(playerRow, playerCol, null);
-        gridController.SetPositionObject(newRow, newCol, this);
-
-        Vector3 gridPos = gridController.GetPosition(newRow, newCol);
-        MoveTo(gridPos);
-
-        playerRow = newRow;
-        playerCol = newCol;
+        EventBus.Broadcast<PlayerController, PlayerAction, Direction>
+            (EventTypes.PlayerAction, this, PlayerAction.Move, playerDirection);
     }
 
     void KeyCooldown() {
@@ -116,6 +91,7 @@ public class PlayerController : GridObject
 
     public override void MoveTo(Vector3 newPosition)
     {
+        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
         newPosition.y = transform.position.y;
 
         targetPosition = newPosition;
