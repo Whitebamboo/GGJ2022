@@ -688,8 +688,10 @@ MonoBehaviour:
   CanBeReset: 1
   levels:
   - {fileID: 11400000, guid: ad076e8df25674e0b9a806d257b03a0e, type: 2}
+  - {fileID: 11400000, guid: 1bb9964e59d4f334aa9f8d0bbd9c0a97, type: 2}
   leftGridController: {fileID: 1302002559}
   rightGridController: {fileID: 207637600}
+  timerSlider: {fileID: 1994265601}
 --- !u!4 &1714909526
 Transform:
   m_ObjectHideFlags: 0
@@ -709,6 +711,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2798638105946368145, guid: c41106b202f4642da949c827d4971822, type: 3}
   m_PrefabInstance: {fileID: 2798638107712306321}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1994265601 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2798638105946368144, guid: c41106b202f4642da949c827d4971822, type: 3}
+  m_PrefabInstance: {fileID: 2798638107712306321}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f4c1120086147a4b8fb4e99cd93503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2130571015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3400758947935742748, guid: 3f8f0d3296d5b4143bbe5eb2bc3dc992, type: 3}

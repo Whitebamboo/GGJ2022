@@ -9,45 +9,21 @@ public class TimeSlider : MonoBehaviour
     public RectTransform leftHandle;
     public RectTransform rightHandle;
 
-    int totalTime, leftTime, rightTime;
-    float changeAmount;
     Vector3 leftStart, rightStart;
-    float originalFillSize;
+    float originalFillSize, originalFillWidth;
 
-    private void Start() 
+    private void Awake() 
     {
         leftStart = leftHandle.transform.position;
         rightStart = rightHandle.transform.position;
-        originalFillSize = fill.sizeDelta.x;
-
-        // TODO: temporary for testing slider
-        SetTime(20);    
+        originalFillSize = fill.sizeDelta.x;  
+        originalFillWidth = fill.rect.width;
     }
 
-    public void SetTime(int totalTime) 
+    public void UpdateUI(int leftTime, int rightTime, int totalTime) 
     {
-        this.totalTime = totalTime;
-        leftTime = 0;
-        rightTime = totalTime;
-        EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
-        changeAmount = fill.rect.width / totalTime;
+        float changeAmount = originalFillWidth / totalTime;
 
-        UpdateUI();
-    }
-
-    public void TimeChange(bool isForward) 
-    {
-        if (isForward) leftTime = Mathf.Min(rightTime, leftTime + 1);
-        else rightTime = Mathf.Max(leftTime, rightTime - 1);
-
-        UpdateUI();
-        if (leftTime == rightTime) {
-            // TODO: Do something
-        }
-    }
-
-    void UpdateUI() 
-    {
         leftHandle.position = leftStart + new Vector3(changeAmount * leftTime, 0, 0);
         rightHandle.position = rightStart - new Vector3(changeAmount * (totalTime - rightTime), 0, 0);
 

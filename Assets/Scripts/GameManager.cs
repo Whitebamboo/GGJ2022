@@ -11,6 +11,8 @@ public class GameManager : CSingletonMono<GameManager>
 
     public TimeSlider timerSlider;
 
+    int totalTime, leftTime, rightTime;
+
     int currentLevel = 0;
 
     bool player1ReachTarget, player2ReachTarget = false;
@@ -22,10 +24,34 @@ public class GameManager : CSingletonMono<GameManager>
         rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
 
         EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
+        EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
+        ResetTime(50); // TODO: get info from level
     }
 
-    void Update() {
-        if (resetLevel && Input.GetKeyDown(KeyCode.R)) {
+    void ResetTime(int totalTime) 
+    {
+        this.totalTime = totalTime;
+        leftTime = 0;
+        rightTime = totalTime;
+
+        timerSlider.UpdateUI(leftTime, rightTime, totalTime);
+    }
+
+    public void TimeChange(bool isForward) 
+    {
+        if (isForward) leftTime = Mathf.Min(rightTime, leftTime + 1);
+        else rightTime = Mathf.Max(leftTime, rightTime - 1);
+
+        timerSlider.UpdateUI(leftTime, rightTime, totalTime);
+        if (leftTime == rightTime) {
+            CheckPassCondition();
+        }
+    }
+
+    void Update() 
+    {
+        if (resetLevel && Input.GetKeyDown(KeyCode.R)) 
+        {
             leftGridController.SetLevel(levels[currentLevel].LeftPlayerLevel);
             rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
 
@@ -33,7 +59,7 @@ public class GameManager : CSingletonMono<GameManager>
             player2ReachTarget = false;
             resetLevel = false;
 
-            // TODO: reset timer UI, overall I think the timer UI should be connected to gamemanager
+            ResetTime(50);
         }
     }
 
@@ -42,18 +68,22 @@ public class GameManager : CSingletonMono<GameManager>
         if (isForward) player1ReachTarget = true;
         else player2ReachTarget = true;
 
-        if (player1ReachTarget && player2ReachTarget) {
-            if (AreGridsEqual()) {
-                Debug.Log("WIN");
-                currentLevel++;
-                if (currentLevel < levels.Count) {
-                    resetLevel = true;
-                }
-            } else {
-                Debug.Log("LOSE");
+        CheckPassCondition();
+    }
+
+    void CheckPassCondition() {
+        if (player1ReachTarget && player2ReachTarget && AreGridsEqual()) {
+            // Also check leftTime == rightTime
+            Debug.Log("WIN");
+            currentLevel++;
+            if (currentLevel < levels.Count) {
                 resetLevel = true;
             }
+            return;
         }
+
+        Debug.Log("LOSE");
+        resetLevel = true;
     }
 
     bool AreGridsEqual() {
