@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230b4753e4d05274d8ae9e3d9fc7d925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeft: 1
+  isForward: 1
   stateLists: []
   currentState: 0
   speed: 3

@@ -85,9 +85,9 @@ public abstract class fatherObject : GridObject
     public void TimeChange(bool leftRight)
     {
         print("be call");
-        if (leftRight == isLeft && isChangeWithTime)
+        if (leftRight == isForward && isChangeWithTime)
         {
-            if (isLeft)
+            if (isForward)
             {
                 age++;
             }

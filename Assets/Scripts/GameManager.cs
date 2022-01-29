@@ -11,14 +11,23 @@ public class GameManager : CSingletonMono<GameManager>
 
     int currentLevel = 0;
 
+    bool player1ReachTarget, player2ReachTarget = false;
+
     void Start()
     {
         leftGridController.SetLevel(levels[0].LeftPlayerLevel);
         rightGridController.SetLevel(levels[0].RightPlayerLevel);
+
+        EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
     }
 
-    void Update()
+    void ReachTarget(bool isForward) 
     {
-        
+        if (isForward) player1ReachTarget = true;
+        else player2ReachTarget = true;
+
+        if (player1ReachTarget && player2ReachTarget) {
+            // Check grids
+        }
     }
 }

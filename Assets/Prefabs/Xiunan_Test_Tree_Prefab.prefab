@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateLists: []
   currentState: 0
-  isLeft: 1
+  isForward: 1
   speed: 10
   threshold: 0.02
   isChangeWithTime: 0

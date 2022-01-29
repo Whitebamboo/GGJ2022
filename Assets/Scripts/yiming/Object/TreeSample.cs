@@ -25,7 +25,7 @@ public class TreeSample : fatherObject
     {
         if (currentState + 1 < stateLists.Count)
         {
-            if (isLeft)
+            if (isForward)
             {
                 if(age >= stateLists[currentState + 1].ageThreshold)
                 {
@@ -37,7 +37,7 @@ public class TreeSample : fatherObject
         }
         if (currentState -1 >= 0)//����ֻҪ��һ����,�Ϳ����õ�����������
         {
-            if (!isLeft)
+            if (!isForward)
             {
                 if (age <= stateLists[currentState - 1].ageThreshold)
                 {

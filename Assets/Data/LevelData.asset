@@ -25,6 +25,9 @@ MonoBehaviour:
   - prefab: {fileID: 1842774758299497172, guid: 0dddd7c681edc4536bfc285808cae020, type: 3}
     row: 3
     col: 4
+  - prefab: {fileID: 6554922465182773963, guid: 0a3ff606a0e7046568e3794fc96d4fbf, type: 3}
+    row: 5
+    col: 4
   rightPlayerLevel:
   - prefab: {fileID: 6214402663391313069, guid: 3af60eeeca5904571931dd0c863571e4, type: 3}
     row: 0
@@ -35,3 +38,6 @@ MonoBehaviour:
   - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
     row: 3
     col: 1
+  - prefab: {fileID: 6554922465182773963, guid: 0a3ff606a0e7046568e3794fc96d4fbf, type: 3}
+    row: 6
+    col: 4

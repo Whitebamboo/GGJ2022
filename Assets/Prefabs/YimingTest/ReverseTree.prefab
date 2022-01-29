@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674278390bb2ee34799b705953228cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeft: 1
+  isForward: 1
   stateLists:
   - ageThreshold: 0
     state: 0

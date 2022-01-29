@@ -35,9 +35,9 @@ public class TimeSlider : MonoBehaviour
         UpdateUI();
     }
 
-    public void TimeChange(bool isLeft) 
+    public void TimeChange(bool isForward) 
     {
-        if (isLeft) leftTime = Mathf.Min(rightTime, leftTime + 1);
+        if (isForward) leftTime = Mathf.Min(rightTime, leftTime + 1);
         else rightTime = Mathf.Max(leftTime, rightTime - 1);
 
         UpdateUI();

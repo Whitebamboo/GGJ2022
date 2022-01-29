@@ -461,7 +461,7 @@ MonoBehaviour:
   stateLists: []
   currentState: 0
   isCycle: 0
-  isLeft: 1
+  isForward: 1
   speed: 10
   threshold: 0.02
   isChangeWithTime: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a475b77ebcf24419eb359a1216dfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isleft: 1
+  isForward: 1
   seed: {fileID: 1933809725}
 --- !u!4 &1997964936
 Transform:

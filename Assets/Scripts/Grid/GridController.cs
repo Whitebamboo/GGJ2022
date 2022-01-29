@@ -110,7 +110,7 @@ public class GridController : MonoBehaviour
         int newRow = row + yOff;
         int newCol = col + xOff;
 
-        if (IsValidPosition(newRow, newCol))
+        if (IsValidPosition(newRow, newCol) && GetPositionObject(newRow, newCol) == null)
         {
             gridObject.MoveTo(GetPosition(newRow, newCol));
             SetPositionObject(row, col, null);
@@ -125,13 +125,7 @@ public class GridController : MonoBehaviour
 
     void TryPlayerAction(PlayerController player, PlayerAction action, Direction playerDirection) 
     {
-        (int, int) playerPosition;
-        if (!objectMapping.TryGetValue(player.gameObject, out playerPosition)) return;
-
-        int playerRow = playerPosition.Item1; 
-        int playerCol = playerPosition.Item2;
-
-        if (GetPositionObject(playerRow, playerCol) != player) return;
+        if (player.isForward != isForward) return;
 
         switch(action) {
             case PlayerAction.Move: 
@@ -166,16 +160,23 @@ public class GridController : MonoBehaviour
                     // TODO: maybe do something based on whether push was successful
                 }
             }
+
+            if (gridObject.IsPassable()) {
+                SetPositionObject(playerRow, playerCol, null);
+                player.MoveTo(GetPosition(newRow, newCol));
+                objectMapping[player.gameObject] = (newRow, newCol);
+            }
+
             return;
         }
 
-        SetPositionObject(playerRow, playerCol, null);
+        if (GetPositionObject(playerRow, playerCol) == player) {
+            SetPositionObject(playerRow, playerCol, null);
+        }
         SetPositionObject(newRow, newCol, player);
-
-        Vector3 gridPos = GetPosition(newRow, newCol);
-        player.MoveTo(gridPos);
-
         objectMapping[player.gameObject] = (newRow, newCol);
+
+        player.MoveTo(GetPosition(newRow, newCol));
     }
 
     public void TryInteract(PlayerController player, Direction playerDirection) 
