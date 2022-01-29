@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6266697286741533633}
-  m_Mesh: {fileID: 1490014688594724021, guid: 12698d7fbfa2fad4bbec86199ae9c2ef, type: 3}
+  m_Mesh: {fileID: -6679825976550175534, guid: b6e523b0145183942b120259c73460ee, type: 3}
 --- !u!23 &5618024528044982804
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -147,7 +147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isForward: 0
-  stateLists: []
+  stateLists:
+  - ageThreshold: 0
+    state: 0
+  - ageThreshold: 5
+    state: 1
   currentState: 0
   isCycle: 0
   speed: 3

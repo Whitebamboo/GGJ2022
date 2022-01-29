@@ -40,6 +40,7 @@ public class GridController : MonoBehaviour
 
             SetPositionObject(r, c, elementPrefab.GetComponent<GridObject>());
             elementPrefab.GetComponent<GridObject>().SetTimeDirection(isForward);
+            elementPrefab.GetComponent<GridObject>().gridController = this;
             objectMapping.Add(elementPrefab, (r, c));
         }
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Fire : CantMoveWithTimeChange
 {
-    public GridController gridController;
     public GameObject firePrefab;
 
     private void FixedUpdate()
@@ -31,8 +30,9 @@ public class Fire : CantMoveWithTimeChange
             {
                 for(int j = myPlace.Item2 - 1; i < myPlace.Item2 + 2; i++)
                 {
-                    if((i>=0) && (i < gridController.width) && (j>=0) && (j < gridController.height))
+                    if(gridController.IsValidPosition(i, j))
                     {
+                        if (gridController.GetPositionObject(i, j) == null) continue;
                         GameObject go = gridController.GetPositionObject(i, j).gameObject;
                         CanbeIgnite canIgnite = go.GetComponent<CanbeIgnite>();
                         if(canIgnite != null)

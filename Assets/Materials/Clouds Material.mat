@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Clouds Material
+  m_Shader: {fileID: -6465566751694194690, guid: 30166786edaf9460fb5969ca02f132aa, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_297cd5d5d7434306aae6cc29794d9b01: 0.01
+    - Vector1_3320e339815442fb8fc145207ee548e5: 2
+    - Vector1_47bb49f0812542fb803d068d5ed05d83: 20
+    - Vector1_4a75c1cc02254de8bbcc546e9ff433cc: -1
+    - Vector1_4fc9da11b7b64a4db817b811a850eec6: 40
+    - Vector1_87ee4d1a8c9d41308bb48ed1f7c5e86c: 0.02
+    - Vector1_bc730c3e0e9a4ebb9adb0aabb95eb8b7: 3
+    - Vector1_e76200de1bcf42ceaca17b7f4712245f: 30
+    - Vector1_ebd83993d6ce4e1e8fc5f4a66f98de01: 2
+    m_Colors:
+    - Color_64461c265c3d4842ad56ae75d5885d94: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0}
+    - Color_949c8f2e341b4a78a4c352b0dbf12e4d: {r: 1, g: 1, b: 1, a: 0}
+    - Vector4_307253f41ce3471a9e32193ed515a9b1: {r: 1, g: 0, b: 0, a: 90}
+    - Vector4_42a64ed88b43416c802d07314788b002: {r: 0, g: 1, b: -0.3, a: 2.7}
+  m_BuildTextureStacks: []
