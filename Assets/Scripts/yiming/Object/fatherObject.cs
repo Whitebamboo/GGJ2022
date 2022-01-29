@@ -18,7 +18,7 @@ public abstract class fatherObject : GridObject
     public int currentState = 0;//a pointer to State ,will be the same as State.state
 
 
-
+    public bool isCycle = false;//can this object  can cycle in the state 
     public bool isLeft = true;
     public float speed = 10;
     public float threshold = 0.02f;
