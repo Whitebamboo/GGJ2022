@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -140,11 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8816105b0419e40ff96e75767ae9b846, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -347
+      value: -496
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8816105b0419e40ff96e75767ae9b846, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 331
+      value: 331.0004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8816105b0419e40ff96e75767ae9b846, type: 3}
       propertyPath: m_LocalRotation.w
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
+  m_RequiresDepthTextureOption: 1
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
@@ -752,8 +752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanBeReset: 1
   levels:
-  - {fileID: 11400000, guid: ad076e8df25674e0b9a806d257b03a0e, type: 2}
-  - {fileID: 11400000, guid: 1bb9964e59d4f334aa9f8d0bbd9c0a97, type: 2}
+  - {fileID: 11400000, guid: ac2130b8672f29a4c90b4fa6a5cbd169, type: 2}
   leftGridController: {fileID: 1302002559}
   rightGridController: {fileID: 207637600}
   timerSlider: {fileID: 1994265601}

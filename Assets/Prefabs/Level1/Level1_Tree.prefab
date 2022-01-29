@@ -63,19 +63,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad003078c5b24659b549cac2b892ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isForward: 0
+  isForward: 1
+  gridController: {fileID: 0}
   stateLists:
   - ageThreshold: 0
     state: 0
-  - ageThreshold: 2
+  - ageThreshold: 1
     state: 1
-  - ageThreshold: 4
+  - ageThreshold: 2
     state: 2
-  - ageThreshold: 6
+  - ageThreshold: 3
     state: 3
-  - ageThreshold: 8
+  - ageThreshold: 4
     state: 4
-  - ageThreshold: 10
+  - ageThreshold: 5
     state: 5
   currentState: 0
   isCycle: 0
@@ -83,6 +84,7 @@ MonoBehaviour:
   threshold: 0.02
   isChangeWithTime: 0
   age: 0
+  isIgnite: 0
 --- !u!65 &7448790730786427070
 BoxCollider:
   m_ObjectHideFlags: 0
