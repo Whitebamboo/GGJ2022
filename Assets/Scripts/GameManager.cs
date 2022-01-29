@@ -44,6 +44,7 @@ public class GameManager : CSingletonMono<GameManager>
         else rightTime = Mathf.Max(leftTime, rightTime - 1);
 
         timerSlider.UpdateUI(leftTime, rightTime, totalTime);
+
         if (leftTime == rightTime) {
             CheckPassCondition();
         }
@@ -78,20 +79,24 @@ public class GameManager : CSingletonMono<GameManager>
 
     void CheckPassCondition() 
     {
-        if (leftTime != rightTime) return;
-
-        EventBus.Broadcast(EventTypes.StopAll);
-        if (player1ReachTarget && player2ReachTarget && AreGridsEqual()) {
-            Debug.Log("WIN");
-            if (currentLevel < levels.Count - 1) {
-                currentLevel++;
-                resetLevel = true;
+        if (player1ReachTarget && player2ReachTarget) 
+        {
+            if (AreGridsEqual()) {
+                EventBus.Broadcast(EventTypes.StopAll);
+                Debug.Log("WIN");
+                if (currentLevel < levels.Count - 1) {
+                    currentLevel++;
+                    resetLevel = true;
+                }
+                return;
             }
-            return;
         }
 
-        Debug.Log("LOSE");
-        resetLevel = true;
+        if (leftTime == rightTime) {
+            EventBus.Broadcast(EventTypes.StopAll);
+            Debug.Log("LOSE");
+            resetLevel = true;
+        }
     }
 
     bool AreGridsEqual() 

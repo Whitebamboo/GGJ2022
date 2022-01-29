@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -764,7 +764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798638105946368145, guid: c41106b202f4642da949c827d4971822, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 854.9895
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 2798638105946368145, guid: c41106b202f4642da949c827d4971822, type: 3}
       propertyPath: m_SizeDelta.y
@@ -800,11 +800,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798638105946368145, guid: c41106b202f4642da949c827d4971822, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.621
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2798638105946368145, guid: c41106b202f4642da949c827d4971822, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -252
+      value: -212
       objectReference: {fileID: 0}
     - target: {fileID: 2798638105946368145, guid: c41106b202f4642da949c827d4971822, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
