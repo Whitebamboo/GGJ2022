@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
 public abstract class fatherObject : GridObject
 {
     [System.Serializable]
@@ -30,14 +30,13 @@ public abstract class fatherObject : GridObject
     private Vector3 endPoint = Vector3.zero;
     private Rigidbody rigidbody;
 
-
+    
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rigidbody = this.GetComponent<Rigidbody>();
-        //EventBus.AddListener<Vector3, Vector3>(EventTypes.Move, StartMove);
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
-        print("add event Timemove");
+        // print("add event Timemove");
 
     }
     private void OnDestroy()
@@ -46,16 +45,8 @@ public abstract class fatherObject : GridObject
         EventBus.RemoveListener<bool>(EventTypes.TimeMove, TimeChange);
 
     }
-    private void Update()
-    {
-        Move();
-    }
-    public void StartMove(Vector3 startPoint_, Vector3 endPoint_)//left =  true ,right = false
-    {
-        isMove = true;
-        startPoint = startPoint_;
-        endPoint = endPoint_;
-    }
+   
+ 
 
     public override void MoveTo(Vector3 endPoint_)//left =  true ,right = false
     {
@@ -64,7 +55,7 @@ public abstract class fatherObject : GridObject
         endPoint = endPoint_;
     }
 
-    private void Move()
+    public void Move()
     {
         if (isMove)
         {
@@ -106,5 +97,38 @@ public abstract class fatherObject : GridObject
     public virtual void interactive()
     {
         print("interactive with this object");
+    }
+
+    /// <summary>
+    /// change object's state and call the animator 
+    /// </summary>
+    public void ChangeState(Animator animator)
+    {
+
+
+        if (currentState + 1 < stateLists.Count)
+        {
+            if (isLeft)
+            {
+                if (age >= stateLists[currentState + 1].ageThreshold)
+                {
+                    currentState = stateLists[currentState + 1].state;
+                    animator.SetInteger("State", currentState);
+                    animator.SetFloat("Speed", 1f);
+                }
+            }
+        }
+        if (currentState - 1 >= 0)//
+        {
+            if (!isLeft)
+            {
+                if (age <= stateLists[currentState - 1].ageThreshold)
+                {
+                    currentState = stateLists[currentState - 1].state;
+                    animator.SetInteger("State", currentState);
+                    animator.SetFloat("Speed", -1f);
+                }
+            }
+        }
     }
 }

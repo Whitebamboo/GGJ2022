@@ -60,27 +60,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 8326334427062695467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674278390bb2ee34799b705953228cec, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ad003078c5b24659b549cac2b892ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateLists:
   - ageThreshold: 0
     state: 0
-  - ageThreshold: 3
+  - ageThreshold: 2
     state: 1
-  - ageThreshold: 6
+  - ageThreshold: 4
     state: 2
-  - ageThreshold: 9
+  - ageThreshold: 6
     state: 3
-  - ageThreshold: 12
+  - ageThreshold: 8
     state: 4
-  - ageThreshold: 15
+  - ageThreshold: 10
     state: 5
   currentState: 0
+  isCycle: 0
   isLeft: 1
   speed: 10
   threshold: 0.02
-  isChangeWithTime: 1
+  isChangeWithTime: 0
   age: 0
 --- !u!65 &7448790730786427070
 BoxCollider:
