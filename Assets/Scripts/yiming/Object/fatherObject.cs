@@ -17,9 +17,6 @@ public abstract class fatherObject : GridObject
     public List<State> stateLists = new List<State>();
     public int currentState = 0;//a pointer to State ,will be the same as State.state
 
-
-
-    public bool isLeft = true;
     public float speed = 10;
     public float threshold = 0.02f;
     public bool isChangeWithTime = false;//will it be interactive with time, false : not interactive,true: can interactive
@@ -98,13 +95,5 @@ public abstract class fatherObject : GridObject
                 age = Mathf.Max(age, 0);
             }
         }
-    }
-
-    /// <summary>
-    /// player use A to interactive
-    /// </summary>
-    public virtual void interactive()
-    {
-        print("interactive with this object");
     }
 }

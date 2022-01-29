@@ -20,10 +20,9 @@ public class TreeSample : fatherObject
     {
         ChangeState();
     }
+
     private void ChangeState()
     {
-
-
         if (currentState + 1 < stateLists.Count)
         {
             if (isLeft)

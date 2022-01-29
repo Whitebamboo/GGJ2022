@@ -209,5 +209,5 @@ MonoBehaviour:
   downKeycode: 274
   leftKeycode: 276
   rightKeycode: 275
-  gridController: {fileID: 0}
+  interactKeycode: 32
   isForward: 0

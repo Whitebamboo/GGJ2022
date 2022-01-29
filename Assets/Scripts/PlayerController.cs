@@ -12,6 +12,7 @@ public class PlayerController : GridObject
     public KeyCode downKeycode;
     public KeyCode leftKeycode;
     public KeyCode rightKeycode;
+    public KeyCode interactKeycode;
 
     [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
     public bool isForward;
@@ -72,6 +73,11 @@ public class PlayerController : GridObject
                 transform.rotation = Quaternion.Euler(0, 90, 0);
                 playerDirection = Direction.Right;
                 TryMove();
+            }
+            else if (Input.GetKey(interactKeycode))
+            {
+                EventBus.Broadcast<PlayerController, PlayerAction, Direction>
+                    (EventTypes.PlayerAction, this, PlayerAction.Interact, playerDirection);
             }
         }
     }

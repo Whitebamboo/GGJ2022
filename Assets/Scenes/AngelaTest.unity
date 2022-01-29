@@ -883,6 +883,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1274857032}
     m_Modifications:
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: isForward
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4143478462847804775, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
       propertyPath: m_Name
       value: GridController

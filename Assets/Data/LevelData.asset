@@ -22,6 +22,9 @@ MonoBehaviour:
   - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
     row: 2
     col: 1
+  - prefab: {fileID: 1842774758299497172, guid: 0dddd7c681edc4536bfc285808cae020, type: 3}
+    row: 3
+    col: 4
   rightPlayerLevel:
   - prefab: {fileID: 6214402663391313069, guid: 3af60eeeca5904571931dd0c863571e4, type: 3}
     row: 0
