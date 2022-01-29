@@ -31,6 +31,8 @@ public class MapManagerEditor : EditorWindow
 
     LevelData m_loadLevelData;
 
+    int totalTime;
+
     List<GameObject> prefabsInProject = new List<GameObject>();
 
     void OnEnable()
@@ -167,6 +169,8 @@ public class MapManagerEditor : EditorWindow
             obj.transform.localPosition = new Vector3(element.Col + 0.5f, 0.5f, element.Row + 0.5f);
         }
 
+        totalTime = m_loadLevelData.TotalTime;
+
         EditorSceneManager.MarkSceneDirty(m_editorScene);
         EditorSceneManager.SaveOpenScenes();
     }
@@ -181,6 +185,10 @@ public class MapManagerEditor : EditorWindow
         SerializeElements(asset, m_leftInteractiveLayer.transform);
         //add right elements
         SerializeElements(asset, m_rightInteractiveLayer.transform);
+
+        Type levelType = typeof(LevelData);
+        FieldInfo field = levelType.GetField("totalTime", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        field.SetValue(asset, totalTime);
 
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = asset;
