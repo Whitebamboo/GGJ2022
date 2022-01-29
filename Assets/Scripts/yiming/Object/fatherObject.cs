@@ -1,9 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody))]
 public class fatherObject : MonoBehaviour
 {
+    [System.Serializable]
+    /// <summary>
+    /// use to fill the state of object base on age
+    /// </summary>
+    public struct State
+    {
+        public int ageThreshold;// left: age need to >= ageThreshold than the state will change
+                         // right:age need to <= ageThreshold than the state will change
+        public int state;// make sure right and lefts
+    }
+    public List<State> stateLists = new List<State>();
+    public int currentState = 0;//a pointer to State ,will be the same as State.state
+    
+
+
     public bool isLeft = true;
     public float speed = 10;
     public float threshold = 0.02f;
@@ -22,6 +37,7 @@ public class fatherObject : MonoBehaviour
         rigidbody = this.GetComponent<Rigidbody>();
         //EventBus.AddListener<Vector3, Vector3>(EventTypes.Move, StartMove);
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
+        print("add event Timemove");
 
     }
     private void OnDestroy()
@@ -61,6 +77,7 @@ public class fatherObject : MonoBehaviour
     /// <param name="leftRight"></param>
     public void TimeChange(bool leftRight)
     {
+        print("be call");
         if (leftRight == isLeft && isChangeWithTime)
         {
             if (isLeft)
