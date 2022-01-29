@@ -9,9 +9,27 @@ public class LevelData : ScriptableObject
     List<MapElement> leftPlayerLevel;
     public List<MapElement> LeftPlayerLevel => leftPlayerLevel;
 
+    public void AddLeftMapElement(MapElement element)
+    {
+        if(leftPlayerLevel == null)
+        {
+            leftPlayerLevel = new List<MapElement>();
+        }
+        leftPlayerLevel.Add(element);
+    }
+
     [SerializeField]
     List<MapElement> rightPlayerLevel;
     public List<MapElement> RightPlayerLevel => rightPlayerLevel;
+
+    public void AddRightMapElement(MapElement element)
+    {
+        if (rightPlayerLevel == null)
+        {
+            rightPlayerLevel = new List<MapElement>();
+        }
+        rightPlayerLevel.Add(element);
+    }
 }
 
 [System.Serializable]
