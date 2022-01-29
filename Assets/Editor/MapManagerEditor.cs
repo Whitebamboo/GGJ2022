@@ -101,7 +101,7 @@ public class MapManagerEditor : EditorWindow
         GUILayout.Space(10);
         m_loadLevelData = (LevelData)EditorGUILayout.ObjectField("加载保存的关卡", m_loadLevelData, typeof(LevelData), false);
         
-        GUILayout.Space(10);
+        GUILayout.Space(10);       
         if (m_loadLevelData != null && GUILayout.Button("加载", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Clear();
@@ -114,8 +114,7 @@ public class MapManagerEditor : EditorWindow
         {
             Serialize();
         }
-
-        GUILayout.Space(10);
+    
         if (GUILayout.Button("清除地图元素", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Clear();
@@ -165,7 +164,7 @@ public class MapManagerEditor : EditorWindow
             {
                 obj.transform.parent = m_rightInteractiveLayer.transform;
             }
-            obj.transform.localPosition = new Vector3(element.Row + 0.5f, 0.5f, element.Col + 0.5f);
+            obj.transform.localPosition = new Vector3(element.Col + 0.5f, 0.5f, element.Row + 0.5f);
         }
 
         EditorSceneManager.MarkSceneDirty(m_editorScene);
@@ -203,11 +202,11 @@ public class MapManagerEditor : EditorWindow
             {
                 if (field.Name == "row")
                 {
-                    field.SetValue(mapElement, (int)child.localPosition.x);
+                    field.SetValue(mapElement, (int)child.localPosition.z);
                 }
                 else if (field.Name == "col")
                 {
-                    field.SetValue(mapElement, (int)child.localPosition.z);
+                    field.SetValue(mapElement, (int)child.localPosition.x);
                 }
                 else if (field.Name == "prefab")
                 {

@@ -6,21 +6,28 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     [SerializeField]
+    int totalTime;
+
+    [SerializeField]
     List<MapElement> leftPlayerLevel;
+
+    [SerializeField]
+    List<MapElement> rightPlayerLevel;
+
+    public int TotalTime => totalTime;
+
+    public List<MapElement> RightPlayerLevel => rightPlayerLevel;
+
     public List<MapElement> LeftPlayerLevel => leftPlayerLevel;
 
     public void AddLeftMapElement(MapElement element)
     {
-        if(leftPlayerLevel == null)
+        if (leftPlayerLevel == null)
         {
             leftPlayerLevel = new List<MapElement>();
         }
         leftPlayerLevel.Add(element);
     }
-
-    [SerializeField]
-    List<MapElement> rightPlayerLevel;
-    public List<MapElement> RightPlayerLevel => rightPlayerLevel;
 
     public void AddRightMapElement(MapElement element)
     {
