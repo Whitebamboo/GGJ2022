@@ -12,19 +12,23 @@ public class GridController : MonoBehaviour
 
     GridSpaceController[,] grid;
 
+    int playerRow = 0;
+    int playerCol = 0;
+
     GameManager gameManager;
 
     void Awake()
     {
         // gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        grid = new GridSpaceController[height, width];
-        CreateGrid();
+        // CreateGrid();
+        EventBus.AddListener<PlayerController, PlayerAction, Direction>(EventTypes.PlayerAction, TryPlayerAction);
     }
 
     public void SetLevel(List<MapElement> mapElements) 
     {
         // TODO: move player to the level data, create grid here
-        // CreateGrid(); 
+        grid = new GridSpaceController[height, width];
+        CreateGrid(); 
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
@@ -94,7 +98,7 @@ public class GridController : MonoBehaviour
         return 0;
     }
 
-    public bool Push(int row, int col, Direction dir) 
+    public bool TryPush(int row, int col, Direction dir) 
     {
         GridObject gridObject = GetPositionObject(row, col);
 
@@ -113,5 +117,49 @@ public class GridController : MonoBehaviour
         }
 
         return false;
+    }
+
+    void TryPlayerAction(PlayerController player, PlayerAction action, Direction playerDirection) 
+    {
+        if (GetPositionObject(playerRow, playerCol) != player) return;
+
+        switch(action) {
+            case PlayerAction.Move: 
+                TryMovePlayer(player, playerDirection);
+                break;
+            default:
+                return;
+        }
+    }
+
+    public void TryMovePlayer(PlayerController player, Direction playerDirection) 
+    {
+        int xOff = GetXOffset(playerDirection);
+        int yOff = GetYOffset(playerDirection);
+
+        int newRow = playerRow + yOff;
+        int newCol = playerCol + xOff;
+
+        if (!IsValidPosition(newRow, newCol)) return;
+        if (GetPositionObject(newRow, newCol) != null) {
+            // Something is in the position we want to move to
+            GridObject gridObject = GetPositionObject(newRow, newCol);
+
+            // Check if is pushable/movable, otherwise we return
+            if (!gridObject.IsPushable()) return;
+            if (TryPush(newRow, newCol, playerDirection)) {
+                // TODO: maybe do something based on whether push was successful
+            }
+            return;
+        }
+
+        SetPositionObject(playerRow, playerCol, null);
+        SetPositionObject(newRow, newCol, player);
+
+        Vector3 gridPos = GetPosition(newRow, newCol);
+        player.MoveTo(gridPos);
+
+        playerRow = newRow;
+        playerCol = newCol;
     }
 }

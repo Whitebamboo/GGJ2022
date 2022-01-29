@@ -13,16 +13,22 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   leftPlayerLevel:
+  - prefab: {fileID: 3400758947935742745, guid: 3f8f0d3296d5b4143bbe5eb2bc3dc992, type: 3}
+    row: 0
+    col: 0
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
     row: 0
     col: 2
-  - prefab: {fileID: 4551627218097300072, guid: 39d98c597d48fe14287489ebe86b3580, type: 3}
+  - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
     row: 2
     col: 1
   rightPlayerLevel:
+  - prefab: {fileID: 6214402663391313069, guid: 3af60eeeca5904571931dd0c863571e4, type: 3}
+    row: 0
+    col: 0
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
     row: 2
     col: 0
-  - prefab: {fileID: 4551627218097300072, guid: 39d98c597d48fe14287489ebe86b3580, type: 3}
+  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
     row: 3
     col: 1
