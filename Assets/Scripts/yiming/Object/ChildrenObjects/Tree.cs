@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : CantMoveWithTimeChange
+public class Tree : CantMoveWithTimeChange,CanbeIgnite
 {
     public override bool Equals(GridObject otherObject)
     {
