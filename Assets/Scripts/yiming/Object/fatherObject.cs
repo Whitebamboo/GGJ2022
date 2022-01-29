@@ -103,8 +103,8 @@ public abstract class fatherObject : GridObject
     /// <summary>
     /// player use A to interactive
     /// </summary>
-    private void interactive()
+    public virtual void interactive()
     {
-
+        print("interactive with this object");
     }
 }
