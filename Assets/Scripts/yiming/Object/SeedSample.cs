@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class SeedSample : fatherObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject treePrefab;
 
-    // Update is called once per frame
-    void Update()
+    public override void interactive()
     {
-        
+        base.interactive();
+        GameObject go =  GameObject.Instantiate(treePrefab, this.transform.position, Quaternion.identity);
+        EventBus.Broadcast(EventTypes.Create, go);
+        EventBus.Broadcast(EventTypes.Destroy, this.gameObject);
+        Destroy(this.gameObject, .1f);
     }
 
     public override bool IsPushable() {
