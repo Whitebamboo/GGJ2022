@@ -114,7 +114,7 @@ public abstract class fatherObject : GridObject
                 }
                 else
                 {
-                    if (age >= stateLists[stateLists.Count - 1].ageThreshold +offset)
+                    if (age >= stateLists[stateLists.Count - 1].ageThreshold +offset && isCycle)
                     {
                         currentState = startState;
                         age = startAge;
@@ -138,7 +138,7 @@ public abstract class fatherObject : GridObject
                 }
                 else
                 {
-                    if (age <= stateLists[0].ageThreshold-offset)
+                    if (age <= stateLists[0].ageThreshold- offset && isCycle)
                     {
                         currentState = startState;
                         age = startAge;

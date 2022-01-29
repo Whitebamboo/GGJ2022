@@ -24,21 +24,31 @@ public class Fire : CantMoveWithTimeChange
     {
         if (stateLists[currentState].state == 2)
         {
+            
             (int, int) myPlace = gridController.objectMapping[this.gameObject];
+
+            
             //check all the grid around it to see if it can ignite
             for (int i = myPlace.Item1-1; i < myPlace.Item1 + 2; i++)
             {
-                for(int j = myPlace.Item2 - 1; i < myPlace.Item2 + 2; i++)
+                for(int j = myPlace.Item2 - 1; j < myPlace.Item2 + 2; j++)
                 {
                     if(gridController.IsValidPosition(i, j))
                     {
+                        
+                        
                         if (gridController.GetPositionObject(i, j) == null) continue;
-                        GameObject go = gridController.GetPositionObject(i, j).gameObject;
-                        CanbeIgnite canIgnite = go.GetComponent<CanbeIgnite>();
-                        if(canIgnite != null)
+                        GameObject gcobject = gridController.GetPositionObject(i, j).gameObject;
+                        print(gcobject.name);
+                        CanbeIgnite canignite = gcobject.GetComponent<CanbeIgnite>();
+                        if(canignite != null)
                         {
-                            Vector3 creatFirePoint = gridController.GetPosition(i, j);
-                            GameObject newFire = Instantiate(firePrefab, creatFirePoint, Quaternion.identity);
+                            if (canignite.canIgnite())
+                            {
+                                Vector3 creatFirePoint = gridController.GetPosition(i, j);
+                                GameObject newFire = Instantiate(firePrefab, creatFirePoint, Quaternion.identity);
+                            }
+                      
                         }
                     }                    
                 }

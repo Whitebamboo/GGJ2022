@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isForward: 1
+  gridController: {fileID: 0}
   stateLists:
   - ageThreshold: 0
     state: 0
@@ -162,5 +163,4 @@ MonoBehaviour:
   threshold: 0.02
   isChangeWithTime: 1
   age: 0
-  gridController: {fileID: 0}
-  firePrefab: {fileID: 919132149155446097, guid: 9c840837dab3bdb41953c6c6aafb7600, type: 3}
+  firePrefab: {fileID: 1047392481880813693}
