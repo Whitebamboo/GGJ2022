@@ -6,7 +6,13 @@ public enum Direction { Up, Down, Left, Right };
 
 public class PlayerController : GridObject
 {
-    GridController gridController;
+    // Set keys for movement
+    public KeyCode upKeycode;
+    public KeyCode downKeycode;
+    public KeyCode leftKeycode;
+    public KeyCode rightKeycode;
+
+    public GridController gridController;
     
     int playerRow = 0;
     int playerCol = 0;
@@ -19,9 +25,10 @@ public class PlayerController : GridObject
     float currentTime;
     bool isMoving = false;
 
+    float cooldownTime = 0.3f;
+
     void Start()
     {
-        gridController = GameObject.Find("GridController").GetComponent<GridController>();
         gridController.SetPositionObject(playerRow, playerCol, this);
     }
 
@@ -41,33 +48,31 @@ public class PlayerController : GridObject
         
         if (!keyDown)
         {
-            if (Input.GetAxis("Vertical") > 0)
+            if (Input.GetKey(upKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 playerDirection = Direction.Up;
                 TryMove(playerRow + 1, playerCol);
             }
-            else if (Input.GetAxis("Vertical") < 0)
+            else if (Input.GetKey(downKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 playerDirection = Direction.Down;
                 TryMove(playerRow - 1, playerCol);
             }
-            else if (Input.GetAxis("Horizontal") < 0)
+            else if (Input.GetKey(leftKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, -90, 0);
                 playerDirection = Direction.Left;
                 TryMove(playerRow, playerCol - 1);
             }
-            else if (Input.GetAxis("Horizontal") > 0)
+            else if (Input.GetKey(rightKeycode))
             {
                 transform.rotation = Quaternion.Euler(0, 90, 0);
                 playerDirection = Direction.Right;
                 TryMove(playerRow, playerCol + 1);
             }
         }
-
-        if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0) keyDown = false;
     }
 
     void TryMove(int newRow, int newCol)
@@ -90,5 +95,11 @@ public class PlayerController : GridObject
 
         playerRow = newRow;
         playerCol = newCol;
+
+        Invoke(nameof(KeyCooldown), cooldownTime);
+    }
+
+    void KeyCooldown() {
+        keyDown = false;
     }
 }
