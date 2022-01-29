@@ -13,6 +13,10 @@ public class PlayerController : GridObject
     public KeyCode rightKeycode;
 
     public GridController gridController;
+
+    [Tooltip("Indicate whether player movement should cause time to move forward (1) or backward (-1)")]
+    [Range(-1,1)]
+    public int moveFactor;
     
     int playerRow = 0;
     int playerCol = 0;
@@ -81,6 +85,8 @@ public class PlayerController : GridObject
 
         if (!gridController.IsValidPosition(newRow, newCol)) return;
         if (gridController.GetPositionObject(newRow, newCol) != null) return;
+
+        EventBus.Broadcast<int>(EventTypes.PlayerMove, moveFactor);
 
         gridController.SetPositionObject(playerRow, playerCol, null);
         gridController.SetPositionObject(newRow, newCol, this);

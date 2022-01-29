@@ -4,5 +4,6 @@ using UnityEngine;
 
 public enum EventTypes
 {
-    Move,
+    Move,           // Called when an object (rock) is moved
+    PlayerMove,     // Broadcast when a player takes a step, TODO: split by character?
 }
