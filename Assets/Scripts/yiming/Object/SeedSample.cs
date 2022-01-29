@@ -19,4 +19,9 @@ public class SeedSample : fatherObject
     public override bool IsPushable() {
         return true;
     }
+
+    public override bool Equals(GridObject otherObject) 
+    {
+        return otherObject.GetComponent<SeedSample>() != null;
+    }
 }

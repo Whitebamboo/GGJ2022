@@ -35,4 +35,6 @@ public abstract class GridObject : MonoBehaviour
         print("player tried to interact with this object");
         return;
     }
+
+    public abstract bool Equals(GridObject otherObject);
 }

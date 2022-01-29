@@ -15,7 +15,7 @@ public class GridController : MonoBehaviour
     GridSpaceController[,] grid;
 
     // Dictionary for every object on the grid to their row/col position
-    Dictionary<GameObject, (int, int)> objectMapping = new Dictionary<GameObject, (int, int)>();
+    Dictionary<GameObject, (int, int)> objectMapping;
 
     GameManager gameManager;
 
@@ -24,11 +24,14 @@ public class GridController : MonoBehaviour
         EventBus.AddListener<PlayerController, PlayerAction, Direction>(EventTypes.PlayerAction, TryPlayerAction);
         EventBus.AddListener<GameObject, GameObject>(EventTypes.Create, CreateObject);
         EventBus.AddListener<GameObject>(EventTypes.Destroy, DestroyObject);
+
+        grid = new GridSpaceController[height, width];
+        objectMapping = new Dictionary<GameObject, (int, int)>();
     }
 
     public void SetLevel(List<MapElement> mapElements) 
     {
-        grid = new GridSpaceController[height, width];
+        DestroyLevel();
         CreateGrid(); 
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
@@ -39,6 +42,28 @@ public class GridController : MonoBehaviour
             elementPrefab.GetComponent<GridObject>().SetTimeDirection(isForward);
             objectMapping.Add(elementPrefab, (r, c));
         }
+    }
+
+    void DestroyLevel() 
+    {
+        for (int r = 0; r < height; r++)
+        {
+            for (int c = 0; c < width; c++)
+            {
+                if (grid[r, c] != null) {
+                    if (GetPositionObject(r, c) != null) {
+                        objectMapping.Remove(GetPositionObject(r, c).gameObject);
+                        Destroy(GetPositionObject(r, c).gameObject);
+                    }
+                    Destroy(grid[r, c].gameObject);
+                }
+            }
+        }
+
+        foreach (GameObject obj in objectMapping.Keys) {
+            Destroy(obj);
+        }
+        objectMapping.Clear();
     }
 
     void CreateGrid()

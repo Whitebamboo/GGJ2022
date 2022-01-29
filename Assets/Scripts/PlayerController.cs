@@ -109,4 +109,9 @@ public class PlayerController : GridObject
     {
         if (this.isForward == isForward) canMove = false;
     }
+
+    public override bool Equals(GridObject otherObject)
+    {
+        return otherObject.GetComponent<PlayerController>() != null;
+    }
 }

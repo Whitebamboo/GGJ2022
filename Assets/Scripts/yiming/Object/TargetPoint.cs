@@ -23,4 +23,9 @@ public class TargetPoint : GridObject
     public override bool IsPassable() {
         return true;
     }
+
+    public override bool Equals(GridObject otherObject) 
+    {
+        return otherObject.GetComponent<TargetPoint>() != null;
+    }
 }

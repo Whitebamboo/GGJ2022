@@ -48,4 +48,12 @@ public class TreeSample : fatherObject
             }
         }
     }
+
+    public override bool Equals(GridObject otherObject) 
+    {
+        TreeSample otherTreeComponent = otherObject.GetComponent<TreeSample>();
+        if (otherTreeComponent == null) return false;
+
+        return otherTreeComponent.currentState == currentState;
+    }
 }
