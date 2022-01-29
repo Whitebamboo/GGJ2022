@@ -6,13 +6,15 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     [SerializeField]
+    int totalTime;
+
+    [SerializeField]
     List<MapElement> leftPlayerLevel;
 
     [SerializeField]
     List<MapElement> rightPlayerLevel;
 
-    [SerializeField]
-    int level;
+    public int TotalTime => totalTime;
 
     public List<MapElement> RightPlayerLevel => rightPlayerLevel;
 

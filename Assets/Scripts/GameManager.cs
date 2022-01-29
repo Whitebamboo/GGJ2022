@@ -26,7 +26,7 @@ public class GameManager : CSingletonMono<GameManager>
         EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
         EventBus.AddListener<bool>(EventTypes.PlayerLeaveTarget, LeaveTarget);
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
-        ResetTime(20); // TODO: get info from level
+        ResetTime(levels[currentLevel].TotalTime); 
     }
 
     void ResetTime(int totalTime) 
@@ -61,7 +61,7 @@ public class GameManager : CSingletonMono<GameManager>
             player2ReachTarget = false;
             resetLevel = false;
 
-            ResetTime(20);
+            ResetTime(levels[currentLevel].TotalTime);
         }
     }
 

@@ -101,7 +101,7 @@ public class MapManagerEditor : EditorWindow
         GUILayout.Space(10);
         m_loadLevelData = (LevelData)EditorGUILayout.ObjectField("加载保存的关卡", m_loadLevelData, typeof(LevelData), false);
         
-        GUILayout.Space(10);
+        GUILayout.Space(10);       
         if (m_loadLevelData != null && GUILayout.Button("加载", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Clear();
@@ -114,8 +114,7 @@ public class MapManagerEditor : EditorWindow
         {
             Serialize();
         }
-
-        GUILayout.Space(10);
+    
         if (GUILayout.Button("清除地图元素", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Clear();

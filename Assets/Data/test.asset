@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b0117195793fe4bba6d6df0d69ffc6, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
+  totalTime: 20
   leftPlayerLevel:
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
     row: 4
@@ -35,4 +36,3 @@ MonoBehaviour:
   - prefab: {fileID: 4551627218097300072, guid: 39d98c597d48fe14287489ebe86b3580, type: 3}
     row: 1
     col: 4
-  level: 0
