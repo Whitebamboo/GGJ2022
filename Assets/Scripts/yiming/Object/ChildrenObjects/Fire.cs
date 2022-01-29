@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fire : CantMoveWithTimeChange
 {
     public GridController gridController;
-
+    public GameObject firePrefab;
 
     private void FixedUpdate()
     {
@@ -26,7 +26,23 @@ public class Fire : CantMoveWithTimeChange
         if (stateLists[currentState].state == 2)
         {
             (int, int) myPlace = gridController.objectMapping[this.gameObject];
-            print(myPlace);
+            //check all the grid around it to see if it can ignite
+            for (int i = myPlace.Item1-1; i < myPlace.Item1 + 2; i++)
+            {
+                for(int j = myPlace.Item2 - 1; i < myPlace.Item2 + 2; i++)
+                {
+                    if((i>=0) && (i < gridController.width) && (j>=0) && (j < gridController.height))
+                    {
+                        GameObject go = gridController.GetPositionObject(i, j).gameObject;
+                        CanbeIgnite canIgnite = go.GetComponent<CanbeIgnite>();
+                        if(canIgnite != null)
+                        {
+                            Vector3 creatFirePoint = gridController.GetPosition(i, j);
+                            GameObject newFire = Instantiate(firePrefab, creatFirePoint, Quaternion.identity);
+                        }
+                    }                    
+                }
+            }
         }
     }
 }
