@@ -165,7 +165,7 @@ public class MapManagerEditor : EditorWindow
             {
                 obj.transform.parent = m_rightInteractiveLayer.transform;
             }
-            obj.transform.localPosition = new Vector3(element.Row + 0.5f, 0.5f, element.Col + 0.5f);
+            obj.transform.localPosition = new Vector3(element.Col + 0.5f, 0.5f, element.Row + 0.5f);
         }
 
         EditorSceneManager.MarkSceneDirty(m_editorScene);
@@ -203,11 +203,11 @@ public class MapManagerEditor : EditorWindow
             {
                 if (field.Name == "row")
                 {
-                    field.SetValue(mapElement, (int)child.localPosition.x);
+                    field.SetValue(mapElement, (int)child.localPosition.z);
                 }
                 else if (field.Name == "col")
                 {
-                    field.SetValue(mapElement, (int)child.localPosition.z);
+                    field.SetValue(mapElement, (int)child.localPosition.x);
                 }
                 else if (field.Name == "prefab")
                 {

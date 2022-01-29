@@ -35,3 +35,4 @@ MonoBehaviour:
   - prefab: {fileID: 4551627218097300072, guid: 39d98c597d48fe14287489ebe86b3580, type: 3}
     row: 1
     col: 4
+  level: 0
