@@ -491,7 +491,7 @@ MonoBehaviour:
   leftKeycode: 276
   rightKeycode: 275
   gridController: {fileID: 207637600}
-  moveFactor: -1
+  isForward: 0
 --- !u!136 &705097474
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -876,7 +876,7 @@ MonoBehaviour:
   leftKeycode: 97
   rightKeycode: 100
   gridController: {fileID: 1302002559}
-  moveFactor: 1
+  isForward: 1
 --- !u!136 &2130571012
 CapsuleCollider:
   m_ObjectHideFlags: 0

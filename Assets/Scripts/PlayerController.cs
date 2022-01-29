@@ -14,9 +14,8 @@ public class PlayerController : GridObject
 
     public GridController gridController;
 
-    [Tooltip("Indicate whether player movement should cause time to move forward (1) or backward (-1)")]
-    [Range(-1,1)]
-    public int moveFactor;
+    [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
+    public bool isForward;
     
     int playerRow = 0;
     int playerCol = 0;
@@ -84,9 +83,14 @@ public class PlayerController : GridObject
         keyDown = true;
 
         if (!gridController.IsValidPosition(newRow, newCol)) return;
-        if (gridController.GetPositionObject(newRow, newCol) != null) return;
+        if (gridController.GetPositionObject(newRow, newCol) != null) {
+            // Something is in the position we want to move to
+            GridObject gridObject = gridController.GetPositionObject(newRow, newCol);
+            // TODO: Check if is pushable/movable, otherwise we return
+            return;
+        }
 
-        EventBus.Broadcast<int>(EventTypes.PlayerMove, moveFactor);
+        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
 
         gridController.SetPositionObject(playerRow, playerCol, null);
         gridController.SetPositionObject(newRow, newCol, this);
