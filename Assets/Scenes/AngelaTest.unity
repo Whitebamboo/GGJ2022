@@ -140,11 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8816105b0419e40ff96e75767ae9b846, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -347
+      value: -496
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8816105b0419e40ff96e75767ae9b846, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 331
+      value: 331.0004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8816105b0419e40ff96e75767ae9b846, type: 3}
       propertyPath: m_LocalRotation.w
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
+  m_RequiresDepthTextureOption: 1
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
