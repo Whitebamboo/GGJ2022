@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface CanbeIgnite 
 {
-   
+    
+    public abstract bool canIgnite();
+    
 }

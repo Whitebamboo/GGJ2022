@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class Tree : CantMoveWithTimeChange,CanbeIgnite
 {
+    public bool isIgnite = false;//if it is in the state of ignite
+    public bool canIgnite()
+    {
+        if (!isIgnite)
+        {
+            isIgnite = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
     public override bool Equals(GridObject otherObject)
     {
         Tree otherTree = otherObject.GetComponent<Tree>();
