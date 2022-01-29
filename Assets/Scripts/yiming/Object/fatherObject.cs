@@ -91,14 +91,7 @@ public abstract class fatherObject : GridObject
     }
 
 
-    /// <summary>
-    /// player use A to interactive
-    /// </summary>
-    public virtual void interactive()
-    {
-        print("interactive with this object");
-    }
-
+   
     /// <summary>
     /// change object's state and call the animator 
     /// </summary>
@@ -108,7 +101,7 @@ public abstract class fatherObject : GridObject
 
         if (currentState + 1 < stateLists.Count)
         {
-            if (isLeft)
+            if (isForward)
             {
                 if (age >= stateLists[currentState + 1].ageThreshold)
                 {
@@ -120,7 +113,7 @@ public abstract class fatherObject : GridObject
         }
         if (currentState - 1 >= 0)//
         {
-            if (!isLeft)
+            if (!isForward)
             {
                 if (age <= stateLists[currentState - 1].ageThreshold)
                 {

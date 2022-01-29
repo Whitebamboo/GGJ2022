@@ -9,6 +9,12 @@ public class CantMoveWithTimeChange : fatherObject
     //Object that can't move with time change
 
     Animator animator;
+
+    public override bool Equals(GridObject otherObject)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void Start()
     {
         isChangeWithTime = true;
