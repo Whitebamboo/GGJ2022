@@ -5,7 +5,7 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     public bool isForward = true;
-    public SeedSample seed;
+    public Seed seed;
     // Start is called before the first frame update
     void Start()
     {

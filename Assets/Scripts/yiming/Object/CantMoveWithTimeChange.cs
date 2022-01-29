@@ -15,6 +15,9 @@ public class CantMoveWithTimeChange : fatherObject
         throw new System.NotImplementedException();
     }
 
+
+
+
     private void Start()
     {
         isChangeWithTime = true;

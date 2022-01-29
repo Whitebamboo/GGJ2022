@@ -15,6 +15,11 @@ public class MoveWithTimeChange : fatherObject
         throw new System.NotImplementedException();
     }
 
+    public override bool IsPushable()
+    {
+        return true;
+    }
+
     private void Start()
     {
         isChangeWithTime = true;
