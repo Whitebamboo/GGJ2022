@@ -49,8 +49,4 @@ public class TreeSample : fatherObject
             }
         }
     }
-    
-    public override bool IsPushable() {
-        return false;
-    }
 }

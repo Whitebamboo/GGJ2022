@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class GridObject : MonoBehaviour
 {
-    public abstract bool IsPushable();
+    public virtual bool IsPushable() {
+        return false;
+    }
     public abstract void MoveTo(Vector3 newPosition);
 }

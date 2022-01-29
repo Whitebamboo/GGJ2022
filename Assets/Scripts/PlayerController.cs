@@ -114,10 +114,6 @@ public class PlayerController : GridObject
         keyDown = false;
     }
 
-    public override bool IsPushable() {
-        return false;
-    }
-
     public override void MoveTo(Vector3 newPosition)
     {
         newPosition.y = transform.position.y;

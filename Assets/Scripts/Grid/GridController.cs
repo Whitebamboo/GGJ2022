@@ -97,7 +97,6 @@ public class GridController : MonoBehaviour
     public bool Push(int row, int col, Direction dir) 
     {
         GridObject gridObject = GetPositionObject(row, col);
-        SetPositionObject(row, col, null);
 
         int xOff = GetXOffset(dir);
         int yOff = GetYOffset(dir);
@@ -108,6 +107,7 @@ public class GridController : MonoBehaviour
         if (IsValidPosition(newRow, newCol))
         {
             gridObject.MoveTo(GetPosition(newRow, newCol));
+            SetPositionObject(row, col, null);
             SetPositionObject(newRow, newCol, gridObject);
             return true;
         }
