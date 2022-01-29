@@ -12,6 +12,7 @@ public class TreeSample : fatherObject
     {
         isChangeWithTime = true;
         animator = this.GetComponent<Animator>();
+        animator.SetInteger("State", currentState);
     }
 
 
@@ -39,7 +40,7 @@ public class TreeSample : fatherObject
         {
             if (!isLeft)
             {
-                if (age >= stateLists[currentState - 1].ageThreshold)
+                if (age <= stateLists[currentState - 1].ageThreshold)
                 {
                     currentState = stateLists[currentState - 1].state;
                     animator.SetInteger("State", currentState);
