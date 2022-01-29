@@ -16,6 +16,8 @@ public class PlayerController : GridObject
 
     [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
     public bool isForward;
+
+    int moveSpeed = 4;
     
     int playerRow = 0;
     int playerCol = 0;
@@ -40,7 +42,7 @@ public class PlayerController : GridObject
         if (isMoving)
         {
             transform.position = Vector3.Lerp(currentPosition, targetPosition, currentTime);
-            currentTime += 3 * Time.deltaTime;
+            currentTime += moveSpeed * Time.deltaTime;
 
             if (currentTime >= 1)
             {
@@ -81,12 +83,18 @@ public class PlayerController : GridObject
     void TryMove(int newRow, int newCol)
     {
         keyDown = true;
+        Invoke(nameof(KeyCooldown), cooldownTime);
 
         if (!gridController.IsValidPosition(newRow, newCol)) return;
         if (gridController.GetPositionObject(newRow, newCol) != null) {
             // Something is in the position we want to move to
             GridObject gridObject = gridController.GetPositionObject(newRow, newCol);
-            // TODO: Check if is pushable/movable, otherwise we return
+
+            // Check if is pushable/movable, otherwise we return
+            if (!gridObject.IsPushable()) return;
+            if (gridController.Push(newRow, newCol, playerDirection)) {
+                // TODO: maybe do something based on whether push was successful
+            }
             return;
         }
 
@@ -96,20 +104,27 @@ public class PlayerController : GridObject
         gridController.SetPositionObject(newRow, newCol, this);
 
         Vector3 gridPos = gridController.GetPosition(newRow, newCol);
-        gridPos.y = transform.position.y;
-
-        targetPosition = gridPos;
-        currentPosition = transform.position;
-        currentTime = 0;
-        isMoving = true;
+        MoveTo(gridPos);
 
         playerRow = newRow;
         playerCol = newCol;
-
-        Invoke(nameof(KeyCooldown), cooldownTime);
     }
 
     void KeyCooldown() {
         keyDown = false;
+    }
+
+    public override bool IsPushable() {
+        return false;
+    }
+
+    public override void MoveTo(Vector3 newPosition)
+    {
+        newPosition.y = transform.position.y;
+
+        targetPosition = newPosition;
+        currentPosition = transform.position;
+        currentTime = 0;
+        isMoving = true;
     }
 }

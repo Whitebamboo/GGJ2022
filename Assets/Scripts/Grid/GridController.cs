@@ -31,7 +31,7 @@ public class GridController : MonoBehaviour
             elementPrefab.transform.position = GetPosition(r, c);
 
             // TODO: set position object when all the prefab have the correct classes
-            //SetPositionObject(r, c, mapElement.Prefab);
+            SetPositionObject(r, c, elementPrefab.GetComponent<GridObject>());
         }
     }
 
@@ -68,5 +68,50 @@ public class GridController : MonoBehaviour
     public bool IsValidPosition(int row, int col)
     {
         return 0 <= row && row < height && 0 <= col && col < width;
+    }
+
+    int GetXOffset(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Left:
+                return -1;
+            case Direction.Right:
+                return 1;
+        }
+        return 0;
+    }
+
+    int GetYOffset(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Down:
+                return -1;
+            case Direction.Up:
+                return 1;
+        }
+        return 0;
+    }
+
+    public bool Push(int row, int col, Direction dir) 
+    {
+        GridObject gridObject = GetPositionObject(row, col);
+        SetPositionObject(row, col, null);
+
+        int xOff = GetXOffset(dir);
+        int yOff = GetYOffset(dir);
+
+        int newRow = row + yOff;
+        int newCol = col + xOff;
+
+        if (IsValidPosition(newRow, newCol))
+        {
+            gridObject.MoveTo(GetPosition(newRow, newCol));
+            SetPositionObject(newRow, newCol, gridObject);
+            return true;
+        }
+
+        return false;
     }
 }

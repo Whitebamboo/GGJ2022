@@ -5,5 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class StoneSample : fatherObject
 {
-    
+    public override bool IsPushable() {
+        return true;
+    }
 }

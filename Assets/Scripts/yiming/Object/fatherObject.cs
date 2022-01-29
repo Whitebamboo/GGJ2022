@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fatherObject : MonoBehaviour
+public abstract class fatherObject : GridObject
 {
     public bool isLeft = true;
     public float speed = 10;
@@ -41,17 +41,25 @@ public class fatherObject : MonoBehaviour
         endPoint = endPoint_;
     }
 
+    public override void MoveTo(Vector3 endPoint_)//left =  true ,right = false
+    {
+        isMove = true;
+        startPoint = transform.position;
+        endPoint = endPoint_;
+    }
+
     private void Move()
     {
         if (isMove)
         {
-            Vector3 dir = startPoint - endPoint;
+            Vector3 dir = endPoint - startPoint;
             dir = Vector3.Normalize(dir);
             rigidbody.MovePosition(rigidbody.transform.position + dir * speed * Time.deltaTime);
-            if (Vector3.Distance(rigidbody.transform.position, endPoint) < threshold)
+            if (Vector3.Distance(transform.position, endPoint) < threshold)
             {
+                transform.position = endPoint;
                 isMove = false;
-                EventBus.Broadcast(EventTypes.Reach, this.gameObject);//½«×Ô¼º´«¸øgrid manager
+                EventBus.Broadcast(EventTypes.Reach, this.gameObject);//ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½grid manager
             }
         }
     }
