@@ -10,33 +10,60 @@ public class GridController : MonoBehaviour
     public int width;
     public float gridSpacing;
 
+    public bool isForward;
+
     GridSpaceController[,] grid;
 
-    int playerRow = 0;
-    int playerCol = 0;
+    // Dictionary for every object on the grid to their row/col position
+    Dictionary<GameObject, (int, int)> objectMapping;
 
     GameManager gameManager;
 
     void Awake()
     {
-        // gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        // CreateGrid();
         EventBus.AddListener<PlayerController, PlayerAction, Direction>(EventTypes.PlayerAction, TryPlayerAction);
+        EventBus.AddListener<GameObject, GameObject>(EventTypes.Create, CreateObject);
+        EventBus.AddListener<GameObject>(EventTypes.Destroy, DestroyObject);
+
+        grid = new GridSpaceController[height, width];
+        objectMapping = new Dictionary<GameObject, (int, int)>();
     }
 
     public void SetLevel(List<MapElement> mapElements) 
     {
-        // TODO: move player to the level data, create grid here
-        grid = new GridSpaceController[height, width];
+        DestroyLevel();
         CreateGrid(); 
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
             elementPrefab.transform.position = GetPosition(r, c);
 
-            // TODO: set position object when all the prefab have the correct classes
             SetPositionObject(r, c, elementPrefab.GetComponent<GridObject>());
+            elementPrefab.GetComponent<GridObject>().SetTimeDirection(isForward);
+            objectMapping.Add(elementPrefab, (r, c));
         }
+    }
+
+    void DestroyLevel() 
+    {
+        for (int r = 0; r < height; r++)
+        {
+            for (int c = 0; c < width; c++)
+            {
+                if (grid[r, c] != null) {
+                    if (GetPositionObject(r, c) != null) {
+                        objectMapping.Remove(GetPositionObject(r, c).gameObject);
+                        Destroy(GetPositionObject(r, c).gameObject);
+                    }
+                    Destroy(grid[r, c].gameObject);
+                }
+            }
+        }
+
+        foreach (GameObject obj in objectMapping.Keys) {
+            Destroy(obj);
+        }
+        objectMapping.Clear();
     }
 
     void CreateGrid()
@@ -108,11 +135,13 @@ public class GridController : MonoBehaviour
         int newRow = row + yOff;
         int newCol = col + xOff;
 
-        if (IsValidPosition(newRow, newCol))
+        if (IsValidPosition(newRow, newCol) && GetPositionObject(newRow, newCol) == null)
         {
             gridObject.MoveTo(GetPosition(newRow, newCol));
             SetPositionObject(row, col, null);
             SetPositionObject(newRow, newCol, gridObject);
+
+            objectMapping[gridObject.gameObject] = (newRow, newCol);
             return true;
         }
 
@@ -121,19 +150,24 @@ public class GridController : MonoBehaviour
 
     void TryPlayerAction(PlayerController player, PlayerAction action, Direction playerDirection) 
     {
-        if (GetPositionObject(playerRow, playerCol) != player) return;
+        if (player.isForward != isForward) return;
 
         switch(action) {
             case PlayerAction.Move: 
                 TryMovePlayer(player, playerDirection);
                 break;
             default:
+                TryInteract(player, playerDirection);
                 return;
         }
     }
 
     public void TryMovePlayer(PlayerController player, Direction playerDirection) 
     {
+        (int, int) playerPosition = objectMapping[player.gameObject];
+        int playerRow = playerPosition.Item1; 
+        int playerCol = playerPosition.Item2;
+
         int xOff = GetXOffset(playerDirection);
         int yOff = GetYOffset(playerDirection);
 
@@ -145,21 +179,68 @@ public class GridController : MonoBehaviour
             // Something is in the position we want to move to
             GridObject gridObject = GetPositionObject(newRow, newCol);
 
-            // Check if is pushable/movable, otherwise we return
-            if (!gridObject.IsPushable()) return;
-            if (TryPush(newRow, newCol, playerDirection)) {
-                // TODO: maybe do something based on whether push was successful
+            // Try to push the object
+            if (gridObject.IsPushable()) {
+                if (TryPush(newRow, newCol, playerDirection)) {
+                    // TODO: maybe do something based on whether push was successful
+                }
             }
+
+            if (gridObject.IsPassable()) {
+                SetPositionObject(playerRow, playerCol, null);
+                player.MoveTo(GetPosition(newRow, newCol));
+                objectMapping[player.gameObject] = (newRow, newCol);
+            }
+
             return;
         }
 
-        SetPositionObject(playerRow, playerCol, null);
+        if (GetPositionObject(playerRow, playerCol) == player) {
+            SetPositionObject(playerRow, playerCol, null);
+        }
         SetPositionObject(newRow, newCol, player);
+        objectMapping[player.gameObject] = (newRow, newCol);
 
-        Vector3 gridPos = GetPosition(newRow, newCol);
-        player.MoveTo(gridPos);
+        player.MoveTo(GetPosition(newRow, newCol));
+    }
 
-        playerRow = newRow;
-        playerCol = newCol;
+    public void TryInteract(PlayerController player, Direction playerDirection) 
+    {
+        (int, int) playerPosition = objectMapping[player.gameObject];
+        int playerRow = playerPosition.Item1; 
+        int playerCol = playerPosition.Item2;
+
+        int xOff = GetXOffset(playerDirection);
+        int yOff = GetYOffset(playerDirection);
+
+        int newRow = playerRow + yOff;
+        int newCol = playerCol + xOff;
+
+        if (!IsValidPosition(newRow, newCol)) return;
+        if (GetPositionObject(newRow, newCol) != null) {
+            // Something is in the position we can interact with
+            GridObject gridObject = GetPositionObject(newRow, newCol);
+            gridObject.interactive();
+            return;
+        }
+    }
+
+    // Create an object at the given parent object's position (and replace parent)
+    public void CreateObject(GameObject newObject, GameObject parentObject) 
+    {
+        (int, int) position;
+        if (objectMapping.TryGetValue(parentObject, out position)) 
+        {
+            SetPositionObject(position.Item1, position.Item2, newObject.GetComponent<GridObject>());
+            objectMapping.Remove(parentObject);
+            objectMapping.Add(newObject, position);
+        }
+    }
+
+    public void DestroyObject(GameObject toDeleteObj) 
+    {
+        if (objectMapping.ContainsKey(toDeleteObj)) {
+            objectMapping.Remove(toDeleteObj);
+        }
     }
 }

@@ -15,17 +15,17 @@ public class TargetPoint : GridObject
         if(other.tag == "Player")
         {
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
-            if (player.isForward)
-            {
-                EventBus.Broadcast(EventTypes.PlayerReachTarget, 1);
-                print("reach target");
-            }
-            else
-            {
-                EventBus.Broadcast(EventTypes.PlayerReachTarget, 2);
-            }
-            
+            print("reach target");
+            EventBus.Broadcast(EventTypes.PlayerReachTarget, player.isForward);
         }
+    }
 
+    public override bool IsPassable() {
+        return true;
+    }
+
+    public override bool Equals(GridObject otherObject) 
+    {
+        return otherObject.GetComponent<TargetPoint>() != null;
     }
 }

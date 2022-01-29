@@ -687,7 +687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanBeReset: 1
   levels:
-  - {fileID: 11400000, guid: 1bb9964e59d4f334aa9f8d0bbd9c0a97, type: 2}
+  - {fileID: 11400000, guid: ad076e8df25674e0b9a806d257b03a0e, type: 2}
   leftGridController: {fileID: 1302002559}
   rightGridController: {fileID: 207637600}
 --- !u!4 &1714909526
@@ -883,6 +883,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1274857032}
     m_Modifications:
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: isForward
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4143478462847804775, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
       propertyPath: m_Name
       value: GridController

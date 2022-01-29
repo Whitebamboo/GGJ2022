@@ -19,7 +19,6 @@ public abstract class fatherObject : GridObject
 
 
     public bool isCycle = false;//can this object  can cycle in the state 
-    public bool isLeft = true;
     public float speed = 10;
     public float threshold = 0.02f;
     public bool isChangeWithTime = false;//will it be interactive with time, false : not interactive,true: can interactive
@@ -77,9 +76,9 @@ public abstract class fatherObject : GridObject
     public void TimeChange(bool leftRight)
     {
         print("be call");
-        if (leftRight == isLeft && isChangeWithTime)
+        if (leftRight == isForward && isChangeWithTime)
         {
-            if (isLeft)
+            if (isForward)
             {
                 age++;
             }
@@ -90,6 +89,7 @@ public abstract class fatherObject : GridObject
             }
         }
     }
+
 
     /// <summary>
     /// player use A to interactive
@@ -131,4 +131,5 @@ public abstract class fatherObject : GridObject
             }
         }
     }
+
 }

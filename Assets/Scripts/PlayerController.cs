@@ -12,9 +12,7 @@ public class PlayerController : GridObject
     public KeyCode downKeycode;
     public KeyCode leftKeycode;
     public KeyCode rightKeycode;
-
-    [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
-    public bool isForward;
+    public KeyCode interactKeycode;
 
     int moveSpeed = 4;
     Direction playerDirection;
@@ -27,10 +25,11 @@ public class PlayerController : GridObject
     bool isMoving = false;
 
     float cooldownTime = 0.3f;
+    bool canMove = true;
 
     void Start()
     {
-
+        EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
     }
 
     void Update()
@@ -47,6 +46,7 @@ public class PlayerController : GridObject
             }
         }
         
+        if (!canMove) return;
         if (!keyDown)
         {
             if (Input.GetKey(upKeycode))
@@ -73,6 +73,11 @@ public class PlayerController : GridObject
                 playerDirection = Direction.Right;
                 TryMove();
             }
+            else if (Input.GetKey(interactKeycode))
+            {
+                EventBus.Broadcast<PlayerController, PlayerAction, Direction>
+                    (EventTypes.PlayerAction, this, PlayerAction.Interact, playerDirection);
+            }
         }
     }
 
@@ -98,5 +103,15 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
+    }
+
+    public void ReachTarget(bool isForward) 
+    {
+        if (this.isForward == isForward) canMove = false;
+    }
+
+    public override bool Equals(GridObject otherObject)
+    {
+        return otherObject.GetComponent<PlayerController>() != null;
     }
 }
