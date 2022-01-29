@@ -15,7 +15,7 @@ public class GridController : MonoBehaviour
     GridSpaceController[,] grid;
 
     // Dictionary for every object on the grid to their row/col position
-    Dictionary<GameObject, (int, int)> objectMapping;
+    public Dictionary<GameObject, (int, int)> objectMapping;
 
     GameManager gameManager;
 
@@ -40,6 +40,7 @@ public class GridController : MonoBehaviour
 
             SetPositionObject(r, c, elementPrefab.GetComponent<GridObject>());
             elementPrefab.GetComponent<GridObject>().SetTimeDirection(isForward);
+            elementPrefab.GetComponent<GridObject>().gridController = this;
             objectMapping.Add(elementPrefab, (r, c));
         }
     }

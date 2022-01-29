@@ -6,6 +6,7 @@ public abstract class GridObject : MonoBehaviour
 {
     [Tooltip("Indicate whether player movement should cause time to move forward (true) or backward (false)")]
     public bool isForward;
+    public GridController gridController;
     GridObject passedObject;
 
     /// <summary>

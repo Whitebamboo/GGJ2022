@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6266697286741533633
+--- !u!1 &1047392481880813693
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6754299200383646075}
-  - component: {fileID: 7643678130596312798}
-  - component: {fileID: 5618024528044982804}
-  - component: {fileID: 7361708068453895896}
-  - component: {fileID: 6777007898235342348}
-  - component: {fileID: 5388316111776238929}
-  - component: {fileID: 8231337526225271818}
+  - component: {fileID: 415111016559143623}
+  - component: {fileID: 3633594354843837794}
+  - component: {fileID: 1552028392097059240}
+  - component: {fileID: 164517967637147901}
+  - component: {fileID: 164517967637147899}
+  - component: {fileID: 164517967637147902}
+  - component: {fileID: 164517967637147900}
   m_Layer: 0
-  m_Name: Xiunan_Test_Rock_Prefab
+  m_Name: Firerooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6754299200383646075
+--- !u!4 &415111016559143623
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1047392481880813693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7643678130596312798
+--- !u!33 &3633594354843837794
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
-  m_Mesh: {fileID: -6679825976550175534, guid: b6e523b0145183942b120259c73460ee, type: 3}
---- !u!23 &5618024528044982804
+  m_GameObject: {fileID: 1047392481880813693}
+  m_Mesh: {fileID: -2088611232839375908, guid: 9e5e1e332ae95e44082b26b32e418851, type: 3}
+--- !u!23 &1552028392097059240
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
+  m_GameObject: {fileID: 1047392481880813693}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,8 +63,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5173966397720942367, guid: 12698d7fbfa2fad4bbec86199ae9c2ef, type: 3}
-  - {fileID: -8067726398312463513, guid: 12698d7fbfa2fad4bbec86199ae9c2ef, type: 3}
+  - {fileID: 2100000, guid: 7f6325136c52f40668dbe042a70ecd6f, type: 2}
+  - {fileID: 2100000, guid: 7f6325136c52f40668dbe042a70ecd6f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,46 +86,46 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7361708068453895896
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
-  m_Center: {x: 0, y: 0.24999999, z: 0}
---- !u!54 &6777007898235342348
+--- !u!54 &164517967637147901
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
+  m_GameObject: {fileID: 1047392481880813693}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &5388316111776238929
+--- !u!65 &164517967637147899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047392481880813693}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5242459, y: 0.295, z: 0.5188121}
+  m_Center: {x: 0, y: 0.1475, z: 0}
+--- !u!95 &164517967637147902
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
+  m_GameObject: {fileID: 1047392481880813693}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65bf39f2660424a879f9b95d36866e95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -134,27 +134,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8231337526225271818
+--- !u!114 &164517967637147900
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266697286741533633}
+  m_GameObject: {fileID: 1047392481880813693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 714679cfdfa9846a29263cb13470d44b, type: 3}
+  m_Script: {fileID: 11500000, guid: 286dc692952014e6e97b28a86072dd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isForward: 0
+  isForward: 1
   stateLists:
   - ageThreshold: 0
     state: 0
-  - ageThreshold: 5
+  - ageThreshold: 1
     state: 1
+  - ageThreshold: 3
+    state: 2
+  - ageThreshold: 8
+    state: 3
   currentState: 0
   isCycle: 0
-  speed: 3
-  threshold: 0.1
-  isChangeWithTime: 0
+  speed: 10
+  threshold: 0.02
+  isChangeWithTime: 1
   age: 0
+  gridController: {fileID: 0}
+  firePrefab: {fileID: 919132149155446097, guid: 9c840837dab3bdb41953c6c6aafb7600, type: 3}
