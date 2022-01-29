@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4776322154535196766}
   - component: {fileID: 4641187942447958528}
   m_Layer: 0
-  m_Name: Level2_ReverseTree
+  m_Name: Level1_ReverseTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,25 +64,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isForward: 0
+  gridController: {fileID: 0}
   stateLists:
   - ageThreshold: 0
     state: 0
-  - ageThreshold: 2
+  - ageThreshold: 1
     state: 1
-  - ageThreshold: 4
+  - ageThreshold: 2
     state: 2
-  - ageThreshold: 6
+  - ageThreshold: 3
     state: 3
-  - ageThreshold: 8
+  - ageThreshold: 4
     state: 4
-  - ageThreshold: 10
+  - ageThreshold: 5
     state: 5
   currentState: 5
   isCycle: 0
   speed: 10
   threshold: 0.02
   isChangeWithTime: 0
-  age: 10
+  age: 5
+  isIgnite: 0
 --- !u!65 &4776322154535196766
 BoxCollider:
   m_ObjectHideFlags: 0
