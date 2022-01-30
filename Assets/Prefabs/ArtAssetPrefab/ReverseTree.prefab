@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6270645083394696084}
   - component: {fileID: 6270645083394696085}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: ReverseTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad003078c5b24659b549cac2b892ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isForward: 1
+  isForward: 0
   gridController: {fileID: 0}
   stateLists:
   - ageThreshold: 0
@@ -96,12 +96,12 @@ MonoBehaviour:
     state: 4
   - ageThreshold: 10
     state: 5
-  currentState: 0
+  currentState: 5
   isCycle: 0
   speed: 10
   threshold: 0.02
   isChangeWithTime: 0
-  age: 0
+  age: 10
   animator: {fileID: 6270645083394696085}
   isIgnite: 0
 --- !u!95 &6270645083394696085
