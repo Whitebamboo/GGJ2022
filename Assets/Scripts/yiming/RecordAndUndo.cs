@@ -203,8 +203,17 @@ public class RecordAndUndo : MonoBehaviour
                     {
                         UndoCreate(ss.creatBodies);
                     }
-                    ss = recorders.Pop();
-                    UndoGrids(ss);
+                    if (recorders.Count > 0)
+                    {
+                        ss = recorders.Pop();
+                        UndoGrids(ss);
+
+                    }
+                    else
+                    {
+                        ss = new ScreenShot();
+                    }
+                  
 
 
                     if (temperarylist .Count > 0)
@@ -273,8 +282,13 @@ public class RecordAndUndo : MonoBehaviour
 
     private void UndoGrids(ScreenShot ss)
     {
-        int row = ss.grids.GetLength(0);
-        int col = ss.grids.GetLength(1);
+        int row = 0;
+        int col = 0;
+        if(ss.grids != null) {
+           row = ss.grids.GetLength(0);
+           col = ss.grids.GetLength(1);
+        }
+     
         for(int i = 0; i < row; i++)
         {
             for(int j = 0; j < col; j++)
@@ -288,7 +302,9 @@ public class RecordAndUndo : MonoBehaviour
                         (int, int) pasPos = gridController.objectMapping[go];
                         PlayerController player = go.GetComponent<PlayerController>();
                         Vector3 targetPosition = gridController.GetPosition(i, j);
-                        gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
+                        if (gridController.GetPositionObject(pasPos.Item1, pasPos.Item2) == player) {
+                            gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
+                        }
                         player.MoveTo(targetPosition,true);
 
                         gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
@@ -306,16 +322,20 @@ public class RecordAndUndo : MonoBehaviour
                                 print("move" + go.name + "from" + paspos + " to " + (i, j));
                                 Vector3 targetPosition = gridController.GetPosition(i, j);
                                 fatherObject fo = go.GetComponent<fatherObject>();
-                                gridController.SetPositionObject(paspos.Item1, paspos.Item2, null);
+                                if (gridController.GetPositionObject(paspos.Item1, paspos.Item2) == fo)
+                                {
+                                    gridController.SetPositionObject(paspos.Item1, paspos.Item2, null);
+                                }
                                 fo.MoveTo(targetPosition);
 
                                 gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
                                 gridController.objectMapping[go] = (i, j);
-                                if (ss.grids[i, j].haveState)
-                                {
-                                    go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
-                                    go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
-                                }
+                               
+                            }
+                            if (ss.grids[i, j].haveState)
+                            {
+                                go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
+                                go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
                             }
                         }
                     }
