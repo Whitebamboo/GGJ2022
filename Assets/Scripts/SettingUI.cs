@@ -8,6 +8,7 @@ public class SettingUI : MonoBehaviour
 
     public GameObject settingPage;
     public GameObject controlPage;
+    public GameObject creditPage;
 
     bool isBegin = true;
 
@@ -45,5 +46,10 @@ public class SettingUI : MonoBehaviour
     public void OnClickQuitButton()
     {
         Application.Quit();
+    }
+
+    public void OnClickCreditButton()
+    {
+        creditPage.SetActive(!creditPage.activeSelf);
     }
 }
