@@ -85,6 +85,7 @@ public class RecordAndUndo : MonoBehaviour
 
     public void DeadRecord(GameObject go, bool leftright,(int,int) grid)
     {
+        print("get Dead record");
 
         int step = gameManager.GetStep(leftright);
 
@@ -198,6 +199,7 @@ public class RecordAndUndo : MonoBehaviour
                 {
                     if (ss.deadBodies != null && ss.deadBodies.Count > 0)
                     {
+                        print("do dead undo");
                         temperarylist = ss.deadBodies;
                     }
                     if (ss.creatBodies != null && ss.creatBodies.Count > 0)
@@ -276,7 +278,8 @@ public class RecordAndUndo : MonoBehaviour
                 (int,int) creatPoint = dbList[i].grid;
 
                 dbList[i].deadObject.transform.position = gridController.GetPosition(creatPoint.Item1, creatPoint.Item2);
-
+                gridController.SetPositionObject(creatPoint.Item1, creatPoint.Item2, dbList[i].deadObject.GetComponent<GridObject>());
+                gridController.objectMapping[dbList[i].deadObject] = (creatPoint.Item1, creatPoint.Item2);
             }
         }
     }
