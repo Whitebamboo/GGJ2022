@@ -27,30 +27,30 @@ public abstract class fatherObject : GridObject
     private bool isMove = false;
     private Vector3 startPoint = Vector3.zero;
     private Vector3 endPoint = Vector3.zero;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
    
     
     // Start is called before the first frame update
     void Awake()
     {
-        rigidbody = this.GetComponent<Rigidbody>();
+        rb = this.GetComponent<Rigidbody>();
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
-        EventBus.AddListener<GameObject>(EventTypes.Destroy, DestroyObject);
+        EventBus.AddListener<GameObject>(EventTypes.Destroy, DestroySelf);
         // print("add event Timemove");
-      
-
     }
     private void OnDestroy()
     {
         //EventBus.RemoveListener<Vector3, Vector3>(EventTypes.Move, StartMove);
         EventBus.RemoveListener<bool>(EventTypes.TimeMove, TimeChange);
-        EventBus.RemoveListener<GameObject>(EventTypes.Destroy, DestroyObject);
+        EventBus.RemoveListener<GameObject>(EventTypes.Destroy, DestroySelf);
     }
    
-    void DestroyObject() 
+    void DestroySelf(GameObject objToDestroy) 
     {
-        Destroy(gameObject);
+        if (objToDestroy == gameObject) {
+            Destroy(gameObject);
+        }
     }
  
 
@@ -67,7 +67,7 @@ public abstract class fatherObject : GridObject
         {
             Vector3 dir = endPoint - startPoint;
             dir = Vector3.Normalize(dir);
-            rigidbody.MovePosition(rigidbody.transform.position + dir * speed * Time.deltaTime);
+            rb.MovePosition(rb.transform.position + dir * speed * Time.deltaTime);
             if (Vector3.Distance(transform.position, endPoint) < threshold)
             {
                 transform.position = endPoint;
