@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameManager : CSingletonMono<GameManager>
 {
@@ -18,12 +19,18 @@ public class GameManager : CSingletonMono<GameManager>
     int currentLevel = 0;
 
     bool player1ReachTarget, player2ReachTarget = false;
-    bool resettingLevel = false;
+    //bool resettingLevel = false;
+
+    Vector3 leftGridControllerPosition;
+    Vector3 rightGridControllerPosition;
 
     void Start()
     {
         leftGridController.SetLevel(levels[currentLevel].LeftPlayerLevel);
         rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
+
+        leftGridControllerPosition = leftGridController.transform.position;
+        rightGridControllerPosition = rightGridController.transform.position;
 
         EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
         EventBus.AddListener<bool>(EventTypes.PlayerLeaveTarget, LeaveTarget);
@@ -67,12 +74,37 @@ public class GameManager : CSingletonMono<GameManager>
 
     void Update() 
     {
-        if (!resettingLevel && Input.GetKeyDown(KeyCode.R)) 
+        //if (!resettingLevel && Input.GetKeyDown(KeyCode.R)) 
+        //{
+        //    skyMesh.GetComponent<Animator>().SetTrigger("ChangeLevel");
+        //    resettingLevel = true;
+        //    Invoke(nameof(ResetLevel), 3f);
+        //}
+
+        if(Input.GetKeyDown(KeyCode.R))
         {
-            skyMesh.GetComponent<Animator>().SetTrigger("ChangeLevel");
-            resettingLevel = true;
-            Invoke(nameof(ResetLevel), 3f);
+            ResetLevel();
         }
+    }
+
+    IEnumerator ResetAnimation()
+    {
+        yield return null;
+    }
+
+    void WinAnimation()
+    {
+        float midPoint = (leftGridController.transform.position.x + rightGridController.transform.position.x) / 2f;
+
+        leftGridController.transform.DOMoveX(midPoint, 2f).SetEase(Ease.OutCubic);
+        rightGridController.transform.DOMoveX(midPoint, 2f).SetEase(Ease.OutCubic);
+
+        skyMesh.transform.DOMoveY(6, 4f).SetEase(Ease.OutCubic).OnComplete(()=> {
+            ResetLevel();
+            skyMesh.transform.DOMoveY(-156, 3f);
+            leftGridController.transform.position = leftGridControllerPosition;
+            rightGridController.transform.position = rightGridControllerPosition;
+        });
     }
 
     void ResetLevel()
@@ -82,7 +114,7 @@ public class GameManager : CSingletonMono<GameManager>
 
         player1ReachTarget = false;
         player2ReachTarget = false;
-        resettingLevel = false;
+        //resettingLevel = false;
 
         ResetTime(levels[currentLevel].TotalTime);
     }
@@ -110,6 +142,7 @@ public class GameManager : CSingletonMono<GameManager>
                 if (currentLevel < levels.Count - 1) {
                     currentLevel++;
                 }
+                WinAnimation();
                 return;
             }
         }
