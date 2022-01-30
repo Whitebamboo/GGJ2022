@@ -58,6 +58,7 @@ public abstract class fatherObject : GridObject
             mySequence.Kill();
             gameObject.transform.localPosition = new Vector3(5, -5, -22);
             gameObject.transform.SetParent(null);
+            EventBus.RemoveListener<bool>(EventTypes.TimeMove, TimeChange);
 
             // Destroy(gameObject);
         }
@@ -108,6 +109,8 @@ public abstract class fatherObject : GridObject
 
     public virtual void SetState()
     {
+        if (stateLists.Count == 0) return;
+
         for (int i = 0; i < stateLists.Count - 1; i++) {
             if (age >= stateLists[i].ageThreshold && age < stateLists[i+1].ageThreshold) {
                 currentState = stateLists[i].state;
@@ -117,6 +120,12 @@ public abstract class fatherObject : GridObject
         {
             currentState = stateLists[stateLists.Count - 1].state;
         }
+    }
+
+    public override void RestoreObject()
+    {
+        base.RestoreObject();
+        EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
     }
    
     /// <summary>

@@ -79,7 +79,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_FallUp
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5112521347624300813}
@@ -209,7 +209,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_FallDown
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5115631588692413852}
@@ -288,6 +288,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: ChangeState
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Fallen
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6939517771343127862}
@@ -613,7 +616,7 @@ AnimatorStateMachine:
     m_Position: {x: 500, y: -420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3676625504746471335}
-    m_Position: {x: 602.2181, y: -347.2094, z: 0}
+    m_Position: {x: 600, y: -350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8216306510064337383}
     m_Position: {x: 370, y: -510, z: 0}
@@ -707,7 +710,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_FallLeft
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1045641979541719167}
@@ -734,7 +737,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree_FallRight
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2056100687757281369}
