@@ -18,7 +18,7 @@ public class Seed : MoveWithoutTimeChange
     {
         base.interactive();
         GameObject go = GameObject.Instantiate(treePrefab, this.transform.position, Quaternion.identity);
-        EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, gameObject, isForward, gridController.objectMapping[this.gameObject]);
+        //EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, gameObject, isForward, gridController.objectMapping[this.gameObject]);
         EventBus.Broadcast(EventTypes.Create, go, gameObject);
         EventBus.Broadcast(EventTypes.Destroy, gameObject);
         musicManager.PlayPlantSeedSFX();
