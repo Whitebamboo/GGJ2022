@@ -19,7 +19,7 @@ public class GameManager : CSingletonMono<GameManager>
     int currentLevel = 0;
 
     bool player1ReachTarget, player2ReachTarget = false;
-    //bool resettingLevel = false;
+    bool resettingLevel = false;
 
     Vector3 leftGridControllerPosition;
     Vector3 rightGridControllerPosition;
@@ -112,7 +112,7 @@ public class GameManager : CSingletonMono<GameManager>
 
         player1ReachTarget = false;
         player2ReachTarget = false;
-        //resettingLevel = false;
+        resettingLevel = false;
 
         ResetTime(levels[currentLevel].TotalTime);
     }
@@ -132,15 +132,17 @@ public class GameManager : CSingletonMono<GameManager>
 
     void CheckPassCondition() 
     {
+        if (resettingLevel) return;
         if (player1ReachTarget && player2ReachTarget) 
         {
             if (AreGridsEqual()) {
                 EventBus.Broadcast(EventTypes.StopAll);
                 Debug.Log("WIN");
                 if (currentLevel < levels.Count - 1) {
+                    resettingLevel = true;
                     currentLevel++;
                 }
-                WinAnimation();
+                Invoke(nameof(WinAnimation), 0.5f);
                 return;
             }
         }
