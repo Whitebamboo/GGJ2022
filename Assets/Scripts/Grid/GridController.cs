@@ -48,10 +48,10 @@ public class GridController : MonoBehaviour
             SetPositionObject(r, c, gridObj);
             gridObj.SetTimeDirection(isForward);
             gridObj.gridController = this;
-            if (mapElement.HasStartAge) gridObj.SetAge(mapElement.StartAge);
             if (elementPrefab.GetComponent<Tree>() != null) {
                 if (treeStates.Count > 0) elementPrefab.GetComponent<Tree>().stateLists = treeStates;
             }
+            if (mapElement.HasStartAge) gridObj.SetAge(mapElement.StartAge);
             
             objectMapping.Add(elementPrefab, (r, c));
         }
