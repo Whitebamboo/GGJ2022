@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class RecordAndUndo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    public class ScreenShot
     {
-        
-    }
+        public GridSpaceRecoder[,] grid;
+        public GameObject[] deadBody;//object that was destroy at this step
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
