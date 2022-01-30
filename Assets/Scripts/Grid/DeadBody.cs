@@ -8,10 +8,10 @@ public class DeadBody : MonoBehaviour
     public (int, int) grid;//grid info
     public GameObject deadObject;//the object that gona be destroy
 
-    public void getdeadInfomation(GameObject go)
+    public void getdeadInfomation(GameObject go,(int,int) grid)
     {
         GridObject g = go.GetComponent<GridObject>();
-        //this.grid = g.gridController.objectMapping[go];
+        this.grid = grid;
         deadObject = go;
     }
 }
