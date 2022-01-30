@@ -26,19 +26,17 @@ public class GameManager : CSingletonMono<GameManager>
 
     void Start()
     {
-        leftGridController.SetLevel(levels[currentLevel].LeftPlayerLevel);
-        rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
-
         leftGridControllerPosition = leftGridController.transform.position;
         rightGridControllerPosition = rightGridController.transform.position;
 
         EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
         EventBus.AddListener<bool>(EventTypes.PlayerLeaveTarget, LeaveTarget);
-        EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
+        EventBus.AddListener<bool>(EventTypes.TimeMoveEnd, TimeChange);
         ResetTime(levels[currentLevel].TotalTime); 
+        ResetLevel();
     }
 
-    void ResetTime(int totalTime) 
+    void ResetTime(int totalTime)
     {
         this.totalTime = totalTime;
         leftTime = 0;
@@ -109,8 +107,8 @@ public class GameManager : CSingletonMono<GameManager>
 
     void ResetLevel()
     {
-        leftGridController.SetLevel(levels[currentLevel].LeftPlayerLevel);
-        rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
+        leftGridController.SetLevel(levels[currentLevel]);
+        rightGridController.SetLevel(levels[currentLevel]);
 
         player1ReachTarget = false;
         player2ReachTarget = false;

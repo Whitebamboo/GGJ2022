@@ -14,15 +14,16 @@ public class RecordAndUndo : MonoBehaviour
 
     public bool isForward = true;
     public Stack<ScreenShot> recorders = new Stack<ScreenShot>();
-
+    public GridController gridController;
     GameManager gameManager;
-
+   
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool>(EventTypes.DeadRecord, DeadRecord);
+        EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void OnDestroy()
     {
@@ -40,12 +41,13 @@ public class RecordAndUndo : MonoBehaviour
         int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
-            if (step > recorders.Count)
+            if (step + 1 > recorders.Count)
             {
                 ScreenShot ss = new ScreenShot();
-                recorders.Push(ss);
+                ss.step = step;
                 //put info into record
                 GetInfoinGrids(ss, grids);
+                recorders.Push(ss);
             }
             else
             {
@@ -62,9 +64,10 @@ public class RecordAndUndo : MonoBehaviour
         int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
-            if (step > recorders.Count)
-            {
+            if (step+1 > recorders.Count)
+            {  
                 ScreenShot ss = new ScreenShot();
+                ss.step = step;
                 recorders.Push(ss);
                 GetInfoFromDead(ss, go);
             }
@@ -94,7 +97,7 @@ public class RecordAndUndo : MonoBehaviour
         ss.grids = new GridSpaceRecoder[row, col];
         for (int i = 0; i < row; i++)
         {
-            for (int j = 0; j < row; j++)
+            for (int j = 0; j < col; j++)
             {
                 if(grids[i,j].GetObject() != null)
                 {
@@ -117,11 +120,108 @@ public class RecordAndUndo : MonoBehaviour
     /// <summary>
     /// when press the button undo
     /// </summary>
-    public void Undo()
+    public void Undo(bool leftright)
     {
-        if (recorders.Count > 0)
+        List<DeadBody> temperarylist = new List<DeadBody>();
+        int step = gameManager.GetStep(leftright);
+        if(isForward == leftright)
         {
-            ScreenShot ss = recorders.Pop();
+            if (recorders.Count > 0)
+            {
+                ScreenShot ss = recorders.Pop();
+                if(ss.step == step)//first bring the dead one alive and then pop another one if this is the current step
+                {
+                    if (ss.deadBodies.Count > 0)
+                    {
+                        temperarylist = ss.deadBodies;
+                    }
+                    ss = recorders.Pop();
+                    UndoGrids(ss);
+                    if (temperarylist .Count > 0)
+                    {
+                        UndoDeadBodies(temperarylist);
+                    }
+                    if(ss.deadBodies.Count > 0)
+                    {
+                        ScreenShot newss = new ScreenShot();
+                        newss.step = step - 1;
+                        newss.deadBodies = ss.deadBodies;
+                        recorders.Push(newss);
+                    }
+                  
+                }
+                else
+                {
+                    UndoGrids(ss);
+                    if(ss.deadBodies.Count > 0)
+                    {
+                        ScreenShot newss = new ScreenShot();
+                        newss.step = step - 1;
+                        newss.deadBodies = ss.deadBodies;
+                        recorders.Push(newss);
+                    }
+                }
+            }
+            
+        }
+        
+    }
+
+    private void UndoDeadBodies(List<DeadBody> dbList)
+    {
+        if(dbList.Count>0)
+        {
+            for(int i=0; i< dbList.Count; i++)
+            {
+                (int,int) creatPoint = dbList[i].grid;
+                dbList[i].gameObject.transform.position = gridController.GetPosition(creatPoint.Item1, creatPoint.Item2);
+
+            }
+        }
+    }
+
+    private void UndoGrids(ScreenShot ss)
+    {
+        int row = ss.grids.Rank;
+        int col = ss.grids.GetLength(1);
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if (!ss.grids[i, j].isEmpty)
+                {
+                    if(ss.grids[i,j].t == "Player")
+                    {
+                        GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
+                        (int, int) pasPos = gridController.objectMapping[go];
+                        PlayerController player = go.GetComponent<PlayerController>();
+                        Vector3 targetPosition = gridController.GetPosition(i, j);
+                        gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
+                        player.MoveTo(targetPosition);
+
+                        gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
+                        gridController.objectMapping[go] = (i, j);
+                    }
+                    else
+                    {
+                        GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
+                        (int, int) pasPos = gridController.objectMapping[go];
+                        Vector3 targetPosition = gridController.GetPosition(i, j);
+                        fatherObject fo = go.GetComponent<fatherObject>();
+                        gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
+                        fo.MoveTo(targetPosition);
+                        
+                        gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
+                        gridController.objectMapping[go] = (i, j);
+                        if (ss.grids[i, j].haveState)
+                        {
+                            go.GetComponent<fatherObject>().currentState = ss.grids[i, j].age;
+                            go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
+                        }
+                    }
+                   
+                }
+            }
         }
     }
 

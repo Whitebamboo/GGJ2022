@@ -13,6 +13,7 @@ public class PlayerController : GridObject
     public KeyCode leftKeycode;
     public KeyCode rightKeycode;
     public KeyCode interactKeycode;
+    public KeyCode undoKeycode;
 
     int moveSpeed = 4;
 
@@ -68,9 +69,9 @@ public class PlayerController : GridObject
             if (currentTime >= 1)
             {
                 transform.position = targetPosition;
-                EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
                 isMoving = false;
                 canMove = true;
+                EventBus.Broadcast<bool>(EventTypes.TimeMoveEnd, isForward);
             }
         }
         
@@ -100,6 +101,10 @@ public class PlayerController : GridObject
             else if (Input.GetKey(interactKeycode))
             {
                 TryInteract();
+            }
+            else if (Input.GetKey(undoKeycode)) 
+            {
+                EventBus.Broadcast<bool>(EventTypes.UndoLastMove, isForward);
             }
         }
     }
@@ -135,6 +140,8 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
+
+        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
     }
 
     public void ChangeDirection(Direction dir) 

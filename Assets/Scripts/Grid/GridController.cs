@@ -30,18 +30,29 @@ public class GridController : MonoBehaviour
         objectMapping = new Dictionary<GameObject, (int, int)>();
     }
 
-    public void SetLevel(List<MapElement> mapElements) 
+    public void SetLevel(LevelData levelData) 
     {
         DestroyLevel();
         CreateGrid(); 
+
+        List<MapElement> mapElements = isForward ? levelData.LeftPlayerLevel : levelData.RightPlayerLevel;
+        List<State> treeStates = levelData.TreeStates;
+        // int elemAge = isForward ? 0 : levelData.TotalTime;
+
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
             elementPrefab.transform.position = GetPosition(r, c);
 
-            SetPositionObject(r, c, elementPrefab.GetComponent<GridObject>());
-            elementPrefab.GetComponent<GridObject>().SetTimeDirection(isForward);
-            elementPrefab.GetComponent<GridObject>().gridController = this;
+            GridObject gridObj = elementPrefab.GetComponent<GridObject>();
+            SetPositionObject(r, c, gridObj);
+            gridObj.SetTimeDirection(isForward);
+            gridObj.gridController = this;
+            if (mapElement.HasStartAge) gridObj.SetAge(mapElement.StartAge);
+            if (elementPrefab.GetComponent<Tree>() != null) {
+                if (treeStates.Count > 0) elementPrefab.GetComponent<Tree>().stateLists = treeStates;
+            }
+            
             objectMapping.Add(elementPrefab, (r, c));
         }
     }
@@ -190,6 +201,7 @@ public class GridController : MonoBehaviour
     void TryPlayerAction(PlayerController player, PlayerAction action, Direction playerDirection) 
     {
         if (player.isForward != isForward) return;
+        EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
 
         switch(action) {
             case PlayerAction.Move: 
@@ -220,30 +232,40 @@ public class GridController : MonoBehaviour
 
             // Try to push the object
             if (gridObject.IsPushable()) {
-                if (!TryPush(newRow, newCol, playerDirection)) {
-                    return;
+                if (TryPush(newRow, newCol, playerDirection)) {
+                    MovePlayerToNewPosition(player, playerRow, playerCol, newRow, newCol);
                 }
+                return;
             }
 
             if (gridObject.IsPassable()) {
                 GridObject passedObject = gridObject.GetPassedObject();
                 if (passedObject != null && passedObject.IsPushable()) {
-                    if (!TryPush(newRow, newCol, playerDirection)) {
-                        return;
+                    if (TryPush(newRow, newCol, playerDirection)) {
+                        MovePlayerToNewPosition(player, playerRow, playerCol, newRow, newCol);
                     }
+                    return;
                 }
                 else {
                     SetPositionObject(playerRow, playerCol, null);
                     gridObject.SetPassedObject(player);
 
+                    EventBus.Broadcast(EventTypes.CloseSeedHint, player);
+                    CheckAround(player);
+
                     player.MoveTo(GetPosition(newRow, newCol));
                     objectMapping[player.gameObject] = (newRow, newCol);
-                    EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
                     return;
                 }
             }
+
+            return;
         }
 
+        MovePlayerToNewPosition(player, playerRow, playerCol, newRow, newCol);
+    }
+
+    void MovePlayerToNewPosition(PlayerController player, int playerRow, int playerCol, int newRow, int newCol) {
         if (GetPositionObject(playerRow, playerCol) == player) {
             SetPositionObject(playerRow, playerCol, null);
         }
@@ -254,7 +276,6 @@ public class GridController : MonoBehaviour
         CheckAround(player);
         
         player.MoveTo(GetPosition(newRow, newCol));
-        EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
     }
 
     public void TryInteract(PlayerController player, Direction playerDirection) 

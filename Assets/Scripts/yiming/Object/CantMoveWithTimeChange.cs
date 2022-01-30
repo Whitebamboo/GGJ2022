@@ -30,4 +30,12 @@ public class CantMoveWithTimeChange : fatherObject
     {
         ChangeState(animator);
     }
+
+    public override void SetState()
+    {
+        base.SetState();
+        animator = this.GetComponent<Animator>();
+        animator.SetInteger("State", currentState);
+        animator.SetFloat("Speed", isForward ? 1f : -1f);
+    }
 }

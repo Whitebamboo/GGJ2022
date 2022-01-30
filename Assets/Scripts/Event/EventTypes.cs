@@ -6,6 +6,7 @@ public enum EventTypes
 {
     Reach, //when object reach their move target point
     TimeMove, //when player move one step
+    TimeMoveEnd, //when player finishes moving one step
     PlayerAction, // called when player attempts to perform an action (move, action, etc.)
     Create,//when new object is creating
     Destroy,//when old object is destroy
@@ -15,5 +16,6 @@ public enum EventTypes
     GridRecord,//to record grid info mation
     DeadRecord,//when body dead record the info
     ShowSeedHint,
-    CloseSeedHint
+    CloseSeedHint,
+    UndoLastMove,
 }
