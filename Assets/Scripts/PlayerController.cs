@@ -13,6 +13,7 @@ public class PlayerController : GridObject
     public KeyCode leftKeycode;
     public KeyCode rightKeycode;
     public KeyCode interactKeycode;
+    public KeyCode undoKeycode;
 
     int moveSpeed = 4;
 
@@ -100,6 +101,10 @@ public class PlayerController : GridObject
             else if (Input.GetKey(interactKeycode))
             {
                 TryInteract();
+            }
+            else if (Input.GetKey(undoKeycode)) 
+            {
+                EventBus.Broadcast<bool>(EventTypes.UndoLastMove, isForward);
             }
         }
     }

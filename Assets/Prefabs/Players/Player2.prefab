@@ -207,11 +207,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isForward: 0
+  gridController: {fileID: 0}
   upKeycode: 273
   downKeycode: 274
   leftKeycode: 276
   rightKeycode: 275
   interactKeycode: 32
+  undoKeycode: 46
 --- !u!54 &-6065472546787978860
 Rigidbody:
   m_ObjectHideFlags: 0
