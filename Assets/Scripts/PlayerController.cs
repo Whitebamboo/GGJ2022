@@ -40,7 +40,7 @@ public class PlayerController : GridObject
             }
         }
     }
-    
+
     private Direction _playerDirection;
 
     bool keyDown;
@@ -98,8 +98,7 @@ public class PlayerController : GridObject
             }
             else if (Input.GetKey(interactKeycode))
             {
-                EventBus.Broadcast<PlayerController, PlayerAction, Direction>
-                    (EventTypes.PlayerAction, this, PlayerAction.Interact, playerDirection);
+                TryInteract();
             }
         }
     }
@@ -111,6 +110,15 @@ public class PlayerController : GridObject
 
         EventBus.Broadcast<PlayerController, PlayerAction, Direction>
             (EventTypes.PlayerAction, this, PlayerAction.Move, playerDirection);
+    }
+
+    void TryInteract()
+    {
+        keyDown = true;
+        Invoke(nameof(KeyCooldown), cooldownTime);
+
+        EventBus.Broadcast<PlayerController, PlayerAction, Direction>
+            (EventTypes.PlayerAction, this, PlayerAction.Interact, playerDirection);
     }
 
     void KeyCooldown() {

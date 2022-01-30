@@ -11,6 +11,8 @@ public class GameManager : CSingletonMono<GameManager>
 
     public TimeSlider timerSlider;
 
+    public GameObject skyMesh;
+
     int totalTime, leftTime, rightTime;
 
     int currentLevel = 0;
@@ -54,15 +56,21 @@ public class GameManager : CSingletonMono<GameManager>
     {
         if (resetLevel && Input.GetKeyDown(KeyCode.R)) 
         {
-            leftGridController.SetLevel(levels[currentLevel].LeftPlayerLevel);
-            rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
-
-            player1ReachTarget = false;
-            player2ReachTarget = false;
-            resetLevel = false;
-
-            ResetTime(levels[currentLevel].TotalTime);
+            skyMesh.GetComponent<Animator>().SetTrigger("ChangeLevel");
+            Invoke(nameof(ResetLevel), 3f);
         }
+    }
+
+    void ResetLevel()
+    {
+        leftGridController.SetLevel(levels[currentLevel].LeftPlayerLevel);
+        rightGridController.SetLevel(levels[currentLevel].RightPlayerLevel);
+
+        player1ReachTarget = false;
+        player2ReachTarget = false;
+        resetLevel = false;
+
+        ResetTime(levels[currentLevel].TotalTime);
     }
 
     void ReachTarget(bool isForward) 
