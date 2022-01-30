@@ -250,6 +250,9 @@ public class GridController : MonoBehaviour
         SetPositionObject(newRow, newCol, player);
         objectMapping[player.gameObject] = (newRow, newCol);
 
+        EventBus.Broadcast(EventTypes.CloseSeedHint, player);
+        CheckAround(player);
+        
         player.MoveTo(GetPosition(newRow, newCol));
         EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
     }
@@ -271,6 +274,8 @@ public class GridController : MonoBehaviour
                 // Something is in the position we can interact with
                 GridObject gridObject = GetPositionObject(newRow, newCol);
                 gridObject.interactive();
+                if(gridObject is Seed)
+                    EventBus.Broadcast(EventTypes.CloseSeedHint, player);
                 return;
             }
         }
@@ -289,7 +294,37 @@ public class GridController : MonoBehaviour
                     GridObject gridObject = GetPositionObject(newRow, newCol);
                     gridObject.interactive();
                     player.ChangeDirection(dir);
+                    if (gridObject is Seed)
+                        EventBus.Broadcast(EventTypes.CloseSeedHint, player);
                     return;
+                }
+            }
+        }
+    }
+
+    public void CheckAround(PlayerController player)
+    {
+        (int, int) playerPosition = objectMapping[player.gameObject];
+        int playerRow = playerPosition.Item1;
+        int playerCol = playerPosition.Item2;
+
+        // Try every direction
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+        {
+            int xOff = GetXOffset(dir);
+            int yOff = GetYOffset(dir);
+
+            int newRow = playerRow + yOff;
+            int newCol = playerCol + xOff;
+
+            if (IsValidPosition(newRow, newCol))
+            {
+                if (GetPositionObject(newRow, newCol) != null)
+                {
+                    // Something is in the position we can interact with
+                    GridObject gridObject = GetPositionObject(newRow, newCol);
+                    if(gridObject is Seed)
+                        EventBus.Broadcast(EventTypes.ShowSeedHint, gridObject, player);
                 }
             }
         }
