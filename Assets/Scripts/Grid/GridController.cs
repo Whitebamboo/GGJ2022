@@ -433,7 +433,7 @@ public class GridController : MonoBehaviour
 
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);
-            EventBus.Broadcast(EventTypes.CreateRecord, newObject.gameObject, isForward, objectMapping[newObject.gameObject]);
+            EventBus.Broadcast(EventTypes.CreateRecord,parentObject, newObject.gameObject, isForward, objectMapping[newObject.gameObject]);
         }
     }
 

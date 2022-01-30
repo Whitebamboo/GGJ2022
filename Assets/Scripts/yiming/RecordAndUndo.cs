@@ -33,7 +33,7 @@ public class RecordAndUndo : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
-        EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
+        EventBus.AddListener<GameObject,GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
         EventBus.AddListener(EventTypes.LevelComplete, ClearRecord);
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
@@ -46,7 +46,7 @@ public class RecordAndUndo : MonoBehaviour
     }
     private void Update()
     {
-        //print(recorders.Count);
+        print(recorders.Count);
     }
     /// <summary>
     /// record before player start the new step like player make step one and record
@@ -56,7 +56,7 @@ public class RecordAndUndo : MonoBehaviour
     /// <param name="leftright"></param>
     public void GridRecord(GridSpaceController[,] grids, bool leftright)
     {
-        //
+        print("get move info");
         int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
@@ -103,7 +103,7 @@ public class RecordAndUndo : MonoBehaviour
         }
     }
 
-    public void CreateRecord(GameObject go, bool leftright, (int, int) grid)
+    public void CreateRecord(GameObject parent,GameObject go, bool leftright, (int, int) grid)
     {
 
         int step = gameManager.GetStep(leftright);
@@ -117,6 +117,7 @@ public class RecordAndUndo : MonoBehaviour
                 ss.step = step;
                 recorders.Push(ss);
                 GetInfoFromCreate(ss, go, grid);
+                GetInfoFromDead(ss, parent, grid);
             }
 
 
@@ -313,7 +314,7 @@ public class RecordAndUndo : MonoBehaviour
                     else //if(ss.grids[i, j].t == "Object")
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
-                        print("find object" + go.name);
+                        //print("find object" + go.name);
 
                         if (gridController.objectMapping.TryGetValue(go,out(int, int) paspos))
                         {
