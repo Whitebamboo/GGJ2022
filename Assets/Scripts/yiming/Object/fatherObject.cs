@@ -95,9 +95,7 @@ public abstract class fatherObject : GridObject
 
     public virtual void SetState()
     {
-        Debug.Log("Age: " + age);
         for (int i = 0; i < stateLists.Count - 1; i++) {
-            Debug.Log($"curr: {stateLists[i].ageThreshold}, next: {stateLists[i+1].ageThreshold}");
             if (age >= stateLists[i].ageThreshold && age < stateLists[i+1].ageThreshold) {
                 currentState = stateLists[i].state;
             }
@@ -106,7 +104,6 @@ public abstract class fatherObject : GridObject
         {
             currentState = stateLists[stateLists.Count - 1].state;
         }
-        Debug.Log("Current state: " + currentState);
     }
    
     /// <summary>
