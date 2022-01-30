@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TimeSlider : MonoBehaviour
 {
     public RectTransform fill;
+    public RectTransform fillArea;
     public RectTransform leftHandle;
     public RectTransform rightHandle;
 
@@ -15,22 +16,22 @@ public class TimeSlider : MonoBehaviour
 
     private void Awake() 
     {
-        leftStart = leftHandle.transform.position;
-        rightStart = rightHandle.transform.position;
+        leftStart = leftHandle.localPosition;
+        rightStart = rightHandle.localPosition;
+
         distanceAmount = Vector3.Distance(leftStart, rightStart);
-        originalFillSize = fill.sizeDelta.x;  
-        originalFillWidth = fill.rect.width;
+        originalFillSize = fillArea.rect.width;
     }
 
     public void UpdateUI(int leftTime, int rightTime, int totalTime) 
     {
         float changeAmount = distanceAmount / totalTime;
 
-        leftHandle.position = leftStart + new Vector3(changeAmount * leftTime, 0, 0);
-        rightHandle.position = rightStart - new Vector3(changeAmount * (totalTime - rightTime), 0, 0);
+        leftHandle.localPosition = leftStart + new Vector3(changeAmount * leftTime, 0, 0);
+        rightHandle.localPosition = rightStart - new Vector3(changeAmount * (totalTime - rightTime), 0, 0);
 
         float fillRatio = ((float)(rightTime - leftTime)) / ((float)totalTime);
         fill.sizeDelta = new Vector2 (originalFillSize * fillRatio, fill.sizeDelta.y);
-        fill.position = (leftHandle.position + rightHandle.position)/2;
+        fill.localPosition = (leftHandle.localPosition + rightHandle.localPosition)/2;
     }
 }

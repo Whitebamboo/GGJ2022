@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 2798638106600544566}
+  fillArea: {fileID: 2798638107434076647}
   leftHandle: {fileID: 2798638106778266690}
   rightHandle: {fileID: 2798638106200715876}
 --- !u!1 &2798638105961171269
@@ -234,10 +235,10 @@ RectTransform:
   m_Father: {fileID: 2798638107434076647}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 265, y: 0}
-  m_SizeDelta: {x: 530, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2798638106600544568
 CanvasRenderer:
