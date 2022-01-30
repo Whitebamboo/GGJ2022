@@ -12,6 +12,7 @@ public class MoveWithoutTimeChange : fatherObject
     {
         isChangeWithTime = false;
     }
+
     //make it pushable
     public override bool IsPushable()
     {
@@ -20,6 +21,6 @@ public class MoveWithoutTimeChange : fatherObject
 
     private void Update()
     {
-        Move();
+        //Move();
     }
 }

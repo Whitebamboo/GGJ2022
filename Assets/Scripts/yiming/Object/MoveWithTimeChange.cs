@@ -29,7 +29,7 @@ public class MoveWithTimeChange : fatherObject
 
     private void Update()
     {
-        Move();
+        //Move();
         ChangeState(animator);
     }
 }

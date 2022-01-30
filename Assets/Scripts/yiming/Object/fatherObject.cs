@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class fatherObject : GridObject
 {
@@ -57,21 +58,27 @@ public abstract class fatherObject : GridObject
         isMove = true;
         startPoint = transform.position;
         endPoint = endPoint_;
+        Move();
     }
 
     public void Move()
     {
         if (isMove)
         {
-            Vector3 dir = endPoint - startPoint;
-            dir = Vector3.Normalize(dir);
-            rb.MovePosition(rb.transform.position + dir * speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, endPoint) < threshold)
-            {
-                transform.position = endPoint;
+            //Vector3 dir = endPoint - startPoint;
+            //dir = Vector3.Normalize(dir);
+            //rb.MovePosition(rb.transform.position + dir * speed * Time.deltaTime);
+            //if (Vector3.Distance(transform.position, endPoint) < threshold)
+            //{
+            //    transform.position = endPoint;
+            //    isMove = false;
+            //    EventBus.Broadcast(EventTypes.Reach, this.gameObject);//���Լ�����grid manager
+            //}
+
+            transform.DOMove(endPoint, 1f).SetEase(Ease.OutCubic).OnComplete(()=> {
                 isMove = false;
-                EventBus.Broadcast(EventTypes.Reach, this.gameObject);//���Լ�����grid manager
-            }
+                EventBus.Broadcast(EventTypes.Reach, this.gameObject);
+            });
         }
     }
     /// <summary>
