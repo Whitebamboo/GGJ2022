@@ -109,9 +109,93 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5628800736312471914}
     m_Modifications:
+    - target: {fileID: 4143478462263188036, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
       propertyPath: isForward
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridSpacing
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5258526823538230186, guid: 58b04fb2ae0114785b0deb5a19ed036b, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1818326129458624211, guid: a0b11f9a91fd6427c935db8a9ead2c4b, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 4625672021202129003, guid: 745a2ef72964f4d698ca9633f07098f4, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 8120205481997618590, guid: 0b9f3d0f7461b4411922f2b338323b89, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 3842711267059137710, guid: 5f68bb9c5c16747d1b5dbe9033ba72be, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 7074608221020510741, guid: 7d6e03b8f9f9d4682ab7964fb3bb7d22, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 7833345197908570295, guid: d33073e1c247e418f9016831333e8c5f, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 1327290137249791054, guid: 3359086e4e145428694ddd406840fe11, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 6047657026218057676, guid: c4533aa273204474087b43c3bd253e92, type: 3}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[2].z
+      value: -0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[3].x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[4].x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[4].z
+      value: -0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[5].z
+      value: -0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[7].x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[7].z
+      value: -0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143478462847804774, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
+      propertyPath: gridOffset.Array.data[8].x
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 4143478462847804775, guid: 7a59cc89a9c23452fbbb16f4b6aa0070, type: 3}
       propertyPath: m_Name
