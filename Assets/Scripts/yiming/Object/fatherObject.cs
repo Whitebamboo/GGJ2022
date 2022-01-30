@@ -40,8 +40,8 @@ public abstract class fatherObject : GridObject
     {
         if (objToDestroy == gameObject) {
             // Don't actually destroy - might undo
-            EventBus.Broadcast<GameObject,bool>(EventTypes.DeadRecord, gameObject, isForward);
-            gameObject.SetActive(false);
+            //EventBus.Broadcast<GameObject,bool,(int,int)>(EventTypes.DeadRecord, gameObject, isForward,gridController.objectMapping[gameObject]);
+            gameObject.transform.position = new Vector3(5, -5, -22);
 
             // Destroy(gameObject);
         }

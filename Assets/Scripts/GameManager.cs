@@ -57,6 +57,19 @@ public class GameManager : CSingletonMono<GameManager>
         }
     }
 
+
+    public void UndoTimeChange(bool isForward)
+    {
+        if (isForward) leftTime = Mathf.Max(0, leftTime - 1);
+        else rightTime = Mathf.Min(totalTime, rightTime + 1);
+        timerSlider.UpdateUI(leftTime, rightTime, totalTime);
+
+        if (leftTime == rightTime)
+        {
+            CheckPassCondition();
+        }
+    }
+
     /// <summary>
     /// Gets the current step count for a given player based on isForward
     /// parameter

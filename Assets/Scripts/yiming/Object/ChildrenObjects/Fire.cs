@@ -47,8 +47,9 @@ public class Fire : CantMoveWithTimeChange
                             {
                                 Vector3 creatFirePoint = gridController.GetPosition(i, j);
                                 GameObject newFire = Instantiate(firePrefab, creatFirePoint, Quaternion.identity);
-                                EventBus.Broadcast(EventTypes.Create, newFire, gcobject);
+                                EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, gameObject, isForward, gridController.objectMapping[this.gameObject]);
                                 EventBus.Broadcast(EventTypes.Destroy, gcobject);
+                                EventBus.Broadcast(EventTypes.Create, newFire, gcobject);
                                 Destroy(gcobject, 1f);
                                 Fire f = newFire.GetComponent<Fire>();
                                 f.currentState = 0;
