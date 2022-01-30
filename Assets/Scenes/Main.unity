@@ -1002,12 +1002,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3f2e1f291a5a4e4a903d92d7c0b9f8a, type: 2}
   - {fileID: 11400000, guid: a278c1d3568cd8e46ac96d9bfa80140e, type: 2}
   - {fileID: 11400000, guid: a92ef9bcbbbce7640b12ebaed10a6c42, type: 2}
+  - {fileID: 11400000, guid: d58ad21abbeacbf4dac0c38e4c5cc948, type: 2}
   - {fileID: 11400000, guid: 9f26d876b5b8c174393a430602437d13, type: 2}
   - {fileID: 11400000, guid: 441762b5aad264f97a709c606d9a2e1c, type: 2}
   leftGridController: {fileID: 5628800735054203916}
   rightGridController: {fileID: 3502312513003776143}
   timerSlider: {fileID: 1994265601}
   skyMesh: {fileID: 554834457}
+  winSFX: {fileID: 0}
 --- !u!4 &1714909526
 Transform:
   m_ObjectHideFlags: 0
