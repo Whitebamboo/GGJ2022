@@ -24,7 +24,9 @@ public class GameManager : CSingletonMono<GameManager>
     Vector3 leftGridControllerPosition;
     Vector3 rightGridControllerPosition;
 
-    public AudioClip winSFX;
+    public GameObject butterflyPrefab;
+
+    List<GameObject> butterflies = new List<GameObject>();
 
     private MusicManager musicManager;
 
@@ -39,6 +41,7 @@ public class GameManager : CSingletonMono<GameManager>
         EventBus.AddListener<bool>(EventTypes.PlayerReachTarget, ReachTarget);
         EventBus.AddListener<bool>(EventTypes.PlayerLeaveTarget, LeaveTarget);
         EventBus.AddListener<bool>(EventTypes.TimeMoveEnd, TimeChange);
+        EventBus.AddListener(EventTypes.InteractionComplete, CheckPassCondition);
         ResetTime(levels[currentLevel].TotalTime); 
         ResetLevel();
     }
@@ -92,13 +95,6 @@ public class GameManager : CSingletonMono<GameManager>
 
     void Update() 
     {
-        //if (!resettingLevel && Input.GetKeyDown(KeyCode.R)) 
-        //{
-        //    skyMesh.GetComponent<Animator>().SetTrigger("ChangeLevel");
-        //    resettingLevel = true;
-        //    Invoke(nameof(ResetLevel), 3f);
-        //}
-
         if(Input.GetKeyDown(KeyCode.R))
         {
             ResetLevel();
@@ -135,14 +131,42 @@ public class GameManager : CSingletonMono<GameManager>
     void ResetLevel()
     {
         EventBus.Broadcast(EventTypes.RestartLevel);
+
+        foreach (GameObject butterfly in butterflies) {
+            Destroy(butterfly);
+        }
+        butterflies.Clear();
+
         leftGridController.SetLevel(levels[currentLevel]);
         rightGridController.SetLevel(levels[currentLevel]);
+        SpawnButterflies();
 
         player1ReachTarget = false;
         player2ReachTarget = false;
         resettingLevel = false;
 
         ResetTime(levels[currentLevel].TotalTime);
+    }
+
+    void SpawnButterflies() {
+        int numButterflies = Random.Range(1, 3);
+        for (int i = 0; i < numButterflies; i++) {
+            int row, col;
+
+            do {
+                row = Random.Range(0, 5);
+                col = Random.Range(0, leftGridController.width - 1);
+            } while (leftGridController.GetPositionObject(row, col) != null 
+                  && rightGridController.GetPositionObject(row, col) != null);
+
+            GameObject butterfly = Instantiate(butterflyPrefab, leftGridController.transform);
+            butterfly.transform.position = leftGridController.GetPosition(row, col);            
+            butterflies.Add(butterfly);
+
+            butterfly = Instantiate(butterflyPrefab, rightGridController.transform);
+            butterfly.transform.position = rightGridController.GetPosition(row, col);            
+            butterflies.Add(butterfly);
+        }
     }
 
     void ReachTarget(bool isForward) 

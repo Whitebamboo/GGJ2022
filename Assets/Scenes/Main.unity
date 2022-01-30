@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18227687, g: 0.22798477, b: 0.30733776, a: 1}
+  m_IndirectSpecularColor: {r: 0.18227649, g: 0.22798416, b: 0.30733666, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -929,7 +929,7 @@ MonoBehaviour:
   rightGridController: {fileID: 3502312513003776143}
   timerSlider: {fileID: 1994265601}
   skyMesh: {fileID: 554834457}
-  winSFX: {fileID: 0}
+  butterflyPrefab: {fileID: 6951374584277159322, guid: 04b296407161a4f7994c4cee1ed912f0, type: 3}
 --- !u!4 &1714909526
 Transform:
   m_ObjectHideFlags: 0
