@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isForward: 0
+  gridController: {fileID: 0}
   stateLists:
   - ageThreshold: 0
     state: 0
@@ -154,7 +155,7 @@ MonoBehaviour:
     state: 1
   currentState: 0
   isCycle: 0
-  speed: 3
+  speed: 15
   threshold: 0.1
   isChangeWithTime: 0
   age: 0

@@ -130,7 +130,7 @@ MonoBehaviour:
   stateLists: []
   currentState: 0
   isCycle: 0
-  speed: 10
+  speed: 20
   threshold: 0.1
   isChangeWithTime: 0
   age: 0
