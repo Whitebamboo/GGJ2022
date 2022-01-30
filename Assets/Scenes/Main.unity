@@ -350,7 +350,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554834457}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0558646014d514c0b9619d8ca901e9bc, type: 2}
   m_CullingMode: 0
@@ -850,9 +850,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanBeReset: 1
   levels:
-  - {fileID: 11400000, guid: a278c1d3568cd8e46ac96d9bfa80140e, type: 2}
   - {fileID: 11400000, guid: ac2130b8672f29a4c90b4fa6a5cbd169, type: 2}
   - {fileID: 11400000, guid: c3f2e1f291a5a4e4a903d92d7c0b9f8a, type: 2}
+  - {fileID: 11400000, guid: a278c1d3568cd8e46ac96d9bfa80140e, type: 2}
   - {fileID: 11400000, guid: a92ef9bcbbbce7640b12ebaed10a6c42, type: 2}
   - {fileID: 11400000, guid: d58ad21abbeacbf4dac0c38e4c5cc948, type: 2}
   - {fileID: 11400000, guid: 9f26d876b5b8c174393a430602437d13, type: 2}
@@ -860,6 +860,7 @@ MonoBehaviour:
   rightGridController: {fileID: 3502312513003776143}
   timerSlider: {fileID: 1994265601}
   skyMesh: {fileID: 554834457}
+  winSFX: {fileID: 8300000, guid: fb9aa0fe3dc184ba781aa6da74e5592a, type: 3}
 --- !u!4 &1714909526
 Transform:
   m_ObjectHideFlags: 0
@@ -2362,6 +2363,7 @@ MonoBehaviour:
   width: 7
   gridSpacing: 1
   isForward: 0
+  player: {fileID: 0}
 --- !u!1 &3533749610492517042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3076,6 +3078,7 @@ MonoBehaviour:
   width: 7
   gridSpacing: 1
   isForward: 1
+  player: {fileID: 0}
 --- !u!1 &5628800735054203917
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
 
     public override bool IsCrushable() 
     {
-        return currentState < 3; // TODO: change accordingly
+        return currentState == 0;
     }
 
     public override void CrashAction() 
