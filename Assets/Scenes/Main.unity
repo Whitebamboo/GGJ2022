@@ -1032,6 +1032,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d58ad21abbeacbf4dac0c38e4c5cc948, type: 2}
   - {fileID: 11400000, guid: 9f26d876b5b8c174393a430602437d13, type: 2}
   - {fileID: 11400000, guid: 441762b5aad264f97a709c606d9a2e1c, type: 2}
+  - {fileID: 11400000, guid: dcbbecd11cf529f49aa49812b0c2ebe0, type: 2}
   leftGridController: {fileID: 5628800735054203916}
   rightGridController: {fileID: 3502312513003776143}
   timerSlider: {fileID: 1994265601}
@@ -1386,6 +1387,14 @@ PrefabInstance:
     - target: {fileID: 303723394187192573, guid: ca70fba45f668ad46a4bde2ff41cc554, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046321427516257543, guid: ca70fba45f668ad46a4bde2ff41cc554, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0021972656
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046321427516257543, guid: ca70fba45f668ad46a4bde2ff41cc554, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00018310547
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca70fba45f668ad46a4bde2ff41cc554, type: 3}
