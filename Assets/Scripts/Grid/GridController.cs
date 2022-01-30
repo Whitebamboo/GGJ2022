@@ -310,7 +310,7 @@ public class GridController : MonoBehaviour
                 }
                 else {
                     EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
-                    
+
                     SetPositionObject(playerRow, playerCol, null);
                     gridObject.SetPassedObject(player);
 
@@ -328,6 +328,7 @@ public class GridController : MonoBehaviour
             return;
         }
 
+        EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
         MovePlayerToNewPosition(player, playerRow, playerCol, newRow, newCol);
     }
 
