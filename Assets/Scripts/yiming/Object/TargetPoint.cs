@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetPoint : GridObject
+public class TargetPoint : fatherObject
 {
     public override void MoveTo(Vector3 newPosition)
     {

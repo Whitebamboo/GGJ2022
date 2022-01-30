@@ -29,6 +29,7 @@ public class RecordAndUndo : MonoBehaviour
     {
         EventBus.RemoveListener<GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
         EventBus.RemoveListener<GameObject, bool>(EventTypes.DeadRecord, DeadRecord);
+        EventBus.RemoveListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     /// <summary>
     /// record before player start the new step like player make step one and record
@@ -38,9 +39,11 @@ public class RecordAndUndo : MonoBehaviour
     /// <param name="leftright"></param>
     public void GridRecord(GridSpaceController[,] grids, bool leftright)
     {
+
         int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
+            
             if (step + 1 > recorders.Count)
             {
                 ScreenShot ss = new ScreenShot();
@@ -92,17 +95,22 @@ public class RecordAndUndo : MonoBehaviour
 
     private void GetInfoinGrids(ScreenShot ss,GridSpaceController[,] grids)
     {
-        int row = grids.Rank;
+        int row = grids.GetLength(0); 
         int col = grids.GetLength(1);
+        
         ss.grids = new GridSpaceRecoder[row, col];
+        print(ss.grids.GetLength(0));
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
             {
+                ss.grids[i, j] = new GridSpaceRecoder();
                 if(grids[i,j].GetObject() != null)
                 {
                     GridObject go = grids[i, j].GetObject();
-                    ss.grids[i, j].isEmpty = false;
+                    print(i);
+                    print(j);
+                    ss.grids[i, j].SetEmpty(false);
                     ss.grids[i, j].SetObject(go.gameObject.name);
                     ss.grids[i, j].StoreInfo(go.gameObject);
                 }
@@ -153,7 +161,7 @@ public class RecordAndUndo : MonoBehaviour
                 else
                 {
                     UndoGrids(ss);
-                    if(ss.deadBodies.Count > 0)
+                    if(ss.deadBodies.Count > 0 && ss.deadBodies != null)
                     {
                         ScreenShot newss = new ScreenShot();
                         newss.step = step - 1;
@@ -182,7 +190,7 @@ public class RecordAndUndo : MonoBehaviour
 
     private void UndoGrids(ScreenShot ss)
     {
-        int row = ss.grids.Rank;
+        int row = ss.grids.GetLength(0);
         int col = ss.grids.GetLength(1);
         for(int i = 0; i < row; i++)
         {
@@ -192,7 +200,9 @@ public class RecordAndUndo : MonoBehaviour
                 {
                     if(ss.grids[i,j].t == "Player")
                     {
+                        print(ss.grids[i, j].GetObject());
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
+                      
                         (int, int) pasPos = gridController.objectMapping[go];
                         PlayerController player = go.GetComponent<PlayerController>();
                         Vector3 targetPosition = gridController.GetPosition(i, j);
@@ -205,6 +215,7 @@ public class RecordAndUndo : MonoBehaviour
                     else
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
+                        print(isForward);
                         (int, int) pasPos = gridController.objectMapping[go];
                         Vector3 targetPosition = gridController.GetPosition(i, j);
                         fatherObject fo = go.GetComponent<fatherObject>();

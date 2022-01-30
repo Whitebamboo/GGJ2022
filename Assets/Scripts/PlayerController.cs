@@ -144,6 +144,17 @@ public class PlayerController : GridObject
         EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
     }
 
+    public void MoveTo(Vector3 newPosition,bool canmove)
+    {
+        canMove = false;
+        newPosition.y = transform.position.y;
+
+        targetPosition = newPosition;
+        currentPosition = transform.position;
+        currentTime = 0;
+        isMoving = true;     
+    }
+
     public void ChangeDirection(Direction dir) 
     {
         playerDirection = dir;

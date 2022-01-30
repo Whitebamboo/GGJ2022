@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GridSpaceRecoder : MonoBehaviour
 {
-    public bool isEmpty;
+    public bool isEmpty =false;
     public string gridObjectName;
     public string t;//the object's type
     public bool haveState;//is this object have state
@@ -15,6 +15,12 @@ public class GridSpaceRecoder : MonoBehaviour
     {
         this.gridObjectName = gridObjectName;
     }
+
+    public void SetEmpty(bool isempty)
+    {
+        isEmpty = isempty;
+    }
+
 
     public string GetObject()
     {
