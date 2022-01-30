@@ -15,6 +15,7 @@ public class RecordAndUndo : MonoBehaviour
     public bool isForward = true;
     public Stack<ScreenShot> recorders = new Stack<ScreenShot>();
 
+
     private void Start()
     {
         EventBus.AddListener<int, GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
@@ -25,12 +26,17 @@ public class RecordAndUndo : MonoBehaviour
         EventBus.RemoveListener<int, GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
         EventBus.RemoveListener<int, GameObject, bool>(EventTypes.DeadRecord, DeadRecord);
     }
-
+    /// <summary>
+    /// record before player start the new step like player make step one and record
+    /// </summary>
+    /// <param name="step"></param>
+    /// <param name="grids"></param>
+    /// <param name="leftright"></param>
     public void GridRecord(int step, GridSpaceController[,] grids, bool leftright)
     {
         if(isForward == leftright)
         {
-            if (step + 1 > recorders.Count)
+            if (step > recorders.Count)
             {
                 ScreenShot ss = new ScreenShot();
                 recorders.Push(ss);
@@ -51,7 +57,7 @@ public class RecordAndUndo : MonoBehaviour
     {
         if(isForward == leftright)
         {
-            if (step + 1 > recorders.Count)
+            if (step > recorders.Count)
             {
                 ScreenShot ss = new ScreenShot();
                 recorders.Push(ss);
@@ -75,11 +81,6 @@ public class RecordAndUndo : MonoBehaviour
         db.getdeadInfomation(go);
         ss.deadBodies.Add(db);
     }
-
-
-
-
-
 
     private void GetInfoinGrids(ScreenShot ss,GridSpaceController[,] grids)
     {
@@ -106,6 +107,17 @@ public class RecordAndUndo : MonoBehaviour
 
 
 
+    }
+
+    /// <summary>
+    /// when press the button undo
+    /// </summary>
+    public void Undo()
+    {
+        if (recorders.Count > 0)
+        {
+            ScreenShot ss = recorders.Pop();
+        }
     }
 
 }
