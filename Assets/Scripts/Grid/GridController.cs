@@ -41,11 +41,14 @@ public class GridController : MonoBehaviour
         List<MapElement> mapElements = isForward ? levelData.LeftPlayerLevel : levelData.RightPlayerLevel;
         List<State> treeStates = levelData.TreeStates;
         // int elemAge = isForward ? 0 : levelData.TotalTime;
-
+        
+        int addToName = 0;
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
             elementPrefab.transform.position = GetPosition(r, c);
+            elementPrefab.name += $" ({addToName})";
+            addToName++;
 
             GridObject gridObj = elementPrefab.GetComponent<GridObject>();
             SetPositionObject(r, c, gridObj);
@@ -432,6 +435,11 @@ public class GridController : MonoBehaviour
     public void DestroyObject(GameObject toDeleteObj) 
     {
         if (objectMapping.ContainsKey(toDeleteObj)) {
+            (int, int) position = objectMapping[toDeleteObj];
+            int row = position.Item1; int col = position.Item2;
+            if (GetPositionObject(row, col)) {
+                SetPositionObject(row, col, null);
+            }
             objectMapping.Remove(toDeleteObj);
         }
     }
