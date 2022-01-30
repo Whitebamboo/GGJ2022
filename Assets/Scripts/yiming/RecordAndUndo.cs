@@ -50,7 +50,7 @@ public class RecordAndUndo : MonoBehaviour
             
             if (step == recorders.Count)
             {
-                print("step" + step);
+                
                 ScreenShot ss = new ScreenShot();
                 ss.step = step;//step = recorders.count = n-1
                 //put info into record
@@ -62,7 +62,7 @@ public class RecordAndUndo : MonoBehaviour
                 print(step);
                 //put info into this step
                 ScreenShot ss = recorders.Peek();
-               
+              
                 GetInfoinGrids(ss, grids);
                 print("do peek"+recorders.Peek().grids.GetLength(0));
             }
@@ -79,15 +79,14 @@ public class RecordAndUndo : MonoBehaviour
         {
             if (step+1 == recorders.Count)
             {
-                print("record dead" + step);
-             
+                
                 ScreenShot ss = new ScreenShot();
                 ss.step = step+1;
                 recorders.Push(ss);
                 GetInfoFromDead(ss, go,grid);
             }
           
-            print(recorders.Count); 
+             
         }   
     }
 
@@ -145,7 +144,7 @@ public class RecordAndUndo : MonoBehaviour
             if (recorders.Count > 0)
             {
                 ScreenShot ss = recorders.Pop();
-                print("recorders length" + recorders.Count);
+                
                 if(ss.step == step)//step = n at this step their have dead body
                 {
                     if (ss.deadBodies.Count > 0)
@@ -197,7 +196,7 @@ public class RecordAndUndo : MonoBehaviour
             {
 
                 (int,int) creatPoint = dbList[i].grid;
-                print(gridController.GetPosition(creatPoint.Item1, creatPoint.Item2));
+              
                 dbList[i].deadObject.transform.position = gridController.GetPosition(creatPoint.Item1, creatPoint.Item2);
 
             }
@@ -226,12 +225,11 @@ public class RecordAndUndo : MonoBehaviour
                         Vector3 targetPosition = gridController.GetPosition(i, j);
                         gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
                         player.MoveTo(targetPosition,true);
-                        print("player successfully undo");
-                       
+              
                         gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
                         gridController.objectMapping[go] = (i, j);
                     }
-                    else
+                    else if(ss.grids[i, j].t == "Object")
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
                         
@@ -239,7 +237,8 @@ public class RecordAndUndo : MonoBehaviour
                         if(gridController.objectMapping.TryGetValue(go,out(int,int)value))
                         {
                             
-                            (int, int) pasPos = gridController.objectMapping[go];
+                            
+                            (int, int) pasPos = gridController.objectMapping[go];                           
                             Vector3 targetPosition = gridController.GetPosition(i, j);
                             fatherObject fo = go.GetComponent<fatherObject>();
                             gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
