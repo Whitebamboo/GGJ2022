@@ -40,6 +40,5 @@ public class CantMoveWithTimeChange : fatherObject
     {
         base.SetState();
         animator = this.GetComponent<Animator>();
-        animator.SetTrigger("ChangeState");
     }
 }

@@ -6,9 +6,20 @@ using DG.Tweening;
 public abstract class fatherObject : GridObject
 {
     public List<State> stateLists = new List<State>();
-    public int currentState = 0;//a pointer to State ,will be the same as State.state
+    public int currentState {
+        set {
+            _currentState = value;
 
-   
+            Animator anim = GetComponent<Animator>();
+            if (anim) anim.SetTrigger("ChangeState");
+        }
+        get {
+            return _currentState;
+        }
+    } //a pointer to State ,will be the same as State.state
+
+    private int _currentState = 0;
+
     public bool isCycle = false;//can this object  can cycle in the state 
     public float speed = 10;
     public float threshold = 0.02f;
@@ -126,7 +137,7 @@ public abstract class fatherObject : GridObject
                 if (age >= stateLists[currentState + 1].ageThreshold)
                 {
                     currentState = stateLists[currentState + 1].state;
-                    animator.SetTrigger("ChangeState");
+                    // animator.SetTrigger("ChangeState");
                 }
             }
             else
@@ -135,7 +146,7 @@ public abstract class fatherObject : GridObject
                 {
                     currentState = 0;
                     age = 0;
-                    animator.SetTrigger("ChangeState");
+                    // animator.SetTrigger("ChangeState");
                 }
             }
         }
@@ -147,7 +158,7 @@ public abstract class fatherObject : GridObject
                 if (age <= stateLists[currentState - 1].ageThreshold)
                 {
                     currentState = stateLists[currentState - 1].state;
-                    animator.SetTrigger("ChangeState");
+                    // animator.SetTrigger("ChangeState");
                 }
             }
             else
@@ -156,7 +167,7 @@ public abstract class fatherObject : GridObject
                 {
                     currentState = stateLists.Count-1;
                     age = stateLists[stateLists.Count-1].ageThreshold;
-                    animator.SetTrigger("ChangeState");
+                    // animator.SetTrigger("ChangeState");
                 }
             }
         }
