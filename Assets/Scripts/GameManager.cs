@@ -24,6 +24,8 @@ public class GameManager : CSingletonMono<GameManager>
     Vector3 leftGridControllerPosition;
     Vector3 rightGridControllerPosition;
 
+    public AudioClip winSFX;
+
     private MusicManager musicManager;
 
     void Start()
@@ -169,7 +171,7 @@ public class GameManager : CSingletonMono<GameManager>
                     currentLevel++;
                 }
 
-                if (musicManager) musicManager.PlayWinSFX();
+                if (musicManager) musicManager.PlayClip(winSFX);
                 Invoke(nameof(WinAnimation), 0.5f);
                 return;
             }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b0117195793fe4bba6d6df0d69ffc6, type: 3}
   m_Name: Push_Level2
   m_EditorClassIdentifier: 
-  totalTime: 37
+  totalTime: 35
   leftPlayerLevel:
   - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 3
