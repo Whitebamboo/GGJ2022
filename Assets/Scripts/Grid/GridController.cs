@@ -37,7 +37,7 @@ public class GridController : MonoBehaviour
 
         List<MapElement> mapElements = isForward ? levelData.LeftPlayerLevel : levelData.RightPlayerLevel;
         List<State> treeStates = levelData.TreeStates;
-        int elemAge = isForward ? 0 : levelData.TotalTime;
+        // int elemAge = isForward ? 0 : levelData.TotalTime;
 
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
@@ -48,7 +48,7 @@ public class GridController : MonoBehaviour
             SetPositionObject(r, c, gridObj);
             gridObj.SetTimeDirection(isForward);
             gridObj.gridController = this;
-            gridObj.SetAge(elemAge);
+            if (mapElement.HasStartAge) gridObj.SetAge(mapElement.StartAge);
             if (elementPrefab.GetComponent<Tree>() != null) {
                 if (treeStates.Count > 0) elementPrefab.GetComponent<Tree>().stateLists = treeStates;
             }

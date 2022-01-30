@@ -56,6 +56,9 @@ public class MapElement
     public GameObject Prefab => prefab;
     public int Row => row;
     public int Col => col;
+
+    public bool HasStartAge;
+    public int StartAge;
 }
 
 [System.Serializable]
