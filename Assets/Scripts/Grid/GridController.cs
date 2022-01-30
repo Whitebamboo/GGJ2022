@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
-    public GameObject gridPrefab;
+    public GameObject[] gridPrefabs;//0:edge, 1:corner1,2:corner2,3:center
+    public Vector3[] gridOffset;
     public GameObject bottomLeft;
     public int height;
     public int width;
@@ -85,14 +86,58 @@ public class GridController : MonoBehaviour
         {
             for (int c = 0; c < width; c++)
             {
-                GameObject gridSpace = Instantiate(gridPrefab, transform);
-                gridSpace.transform.position = bottomLeft.transform.position + (new Vector3(c * gridSpacing, 0, r * gridSpacing));
-                grid[r, c] = gridSpace.GetComponent<GridSpaceController>();
+                if(r==0 && c == 0)
+                {
+                    InsGrid(gridPrefabs[1], r, c,gridOffset[1]);
+                }
+                else if(r==0 && c == width - 1)
+                {
+                    InsGrid(gridPrefabs[2], r, c, gridOffset[2]);
+                }
+                else if(r==height-1 && c == 0)
+                {
+                    InsGrid(gridPrefabs[3], r, c, gridOffset[3]);
+                }
+                else if(r==height-1 && c == width - 1)
+                {
+                    InsGrid(gridPrefabs[4], r, c, gridOffset[4]);
+                }
+                else if(r == 0)
+                {
+                    InsGrid(gridPrefabs[5], r, c, gridOffset[5]);
+                }
+                else if (c == 0)
+                {
+                    InsGrid(gridPrefabs[6], r, c, gridOffset[6]);
+                }
+                else if(c == width - 1)
+                {
+                    InsGrid(gridPrefabs[7], r, c, gridOffset[7]);
+                }
+                else if(r == height - 1)
+                {
+                    InsGrid(gridPrefabs[8], r, c, gridOffset[8]);
+                }
+                else
+                {
+                    InsGrid(gridPrefabs[0], r, c, gridOffset[0]);
+                }
+
+             
             }
         }
 
         bottomLeft.SetActive(false);
     }
+
+    void InsGrid(GameObject go,int r,int c,Vector3 offset)
+    {
+        GameObject gridSpace = Instantiate(go, transform);
+        gridSpace.transform.position = bottomLeft.transform.position + (new Vector3(c * gridSpacing, 0, r * gridSpacing));
+        gridSpace.transform.localPosition = gridSpace.transform.localPosition + offset;
+        grid[r, c] = gridSpace.GetComponent<GridSpaceController>();
+    }
+
 
     public void SetPositionObject(int row, int col, GridObject gridObj)
     {
