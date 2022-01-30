@@ -14,47 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTime: 37
   leftPlayerLevel:
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 3
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 5
     col: 5
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 5
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 5
     col: 1
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 1
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 3
     col: 2
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 2
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 4
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 4
     col: 1
     HasStartAge: 0
@@ -75,47 +75,47 @@ MonoBehaviour:
     col: 4
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 5
     col: 1
     HasStartAge: 1
     StartAge: 25
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 3
     col: 3
     HasStartAge: 1
     StartAge: 25
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 1
     HasStartAge: 1
     StartAge: 25
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 5
     HasStartAge: 1
     StartAge: 25
-  - prefab: {fileID: 6701261566490509880, guid: 20fb8437bafa74913872c3d565f737a6, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 5
     col: 5
     HasStartAge: 1
     StartAge: 25
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 2
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 3
     col: 4
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 4
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 2
     col: 5
     HasStartAge: 0

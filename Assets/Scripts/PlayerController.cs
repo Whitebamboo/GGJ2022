@@ -54,9 +54,20 @@ public class PlayerController : GridObject
     float cooldownTime = 0.3f;
     bool canMove = true;
 
+    public Animator anim;
+
     void Start()
     {
         EventBus.AddListener(EventTypes.StopAll, StopAll);
+        EventBus.AddListener(EventTypes.LevelComplete, LevelComplete);
+        EventBus.AddListener<bool>(EventTypes.PlayerPush, TryPush);
+    }
+
+    private void OnDestroy() 
+    {
+        EventBus.RemoveListener(EventTypes.StopAll, StopAll);
+        EventBus.RemoveListener(EventTypes.LevelComplete, LevelComplete);
+        EventBus.RemoveListener<bool>(EventTypes.PlayerPush, TryPush);
     }
 
     void Update()
@@ -71,6 +82,8 @@ public class PlayerController : GridObject
                 transform.position = targetPosition;
                 isMoving = false;
                 canMove = true;
+
+                anim.SetBool("Move", false);
                 EventBus.Broadcast<bool>(EventTypes.TimeMoveEnd, isForward);
             }
         }
@@ -152,7 +165,9 @@ public class PlayerController : GridObject
         targetPosition = newPosition;
         currentPosition = transform.position;
         currentTime = 0;
-        isMoving = true;     
+        isMoving = true;   
+
+        anim.SetBool("Move", true);
     }
 
     public void ChangeDirection(Direction dir) 
@@ -163,6 +178,17 @@ public class PlayerController : GridObject
     public void StopAll() 
     {
         canMove = false;
+    }
+
+    public void LevelComplete() 
+    {
+        anim.SetBool("Celebrate", true);
+    }
+
+    public void TryPush(bool isForward)
+    {
+        if (this.isForward != isForward) return;
+        anim.SetTrigger("Push");
     }
 
     public override bool Equals(GridObject otherObject)
