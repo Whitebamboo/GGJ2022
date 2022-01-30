@@ -21,4 +21,6 @@ public enum EventTypes
     CloseSeedHint,
     UndoLastMove,
     LevelComplete,
+    RestartLevel,
+    LevelLost,
 }
