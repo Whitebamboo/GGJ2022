@@ -21,6 +21,7 @@ public class TimeBack : MonoBehaviour
     }
     public void BackWardStart()
     {
+        print("startBackward");
         StartCoroutine(StarBackward());
 
      
@@ -29,11 +30,13 @@ public class TimeBack : MonoBehaviour
     IEnumerator StarBackward()
     {
         yield return new WaitForSeconds(5f);
+        print("startBackward1");
         BackWard();
 
     }
     public void BackWard()
     {
+        
         while (leftRecorde.recorders.Count > 0 || rightRecorde.recorders.Count > 0)
         {
             if (leftRecorde.recorders.Count > 0 && leftWait)
@@ -53,6 +56,13 @@ public class TimeBack : MonoBehaviour
 
     public void WaitUntilLastAnime(bool leftright)
     {
+        StartCoroutine(WaitFinished(leftright));
+    }
+
+    IEnumerator WaitFinished(bool leftright)
+    {
+        yield return new WaitForSeconds(1f);
+
         if (leftright)
         {
             leftWait = true;

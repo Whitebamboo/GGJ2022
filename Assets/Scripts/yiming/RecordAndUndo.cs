@@ -177,6 +177,7 @@ public class RecordAndUndo : MonoBehaviour
 
         if(isForward == leftright)
         {
+            
             while (recorders.Count > 0 && recorders.Peek().step >= step - 1) 
             {
                 ScreenShot ss = recorders.Pop();
@@ -191,6 +192,7 @@ public class RecordAndUndo : MonoBehaviour
                 UndoGrids(ss);
             }
             gameManager.UndoTimeChange(isForward);
+            EventBus.Broadcast(EventTypes.SuccessFullyUndo, leftright);
         }
     }
 
