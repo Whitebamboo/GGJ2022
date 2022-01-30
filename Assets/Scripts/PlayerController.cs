@@ -153,8 +153,6 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
-
-        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
     }
 
     public void MoveTo(Vector3 newPosition,bool canmove)
