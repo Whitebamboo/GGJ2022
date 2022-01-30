@@ -408,8 +408,12 @@ public class GridController : MonoBehaviour
         (int, int) position;
         if (objectMapping.TryGetValue(parentObject, out position)) 
         {
+            Debug.Log(position);
             SetPositionObject(position.Item1, position.Item2, newObject.GetComponent<GridObject>());
             newObject.GetComponent<GridObject>().isForward = isForward;
+            newObject.transform.SetParent(transform);
+            newObject.transform.position += new Vector3(0, 0.2f, 0);
+            
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);
         }
