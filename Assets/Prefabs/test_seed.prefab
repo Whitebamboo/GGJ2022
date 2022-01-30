@@ -134,4 +134,4 @@ MonoBehaviour:
   threshold: 0.1
   isChangeWithTime: 0
   age: 0
-  treePrefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
+  treePrefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}

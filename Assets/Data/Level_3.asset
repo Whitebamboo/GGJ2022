@@ -19,12 +19,12 @@ MonoBehaviour:
     col: 0
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 8326334427062695467, guid: c9db62ae046d92b4bba1569584c42382, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 0
     col: 2
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 8326334427062695467, guid: c9db62ae046d92b4bba1569584c42382, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 0
     HasStartAge: 0
@@ -55,11 +55,11 @@ MonoBehaviour:
     col: 0
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 0
-    HasStartAge: 0
-    StartAge: 0
+    HasStartAge: 1
+    StartAge: 10
   - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 1
     col: 1
