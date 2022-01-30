@@ -19,6 +19,34 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
         
     }
 
+    public override void CrushAction(Direction dir)
+    {
+        base.CrushAction(dir);
+        
+        // Rotate by direction
+        switch (dir)
+        {
+            case Direction.Up: 
+                animator.SetTrigger("FallUp");
+                break;
+            case Direction.Down:
+                animator.SetTrigger("FallDown");
+                break;
+            case Direction.Left:
+                animator.SetTrigger("FallLeft");
+                break;
+            case Direction.Right:
+                animator.SetTrigger("FallRight");
+                break;
+            default: break;
+        }
+        Invoke(nameof(BroadcastDestroy), 1f);
+    }
+
+    void BroadcastDestroy() {
+        EventBus.Broadcast(EventTypes.Destroy, gameObject);
+    }
+
     public override bool IsCrushable() 
     {
         return currentState == 0;

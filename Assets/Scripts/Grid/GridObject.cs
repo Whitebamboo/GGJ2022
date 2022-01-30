@@ -34,6 +34,14 @@ public abstract class GridObject : MonoBehaviour
     }
 
     /// <summary>
+    /// Run when crushed into by pushable objects
+    /// </summary>
+    public virtual void CrushAction(Direction dir) 
+    {
+        return;
+    }
+
+    /// <summary>
     /// Run when crashed into by pushable objects
     /// </summary>
     public virtual void CrashAction() 

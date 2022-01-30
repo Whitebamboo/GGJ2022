@@ -220,8 +220,8 @@ public class GridController : MonoBehaviour
             else if (newPositionObject.IsCrushable()) // Something crushable in pushed spot
             {
                 print(objectMapping[newPositionObject.gameObject]);
+                newPositionObject.CrushAction(dir);
                 EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, newPositionObject.gameObject, isForward, objectMapping[newPositionObject.gameObject]);
-                EventBus.Broadcast(EventTypes.Destroy, newPositionObject.gameObject);
                 successfulMove = true;
             }
             else 
@@ -425,6 +425,7 @@ public class GridController : MonoBehaviour
 
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);
+            EventBus.Broadcast(EventTypes.CreateRecord, newObject.gameObject, isForward, objectMapping[newObject.gameObject]);
         }
     }
 

@@ -24,7 +24,7 @@ public class RecordAndUndo : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
-        EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreatRecord,
+        EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void OnDestroy()
@@ -92,7 +92,7 @@ public class RecordAndUndo : MonoBehaviour
         }   
     }
 
-    public void CreatRecord(GameObject go, bool leftright, (int, int) grid)
+    public void CreateRecord(GameObject go, bool leftright, (int, int) grid)
     {
 
         int step = gameManager.GetStep(leftright);
