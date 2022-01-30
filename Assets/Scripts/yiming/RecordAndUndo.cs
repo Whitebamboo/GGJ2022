@@ -10,6 +10,7 @@ public class RecordAndUndo : MonoBehaviour
         public int step;
         public GridSpaceRecoder[,] grids;
         public List<DeadBody> deadBodies;
+        public List<CreatBody> creatBodies;
     }
 
     public bool isForward = true;
@@ -23,6 +24,7 @@ public class RecordAndUndo : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
+        EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreatRecord,
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void OnDestroy()
@@ -57,7 +59,7 @@ public class RecordAndUndo : MonoBehaviour
                 GetInfoinGrids(ss, grids);
                 recorders.Push(ss);
             }
-            else//step<recorders.count
+            else//step<recorders.count or step>
             {
                 print(step);
                 //put info into this step
@@ -89,6 +91,39 @@ public class RecordAndUndo : MonoBehaviour
              
         }   
     }
+
+    public void CreatRecord(GameObject go, bool leftright, (int, int) grid)
+    {
+
+        int step = gameManager.GetStep(leftright);
+
+        if (isForward == leftright)
+        {
+            if (step == recorders.Count)
+            {
+
+                ScreenShot ss = new ScreenShot();
+                ss.step = step;
+                recorders.Push(ss);
+                GetInfoFromCreate(ss, go, grid);
+            }
+
+
+        }
+    }
+
+
+    private void GetInfoFromCreate(ScreenShot ss, GameObject go, (int, int) grid)
+    {
+        if (ss.creatBodies == null)
+        {
+            ss.creatBodies = new List<CreatBody>();
+        }
+        CreatBody cb = new CreatBody();
+        cb.getCreatInformation(go, grid);
+        ss.creatBodies.Add(cb);
+    }
+
 
     private void GetInfoFromDead(ScreenShot ss,GameObject go,(int,int)grid)
     {
@@ -151,6 +186,10 @@ public class RecordAndUndo : MonoBehaviour
                     {
                         temperarylist = ss.deadBodies;
                     }
+                    if (ss.creatBodies.Count > 0)
+                    {
+                        
+                    }
                     ss = recorders.Pop();
                     UndoGrids(ss);
                     
@@ -187,6 +226,22 @@ public class RecordAndUndo : MonoBehaviour
         }
         
     }
+
+    private void UndoCreate(List<CreatBody> cbList)
+    {
+        if (cbList.Count > 0)
+        {
+            for(int i=0; i< cbList.Count; i++)
+            {
+                (int, int) creatPoint = cbList[i].grid;
+                gridController.SetPositionObject(creatPoint.Item1, creatPoint.Item2, null);
+                gridController.objectMapping.Remove(cbList[i].creatBody);
+                Destroy(cbList[i].creatBody);
+                
+            }
+        }
+    }
+
 
     private void UndoDeadBodies(List<DeadBody> dbList)
     {
@@ -229,29 +284,37 @@ public class RecordAndUndo : MonoBehaviour
                         gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
                         gridController.objectMapping[go] = (i, j);
                     }
-                    else if(ss.grids[i, j].t == "Object")
+                    else //if(ss.grids[i, j].t == "Object")
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
+                        print("find object" + go.name);
+
                         
-
-                        if(gridController.objectMapping.TryGetValue(go,out(int,int)value))
+                        if (gridController.objectMapping.TryGetValue(go,out(int, int) paspos))
                         {
-                            
-                            
-                            (int, int) pasPos = gridController.objectMapping[go];                           
-                            Vector3 targetPosition = gridController.GetPosition(i, j);
-                            fatherObject fo = go.GetComponent<fatherObject>();
-                            gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
-                            fo.MoveTo(targetPosition);
-
-                            gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
-                            gridController.objectMapping[go] = (i, j);
-                            if (ss.grids[i, j].haveState)
+                            if(paspos != (i, j))
                             {
-                                go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
-                                go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
+                                print("move" + go.name + "from" + paspos + " to " + (i, j));
+                                Vector3 targetPosition = gridController.GetPosition(i, j);
+                                fatherObject fo = go.GetComponent<fatherObject>();
+                                gridController.SetPositionObject(paspos.Item1, paspos.Item2, null);
+                                fo.MoveTo(targetPosition);
+
+                                gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
+                                gridController.objectMapping[go] = (i, j);
+                                if (ss.grids[i, j].haveState)
+                                {
+                                    go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
+                                    go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
+                                }
                             }
+                            
+
                         }
+                         
+                            
+                            
+                        
                        
                     }
                    

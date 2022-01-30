@@ -16,6 +16,7 @@ public enum EventTypes
     StopAll, // called to stop everything
     GridRecord,//to record grid info mation
     DeadRecord,//when body dead record the info
+    CreatRecord,//when body creat record the info 
     ShowSeedHint,
     CloseSeedHint,
     UndoLastMove,
