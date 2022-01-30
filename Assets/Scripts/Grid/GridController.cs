@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -158,6 +159,10 @@ public class GridController : MonoBehaviour
                 EventBus.Broadcast(EventTypes.Destroy, newPositionObject.gameObject);
                 successfulMove = true;
             }
+            else 
+            {
+                newPositionObject.CrashAction();
+            }
 
             if (successfulMove) 
             {
@@ -236,8 +241,6 @@ public class GridController : MonoBehaviour
                     return;
                 }
             }
-
-            // return;
         }
 
         if (GetPositionObject(playerRow, playerCol) == player) {
@@ -261,12 +264,32 @@ public class GridController : MonoBehaviour
         int newRow = playerRow + yOff;
         int newCol = playerCol + xOff;
 
-        if (!IsValidPosition(newRow, newCol)) return;
-        if (GetPositionObject(newRow, newCol) != null) {
-            // Something is in the position we can interact with
-            GridObject gridObject = GetPositionObject(newRow, newCol);
-            gridObject.interactive();
-            return;
+        if (IsValidPosition(newRow, newCol)) {
+            if (GetPositionObject(newRow, newCol) != null) {
+                // Something is in the position we can interact with
+                GridObject gridObject = GetPositionObject(newRow, newCol);
+                gridObject.interactive();
+                return;
+            }
+        }
+
+        // Try every direction
+        foreach (Direction dir in Enum.GetValues(typeof(Direction))) {
+            xOff = GetXOffset(dir);
+            yOff = GetYOffset(dir);
+
+            newRow = playerRow + yOff;
+            newCol = playerCol + xOff;
+
+            if (IsValidPosition(newRow, newCol)) {
+                if (GetPositionObject(newRow, newCol) != null) {
+                    // Something is in the position we can interact with
+                    GridObject gridObject = GetPositionObject(newRow, newCol);
+                    gridObject.interactive();
+                    player.ChangeDirection(dir);
+                    return;
+                }
+            }
         }
     }
 

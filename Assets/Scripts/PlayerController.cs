@@ -15,7 +15,33 @@ public class PlayerController : GridObject
     public KeyCode interactKeycode;
 
     int moveSpeed = 4;
-    Direction playerDirection;
+
+    Direction playerDirection
+    {
+        get { return _playerDirection; }
+        set
+        {
+            _playerDirection = value;
+            switch (_playerDirection)
+            {
+                case Direction.Up: 
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                case Direction.Down:
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case Direction.Left:
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                    break;
+                case Direction.Right:
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                    break;
+                default: break;
+            }
+        }
+    }
+    
+    private Direction _playerDirection;
 
     bool keyDown;
 
@@ -52,25 +78,21 @@ public class PlayerController : GridObject
         {
             if (Input.GetKey(upKeycode))
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
                 playerDirection = Direction.Up;
                 TryMove();
             }
             else if (Input.GetKey(downKeycode))
             {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
                 playerDirection = Direction.Down;
                 TryMove();
             }
             else if (Input.GetKey(leftKeycode))
             {
-                transform.rotation = Quaternion.Euler(0, -90, 0);
                 playerDirection = Direction.Left;
                 TryMove();
             }
             else if (Input.GetKey(rightKeycode))
             {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
                 playerDirection = Direction.Right;
                 TryMove();
             }
@@ -103,6 +125,11 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
+    }
+
+    public void ChangeDirection(Direction dir) 
+    {
+        playerDirection = dir;
     }
 
     public void StopAll() 

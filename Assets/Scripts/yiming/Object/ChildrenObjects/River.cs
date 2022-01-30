@@ -8,7 +8,7 @@ public class River : CantMoveWithTimeChange
     private void OnEnable()
     {
         isCycle = true;//river always can cycle
-        bool passable = false;
+        passable = false;
     }
 
 

@@ -33,6 +33,14 @@ public abstract class GridObject : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Run when crashed into by pushable objects
+    /// </summary>
+    public virtual void CrashAction() 
+    {
+        return;
+    }
+
     public void SetPassedObject(GridObject passedObject) 
     {
         if (!IsPassable()) return;

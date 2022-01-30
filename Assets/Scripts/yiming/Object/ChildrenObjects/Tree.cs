@@ -24,6 +24,14 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
         return currentState < 3; // TODO: change accordingly
     }
 
+    public override void CrashAction() 
+    {
+        if (currentState == 4) {
+            currentState = 3;
+            ChangeState(animator);
+        }
+    }
+
     public override bool Equals(GridObject otherObject)
     {
         Tree otherTree = otherObject.GetComponent<Tree>();
