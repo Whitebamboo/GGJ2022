@@ -59,9 +59,10 @@ public class RecordAndUndo : MonoBehaviour
             }
             else//step<recorders.count
             {
+                print(step);
                 //put info into this step
                 ScreenShot ss = recorders.Peek();
-                
+               
                 GetInfoinGrids(ss, grids);
                 print("do peek"+recorders.Peek().grids.GetLength(0));
             }
@@ -181,6 +182,7 @@ public class RecordAndUndo : MonoBehaviour
                         recorders.Push(newss);
                     }
                 }
+                gameManager.UndoTimeChange(isForward);
             }
             
         }
@@ -258,7 +260,7 @@ public class RecordAndUndo : MonoBehaviour
             }
         }
 
-        gameManager.UndoTimeChange(isForward);
+        
     }
 
 }
