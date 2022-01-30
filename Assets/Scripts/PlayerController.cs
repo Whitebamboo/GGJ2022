@@ -70,6 +70,7 @@ public class PlayerController : GridObject
                 transform.position = targetPosition;
                 EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
                 isMoving = false;
+                canMove = true;
             }
         }
         
@@ -127,6 +128,7 @@ public class PlayerController : GridObject
 
     public override void MoveTo(Vector3 newPosition)
     {
+        canMove = false;
         newPosition.y = transform.position.y;
 
         targetPosition = newPosition;
