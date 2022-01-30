@@ -222,7 +222,6 @@ public class GridController : MonoBehaviour
             }
             else if (newPositionObject.IsCrushable()) // Something crushable in pushed spot
             {
-                print(objectMapping[newPositionObject.gameObject]);
                 newPositionObject.CrushAction(dir);
                 EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, newPositionObject.gameObject, isForward, objectMapping[newPositionObject.gameObject]);
                 successfulMove = true;
@@ -437,7 +436,7 @@ public class GridController : MonoBehaviour
         if (objectMapping.ContainsKey(toDeleteObj)) {
             (int, int) position = objectMapping[toDeleteObj];
             int row = position.Item1; int col = position.Item2;
-            if (GetPositionObject(row, col)) {
+            if (GetPositionObject(row, col).gameObject == toDeleteObj) {
                 SetPositionObject(row, col, null);
             }
             objectMapping.Remove(toDeleteObj);

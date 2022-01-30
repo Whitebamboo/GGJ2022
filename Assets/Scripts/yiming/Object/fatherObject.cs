@@ -35,6 +35,7 @@ public abstract class fatherObject : GridObject
     // Start is called before the first frame update
     public void Awake()
     {
+        mySequence = DOTween.Sequence();
         rb = this.GetComponent<Rigidbody>();
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
         EventBus.AddListener<GameObject>(EventTypes.Destroy, DestroySelf);
