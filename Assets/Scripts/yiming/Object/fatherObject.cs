@@ -8,10 +8,12 @@ public abstract class fatherObject : GridObject
     public List<State> stateLists = new List<State>();
     public int currentState {
         set {
-            _currentState = value;
+            if (_currentState != value) {
+                _currentState = value;
 
-            Animator anim = GetComponent<Animator>();
-            if (anim) anim.SetTrigger("ChangeState");
+                Animator anim = GetComponent<Animator>();
+                if (anim) anim.SetTrigger("ChangeState");
+            }
         }
         get {
             return _currentState;
@@ -78,16 +80,6 @@ public abstract class fatherObject : GridObject
     {
         if (isMove)
         {
-            //Vector3 dir = endPoint - startPoint;
-            //dir = Vector3.Normalize(dir);
-            //rb.MovePosition(rb.transform.position + dir * speed * Time.deltaTime);
-            //if (Vector3.Distance(transform.position, endPoint) < threshold)
-            //{
-            //    transform.position = endPoint;
-            //    isMove = false;
-            //    EventBus.Broadcast(EventTypes.Reach, this.gameObject);//���Լ�����grid manager
-            //}
-
             mySequence = DOTween.Sequence();
             mySequence.Append(transform.DOMove(endPoint, 1f).SetEase(Ease.OutCubic).OnComplete(()=> {
                 isMove = false;
@@ -133,46 +125,10 @@ public abstract class fatherObject : GridObject
     public void ChangeState(Animator animator)
     {
         int offset = (stateLists[stateLists.Count - 1].ageThreshold - stateLists[0].ageThreshold) / Mathf.Max(stateLists.Count-1,0);
-        if (isForward)
-        {
-            if (currentState + 1 < stateLists.Count)
-            {
-                if (age >= stateLists[currentState + 1].ageThreshold)
-                {
-                    currentState = stateLists[currentState + 1].state;
-                    // animator.SetTrigger("ChangeState");
-                }
-            }
-            else
-            {
-                if (age >= stateLists[stateLists.Count - 1].ageThreshold +offset && isCycle)
-                {
-                    currentState = 0;
-                    age = 0;
-                    // animator.SetTrigger("ChangeState");
-                }
-            }
+        if (isCycle) {
+            age = age % stateLists[stateLists.Count - 1].ageThreshold;
         }
-    
-        if (!isForward)
-        {
-            if (currentState - 1 >= 0)//
-            {
-                if (age <= stateLists[currentState - 1].ageThreshold)
-                {
-                    currentState = stateLists[currentState - 1].state;
-                    // animator.SetTrigger("ChangeState");
-                }
-            }
-            else
-            {
-                if (age <= stateLists[0].ageThreshold- offset && isCycle)
-                {
-                    currentState = stateLists.Count-1;
-                    age = stateLists[stateLists.Count-1].ageThreshold;
-                    // animator.SetTrigger("ChangeState");
-                }
-            }
-        }
+
+        SetState();
     }
 }

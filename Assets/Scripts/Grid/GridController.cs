@@ -43,11 +43,14 @@ public class GridController : MonoBehaviour
         // int elemAge = isForward ? 0 : levelData.TotalTime;
         
         int addToName = 0;
+        string forwardSuffix = isForward ? "F" : "B";
+
         foreach (MapElement mapElement in mapElements) {
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
             elementPrefab.transform.position = GetPosition(r, c);
-            elementPrefab.name += $" ({addToName})";
+            
+            elementPrefab.name += $" ({addToName}, {forwardSuffix})";
             addToName++;
 
             GridObject gridObj = elementPrefab.GetComponent<GridObject>();

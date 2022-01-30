@@ -260,8 +260,6 @@ public class RecordAndUndo : MonoBehaviour
 
     private void UndoGrids(ScreenShot ss)
     {
-    
-        
         int row = ss.grids.GetLength(0);
         int col = ss.grids.GetLength(1);
         for(int i = 0; i < row; i++)
@@ -272,7 +270,6 @@ public class RecordAndUndo : MonoBehaviour
                 {
                     if(ss.grids[i,j].t == "Player")
                     {
-                        
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
                       
                         (int, int) pasPos = gridController.objectMapping[go];
@@ -288,7 +285,6 @@ public class RecordAndUndo : MonoBehaviour
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
                         print("find object" + go.name);
-
                         
                         if (gridController.objectMapping.TryGetValue(go,out(int, int) paspos))
                         {
@@ -304,18 +300,12 @@ public class RecordAndUndo : MonoBehaviour
                                 gridController.objectMapping[go] = (i, j);
                                 if (ss.grids[i, j].haveState)
                                 {
+                                    Debug.Log($"has state {go.name}");
                                     go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
                                     go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
                                 }
                             }
-                            
-
-                        }
-                         
-                            
-                            
-                        
-                       
+                        }      
                     }
                    
                 }
