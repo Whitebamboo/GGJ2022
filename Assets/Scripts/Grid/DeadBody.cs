@@ -13,5 +13,6 @@ public class DeadBody : MonoBehaviour
         GridObject g = go.GetComponent<GridObject>();
         this.grid = grid;
         deadObject = go;
+       
     }
 }

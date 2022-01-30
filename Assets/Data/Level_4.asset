@@ -55,9 +55,9 @@ MonoBehaviour:
     col: 1
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6270645083394696083, guid: 73c58b671334e5b4386682afbd6ce0b4, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 1
     col: 3
-    HasStartAge: 0
-    StartAge: 0
+    HasStartAge: 1
+    StartAge: 10
   TreeStates: []

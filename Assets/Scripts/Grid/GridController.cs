@@ -220,7 +220,7 @@ public class GridController : MonoBehaviour
             else if (newPositionObject.IsCrushable()) // Something crushable in pushed spot
             {
                 print(objectMapping[newPositionObject.gameObject]);
-                EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, gameObject, isForward, objectMapping[newPositionObject.gameObject]);
+                EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, newPositionObject.gameObject, isForward, objectMapping[newPositionObject.gameObject]);
                 EventBus.Broadcast(EventTypes.Destroy, newPositionObject.gameObject);
                 successfulMove = true;
             }
@@ -311,6 +311,8 @@ public class GridController : MonoBehaviour
                     CheckAround(player);
 
                     player.MoveTo(GetPosition(newRow, newCol));
+                    EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
+
                     objectMapping[player.gameObject] = (newRow, newCol);
                     return;
                 }
@@ -333,6 +335,7 @@ public class GridController : MonoBehaviour
         CheckAround(player);
         
         player.MoveTo(GetPosition(newRow, newCol));
+        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
     }
 
     public void TryInteract(PlayerController player, Direction playerDirection) 
@@ -419,7 +422,7 @@ public class GridController : MonoBehaviour
             newObject.GetComponent<GridObject>().isForward = isForward;
             newObject.transform.SetParent(transform);
             newObject.transform.position += new Vector3(0, 0.2f, 0);
-            
+
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);
         }

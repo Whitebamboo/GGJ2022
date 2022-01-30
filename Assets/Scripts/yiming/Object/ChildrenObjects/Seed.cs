@@ -13,7 +13,6 @@ public class Seed : MoveWithoutTimeChange
         EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, gameObject, isForward, gridController.objectMapping[this.gameObject]);
         EventBus.Broadcast(EventTypes.Create, go, this.gameObject);
         EventBus.Broadcast(EventTypes.Destroy, this.gameObject);
-      
     }
 
     public override bool Equals(GridObject otherObject)

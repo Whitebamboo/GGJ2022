@@ -126,11 +126,7 @@ public abstract class fatherObject : GridObject
                 if (age >= stateLists[currentState + 1].ageThreshold)
                 {
                     currentState = stateLists[currentState + 1].state;
-                    if (animator)
-                    {
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", 1f);
-                    }
+                    animator.SetTrigger("ChangeState");
                 }
             }
             else
@@ -139,11 +135,7 @@ public abstract class fatherObject : GridObject
                 {
                     currentState = 0;
                     age = 0;
-                    if (animator)
-                    {
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", 1f);
-                    }
+                    animator.SetTrigger("ChangeState");
                 }
             }
         }
@@ -155,11 +147,7 @@ public abstract class fatherObject : GridObject
                 if (age <= stateLists[currentState - 1].ageThreshold)
                 {
                     currentState = stateLists[currentState - 1].state;
-                    if (animator)
-                    {
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", -1f);
-                    }
+                    animator.SetTrigger("ChangeState");
                 }
             }
             else
@@ -168,11 +156,7 @@ public abstract class fatherObject : GridObject
                 {
                     currentState = stateLists.Count-1;
                     age = stateLists[stateLists.Count-1].ageThreshold;
-                    if (animator)
-                    {
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", -1f);
-                    }
+                    animator.SetTrigger("ChangeState");
                 }
             }
         }
