@@ -30,7 +30,8 @@ public class GameManager : CSingletonMono<GameManager>
 
     void Start()
     {
-        musicManager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
+        GameObject MM = GameObject.Find("MusicManager");
+        if (MM) musicManager = MM.GetComponent<MusicManager>();
         
         leftGridControllerPosition = leftGridController.transform.position;
         rightGridControllerPosition = rightGridController.transform.position;
