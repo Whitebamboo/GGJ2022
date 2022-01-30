@@ -18,7 +18,7 @@ public class GameManager : CSingletonMono<GameManager>
     int currentLevel = 0;
 
     bool player1ReachTarget, player2ReachTarget = false;
-    bool resetLevel = false;
+    bool resettingLevel = false;
 
     void Start()
     {
@@ -67,10 +67,10 @@ public class GameManager : CSingletonMono<GameManager>
 
     void Update() 
     {
-        if (resetLevel && Input.GetKeyDown(KeyCode.R)) 
+        if (!resettingLevel && Input.GetKeyDown(KeyCode.R)) 
         {
             skyMesh.GetComponent<Animator>().SetTrigger("ChangeLevel");
-            resetLevel = false;
+            resettingLevel = true;
             Invoke(nameof(ResetLevel), 3f);
         }
     }
@@ -82,6 +82,7 @@ public class GameManager : CSingletonMono<GameManager>
 
         player1ReachTarget = false;
         player2ReachTarget = false;
+        resettingLevel = false;
 
         ResetTime(levels[currentLevel].TotalTime);
     }
@@ -108,7 +109,6 @@ public class GameManager : CSingletonMono<GameManager>
                 Debug.Log("WIN");
                 if (currentLevel < levels.Count - 1) {
                     currentLevel++;
-                    resetLevel = true;
                 }
                 return;
             }
@@ -117,7 +117,6 @@ public class GameManager : CSingletonMono<GameManager>
         if (leftTime == rightTime) {
             EventBus.Broadcast(EventTypes.StopAll);
             Debug.Log("LOSE");
-            resetLevel = true;
         }
     }
 
