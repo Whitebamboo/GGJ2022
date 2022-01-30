@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b0117195793fe4bba6d6df0d69ffc6, type: 3}
+  m_Name: Level_2
+  m_EditorClassIdentifier: 
+  totalTime: 30
+  leftPlayerLevel:
+  - prefab: {fileID: 3400758947935742745, guid: 3f8f0d3296d5b4143bbe5eb2bc3dc992, type: 3}
+    row: 0
+    col: 3
+  - prefab: {fileID: 8326334427062695467, guid: 9436b3e6aaae35548a8e9eea407e69db, type: 3}
+    row: 4
+    col: 4
+  - prefab: {fileID: 1842774758299497172, guid: 0dddd7c681edc4536bfc285808cae020, type: 3}
+    row: 3
+    col: 3
+  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 4
+    col: 5
+  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 3
+    col: 2
+  rightPlayerLevel:
+  - prefab: {fileID: 6240468519846428363, guid: 175ae30e7ceb1544b93e581b45e90701, type: 3}
+    row: 4
+    col: 4
+  - prefab: {fileID: 6240468519846428363, guid: 175ae30e7ceb1544b93e581b45e90701, type: 3}
+    row: 4
+    col: 3
+  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 2
+    col: 5
+  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 3
+    col: 1
+  - prefab: {fileID: 6214402663391313069, guid: 3af60eeeca5904571931dd0c863571e4, type: 3}
+    row: 0
+    col: 3
