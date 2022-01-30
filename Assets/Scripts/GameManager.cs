@@ -52,6 +52,19 @@ public class GameManager : CSingletonMono<GameManager>
         }
     }
 
+    /// <summary>
+    /// Gets the current step count for a given player based on isForward
+    /// parameter
+    /// </summary>
+    /// <param name="isForward"></param>
+    public int GetStep(bool isForward) {
+        if (isForward) {
+            return leftTime;
+        } else {
+            return totalTime - rightTime;
+        }
+    }
+
     void Update() 
     {
         if (resetLevel && Input.GetKeyDown(KeyCode.R)) 
