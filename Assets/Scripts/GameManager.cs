@@ -171,7 +171,7 @@ public class GameManager : CSingletonMono<GameManager>
                     currentLevel++;
                 }
 
-                if (musicManager) musicManager.PlayClip(winSFX);
+                if (musicManager) musicManager.PlayWinSFX();
                 Invoke(nameof(WinAnimation), 0.5f);
                 return;
             }
@@ -179,6 +179,7 @@ public class GameManager : CSingletonMono<GameManager>
 
         if (leftTime == rightTime) {
             EventBus.Broadcast(EventTypes.StopAll);
+            if (musicManager) musicManager.PlayFailSFX();
             Debug.Log("LOSE");
         }
     }

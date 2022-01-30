@@ -49,6 +49,12 @@ MonoBehaviour:
   bgmAudioSource: {fileID: 4921972889438590993}
   sfxAudioSource: {fileID: 4921972889438590992}
   bufferTime: 0.5
+  winSFX: {fileID: 8300000, guid: fb9aa0fe3dc184ba781aa6da74e5592a, type: 3}
+  walkSFX: {fileID: 8300000, guid: 63e687ddf94cc464c92f603096c9f4d3, type: 3}
+  pushSFX: {fileID: 8300000, guid: 0ad2d43fe9e5ffc4d87489af7c01e418, type: 3}
+  plantSeedSFX: {fileID: 8300000, guid: d625e059c6a495249a7ad5b8c8886ea3, type: 3}
+  failSFX: {fileID: 8300000, guid: bbfff15982d1e4cbca448eb9513296c7, type: 3}
+  treeSnapSFX: {fileID: 8300000, guid: 9af5f9036dca04b0fa754f1c72bf7f14, type: 3}
 --- !u!82 &4921972889438590993
 AudioSource:
   m_ObjectHideFlags: 0

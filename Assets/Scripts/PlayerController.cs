@@ -50,6 +50,7 @@ public class PlayerController : GridObject
     Vector3 targetPosition;
     float currentTime;
     bool isMoving = false;
+    bool isPushing = false;
 
     float cooldownTime = 0.3f;
     bool canMove = true;
@@ -57,8 +58,13 @@ public class PlayerController : GridObject
 
     public Animator anim;
 
+     private MusicManager musicManager;
+
     void Start()
     {
+        GameObject MM = GameObject.Find("MusicManager");
+        if (MM) musicManager = MM.GetComponent<MusicManager>();
+
         EventBus.AddListener(EventTypes.StopAll, StopAll);
         EventBus.AddListener(EventTypes.LevelComplete, LevelComplete);
         EventBus.AddListener<bool>(EventTypes.PlayerPush, TryPush);
@@ -84,8 +90,11 @@ public class PlayerController : GridObject
                 isMoving = false;
                 canMove = true;
 
-                anim.SetBool("Move", false);
+                if (!isPushing) {
+                    anim.SetBool("Move", false);
+                }
                 if (advanceTimeMove) EventBus.Broadcast<bool>(EventTypes.TimeMoveEnd, isForward);
+                isPushing = false;
             }
         }
         
@@ -163,7 +172,10 @@ public class PlayerController : GridObject
         currentTime = 0;
         isMoving = true;
 
-        anim.SetBool("Move", true);
+        if (musicManager) musicManager.PlayWalkSFX();
+        if (!isPushing) {
+            anim.SetBool("Move", true);
+        }
         advanceTimeMove = true;
     }
 
@@ -180,8 +192,11 @@ public class PlayerController : GridObject
         currentTime = 0;
         isMoving = true;   
 
-        anim.SetBool("Move", true);
-        advanceTimeMove = false;
+        if (musicManager) musicManager.PlayWalkSFX();
+        if (!isPushing) {
+            anim.SetBool("Move", true);
+        }
+        advanceTimeMove = true;
     }
 
     public void ChangeDirection(Direction dir) 
@@ -202,7 +217,9 @@ public class PlayerController : GridObject
     public void TryPush(bool isForward)
     {
         if (this.isForward != isForward) return;
+        if (musicManager) musicManager.PlayPushSFX();
         anim.SetTrigger("Push");
+        isPushing = true;
     }
 
     public override bool Equals(GridObject otherObject)

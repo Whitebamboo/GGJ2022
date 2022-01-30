@@ -33,7 +33,7 @@ public abstract class fatherObject : GridObject
     private Sequence mySequence;
     
     // Start is called before the first frame update
-    void Awake()
+    public void Awake()
     {
         mySequence = DOTween.Sequence();
         rb = this.GetComponent<Rigidbody>();

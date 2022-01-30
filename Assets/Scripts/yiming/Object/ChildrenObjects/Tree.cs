@@ -5,6 +5,16 @@ using UnityEngine;
 public class Tree : CantMoveWithTimeChange,CanbeIgnite
 {
     public bool isIgnite = false;//if it is in the state of ignite
+
+    MusicManager musicManager;
+
+    private void Awake()
+    {
+        base.Awake();
+        GameObject MM = GameObject.Find("MusicManager");
+        if (MM) musicManager = MM.GetComponent<MusicManager>();
+    }
+
     public bool canIgnite()
     {
         if (!isIgnite)
@@ -16,7 +26,6 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
         {
             return false;
         }
-        
     }
 
     public override void CrushAction(Direction dir)
@@ -40,6 +49,8 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
                 break;
             default: break;
         }
+
+        if (musicManager) musicManager.PlayTreeSnapSFX();
         Invoke(nameof(BroadcastDestroy), 1f);
     }
 
