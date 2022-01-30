@@ -215,13 +215,17 @@ public class GridController : MonoBehaviour
 
             // Try to push the object
             if (gridObject.IsPushable()) {
-                TryPush(newRow, newCol, playerDirection);
+                if (!TryPush(newRow, newCol, playerDirection)) {
+                    return;
+                }
             }
 
             if (gridObject.IsPassable()) {
                 GridObject passedObject = gridObject.GetPassedObject();
                 if (passedObject != null && passedObject.IsPushable()) {
-                    TryPush(newRow, newCol, playerDirection);
+                    if (!TryPush(newRow, newCol, playerDirection)) {
+                        return;
+                    }
                 }
                 else {
                     SetPositionObject(playerRow, playerCol, null);
@@ -229,10 +233,11 @@ public class GridController : MonoBehaviour
 
                     player.MoveTo(GetPosition(newRow, newCol));
                     objectMapping[player.gameObject] = (newRow, newCol);
+                    return;
                 }
             }
 
-            return;
+            // return;
         }
 
         if (GetPositionObject(playerRow, playerCol) == player) {
