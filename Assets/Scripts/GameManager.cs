@@ -105,16 +105,23 @@ public class GameManager : CSingletonMono<GameManager>
 
     void WinAnimation()
     {
+        PlayerController player1 = leftGridController.player;
+        PlayerController player2 = rightGridController.player;
+        player1.transform.eulerAngles = new Vector3(0, 90, 0);
+        player2.transform.eulerAngles = new Vector3(0, -90, 0);
+        player1.transform.position -= new Vector3(0.3f, 0, 0);
+        player2.transform.position -= new Vector3(-0.3f, 0, 0);
+
         float midPoint = (leftGridController.transform.position.x + rightGridController.transform.position.x) / 2f;
 
         leftGridController.transform.DOMoveX(midPoint, 2f).SetEase(Ease.OutCubic);
         rightGridController.transform.DOMoveX(midPoint, 2f).SetEase(Ease.OutCubic);
 
-        skyMesh.transform.DOMoveY(6, 4f).SetEase(Ease.OutCubic).OnComplete(()=> {
+        skyMesh.transform.DOMoveY(6, 3.5f).SetEase(Ease.OutCubic).SetDelay(2f).OnComplete(()=> {
             ResetLevel();
             skyMesh.transform.DOMoveY(-156, 3f);
-            leftGridController.transform.position = leftGridControllerPosition;
-            rightGridController.transform.position = rightGridControllerPosition;
+            leftGridController.transform.DOMove(leftGridControllerPosition, 0.5f).SetEase(Ease.OutCubic);
+            rightGridController.transform.DOMove(rightGridControllerPosition, 0.5f).SetEase(Ease.OutCubic);
         });
     }
 

@@ -14,6 +14,8 @@ public class GridController : MonoBehaviour
 
     public bool isForward;
 
+    public PlayerController player;
+
     GridSpaceController[,] grid;
 
     // Dictionary for every object on the grid to their row/col position
@@ -44,7 +46,6 @@ public class GridController : MonoBehaviour
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
             elementPrefab.transform.position = GetPosition(r, c);
-            //elementPrefab.transform.position += new Vector3(0, 0.2f, 0);
 
             GridObject gridObj = elementPrefab.GetComponent<GridObject>();
             SetPositionObject(r, c, gridObj);
@@ -56,6 +57,11 @@ public class GridController : MonoBehaviour
             if (mapElement.HasStartAge) gridObj.SetAge(mapElement.StartAge);
             
             objectMapping.Add(elementPrefab, (r, c));
+
+            if(gridObj is PlayerController)
+            {
+                player = gridObj.GetComponent<PlayerController>();
+            }
         }
     }
 
