@@ -49,10 +49,13 @@ public abstract class fatherObject : GridObject
     void DestroySelf(GameObject objToDestroy) 
     {
         if (objToDestroy == gameObject) {
-            Destroy(gameObject);
+            // Don't actually destroy - might undo
+            EventBus.Broadcast<GameObject,bool>(EventTypes.DeadRecord, gameObject, isForward);
+            gameObject.SetActive(false);
+
+            // Destroy(gameObject);
         }
     }
- 
 
     public override void MoveTo(Vector3 endPoint_)//left =  true ,right = false
     {

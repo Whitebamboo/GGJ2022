@@ -238,6 +238,7 @@ public class GridController : MonoBehaviour
 
                     player.MoveTo(GetPosition(newRow, newCol));
                     objectMapping[player.gameObject] = (newRow, newCol);
+                    EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
                     return;
                 }
             }
@@ -250,6 +251,7 @@ public class GridController : MonoBehaviour
         objectMapping[player.gameObject] = (newRow, newCol);
 
         player.MoveTo(GetPosition(newRow, newCol));
+        EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
     }
 
     public void TryInteract(PlayerController player, Direction playerDirection) 

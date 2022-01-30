@@ -15,16 +15,19 @@ public class RecordAndUndo : MonoBehaviour
     public bool isForward = true;
     public Stack<ScreenShot> recorders = new Stack<ScreenShot>();
 
+    GameManager gameManager;
+
 
     private void Start()
     {
-        EventBus.AddListener<int, GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
-        EventBus.AddListener<int, GameObject,bool>(EventTypes.DeadRecord, DeadRecord);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
+        EventBus.AddListener<GameObject,bool>(EventTypes.DeadRecord, DeadRecord);
     }
     private void OnDestroy()
     {
-        EventBus.RemoveListener<int, GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
-        EventBus.RemoveListener<int, GameObject, bool>(EventTypes.DeadRecord, DeadRecord);
+        EventBus.RemoveListener<GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
+        EventBus.RemoveListener<GameObject, bool>(EventTypes.DeadRecord, DeadRecord);
     }
     /// <summary>
     /// record before player start the new step like player make step one and record
@@ -32,8 +35,9 @@ public class RecordAndUndo : MonoBehaviour
     /// <param name="step"></param>
     /// <param name="grids"></param>
     /// <param name="leftright"></param>
-    public void GridRecord(int step, GridSpaceController[,] grids, bool leftright)
+    public void GridRecord(GridSpaceController[,] grids, bool leftright)
     {
+        int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
             if (step > recorders.Count)
@@ -53,8 +57,9 @@ public class RecordAndUndo : MonoBehaviour
         
     }
 
-    public void DeadRecord(int step, GameObject go, bool leftright)
+    public void DeadRecord(GameObject go, bool leftright)
     {
+        int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
             if (step > recorders.Count)
