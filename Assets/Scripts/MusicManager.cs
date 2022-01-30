@@ -19,6 +19,7 @@ public class MusicManager : CSingletonMono<MusicManager>
     public AudioClip winSFX;
     public AudioClip walkSFX;
     public AudioClip pushSFX;
+    public AudioClip plantSeedSFX;
 
     void Update()
     {
@@ -79,5 +80,9 @@ public class MusicManager : CSingletonMono<MusicManager>
 
     public void PlayPushSFX() {
         PlayClip(pushSFX);
+    }
+
+    public void PlayPlantSeedSFX() {
+        PlayClip(plantSeedSFX);
     }
 }

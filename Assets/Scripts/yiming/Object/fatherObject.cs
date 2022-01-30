@@ -33,7 +33,7 @@ public abstract class fatherObject : GridObject
     private Sequence mySequence;
     
     // Start is called before the first frame update
-    void Awake()
+    public void Awake()
     {
         rb = this.GetComponent<Rigidbody>();
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
