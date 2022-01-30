@@ -36,4 +36,14 @@ public class SettingUI : MonoBehaviour
         yield return new WaitForSeconds(hintTime);
         controlPage.SetActive(false);
     }
+
+    public void OnClickControlButton()
+    {
+        controlPage.SetActive(!controlPage.activeSelf);
+    }
+
+    public void OnClickQuitButton()
+    {
+        Application.Quit();
+    }
 }
