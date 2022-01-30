@@ -235,6 +235,7 @@ public class GridController : MonoBehaviour
 
             if (successfulMove) 
             {
+                EventBus.Broadcast<GridSpaceController[,], bool>(EventTypes.GridRecord, grid, isForward);
                 EventBus.Broadcast<bool>(EventTypes.PlayerPush, isForward);
 
                 if (GetPositionObject(row, col).IsPassable()) {
@@ -261,11 +262,11 @@ public class GridController : MonoBehaviour
     void TryPlayerAction(PlayerController player, PlayerAction action, Direction playerDirection) 
     {
         if (player.isForward != isForward) return;
-        EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
-
+        
         switch(action) {
             case PlayerAction.Move: 
                 TryMovePlayer(player, playerDirection);
+
                 break;
             default:
                 TryInteract(player, playerDirection);
@@ -307,6 +308,8 @@ public class GridController : MonoBehaviour
                     return;
                 }
                 else {
+                    EventBus.Broadcast<GridSpaceController[,], bool>(EventTypes.GridRecord, grid, isForward);
+
                     SetPositionObject(playerRow, playerCol, null);
                     gridObject.SetPassedObject(player);
 
@@ -420,7 +423,7 @@ public class GridController : MonoBehaviour
         (int, int) position;
         if (objectMapping.TryGetValue(parentObject, out position)) 
         {
-            Debug.Log(position);
+            // Debug.Log(position);
             SetPositionObject(position.Item1, position.Item2, newObject.GetComponent<GridObject>());
             newObject.GetComponent<GridObject>().isForward = isForward;
             newObject.transform.SetParent(transform);
@@ -428,7 +431,7 @@ public class GridController : MonoBehaviour
 
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);
-            EventBus.Broadcast(EventTypes.CreateRecord, newObject.gameObject, isForward, objectMapping[newObject.gameObject]);
+            EventBus.Broadcast(EventTypes.CreateRecord, parentObject.gameObject, newObject.gameObject, isForward, objectMapping[newObject.gameObject]);
         }
     }
 

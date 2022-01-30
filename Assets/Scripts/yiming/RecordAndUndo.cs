@@ -24,7 +24,7 @@ public class RecordAndUndo : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
-        EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
+        EventBus.AddListener<GameObject,GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void OnDestroy()
@@ -49,7 +49,7 @@ public class RecordAndUndo : MonoBehaviour
         int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
-            
+            print("record Grid");
             if (step == recorders.Count)
             {
                 
@@ -79,9 +79,9 @@ public class RecordAndUndo : MonoBehaviour
        
         if (isForward == leftright)
         {
+            print("get destroy info");
             if (step+1 == recorders.Count)
             {
-                
                 ScreenShot ss = new ScreenShot();
                 ss.step = step+1;
                 recorders.Push(ss);
@@ -92,20 +92,25 @@ public class RecordAndUndo : MonoBehaviour
         }   
     }
 
-    public void CreateRecord(GameObject go, bool leftright, (int, int) grid)
+    public void CreateRecord(GameObject parent, GameObject go, bool leftright, (int, int) grid)
     {
 
         int step = gameManager.GetStep(leftright);
-
+        
         if (isForward == leftright)
         {
+            print("recorders' count: "+recorders.Count);
             if (step == recorders.Count)
             {
-
+                print(step);
+            
                 ScreenShot ss = new ScreenShot();
                 ss.step = step;
                 recorders.Push(ss);
+                GetInfoFromDead(ss, parent, grid);
                 GetInfoFromCreate(ss, go, grid);
+                print("get creatobject info");
+                print(ss.step);
             }
 
 
@@ -147,6 +152,7 @@ public class RecordAndUndo : MonoBehaviour
         {
             for (int j = 0; j < col; j++)
             {
+                
                 ss.grids[i, j] = new GridSpaceRecoder();
                 if(grids[i,j].GetObject() != null)
                 {
@@ -180,6 +186,10 @@ public class RecordAndUndo : MonoBehaviour
             {
                 ScreenShot ss = recorders.Pop();
                 
+
+
+
+
                 if(ss.step == step)//step = n at this step their have dead body
                 {
                     if (ss.deadBodies.Count > 0)
@@ -188,29 +198,43 @@ public class RecordAndUndo : MonoBehaviour
                     }
                     if (ss.creatBodies.Count > 0)
                     {
-                        
+                        UndoCreate(ss.creatBodies);
                     }
-                    ss = recorders.Pop();
-                    UndoGrids(ss);
+                    if (recorders.Count > 0)
+                    {
+                        ss = recorders.Pop();
+                        UndoGrids(ss);
+                    }
+                   
                     
                     
                     if (temperarylist .Count > 0)
                     {
-                        print("do undo dead");
+                       
                         UndoDeadBodies(temperarylist);
                     }
                     if(ss.deadBodies != null && ss.deadBodies.Count > 0)
                     {
                         ScreenShot newss = new ScreenShot();
-                        print(step);
+                       
                         newss.step = step - 1;
                         newss.deadBodies = ss.deadBodies;
                         recorders.Push(newss);
                     }
-                  
+                    if (ss.creatBodies != null && ss.creatBodies.Count > 0)
+                    {
+                        ScreenShot newss = new ScreenShot();
+                       
+                        newss.step = step - 1;
+                        newss.creatBodies = ss.creatBodies;
+                        recorders.Push(newss);
+                    }
+
                 }
                 else
                 {
+                    print(step);
+                    print(ss.step);
                     UndoGrids(ss);
                     if(ss.deadBodies != null && ss.deadBodies.Count > 0 )
                     {
@@ -253,7 +277,8 @@ public class RecordAndUndo : MonoBehaviour
                 (int,int) creatPoint = dbList[i].grid;
               
                 dbList[i].deadObject.transform.position = gridController.GetPosition(creatPoint.Item1, creatPoint.Item2);
-
+                gridController.objectMapping[dbList[i].deadObject] = (creatPoint.Item1, creatPoint.Item2);
+                gridController.SetPositionObject(creatPoint.Item1, creatPoint.Item2, dbList[i].deadObject.GetComponent<GridObject>());
             }
         }
     }
