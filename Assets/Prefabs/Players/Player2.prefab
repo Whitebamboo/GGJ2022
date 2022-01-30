@@ -136,8 +136,8 @@ MonoBehaviour:
   downKeycode: 274
   leftKeycode: 276
   rightKeycode: 275
-  interactKeycode: 32
-  undoKeycode: 46
+  interactKeycode: 0
+  undoKeycode: 303
   anim: {fileID: 2726941058683918377}
 --- !u!54 &-6065472546787978860
 Rigidbody:
