@@ -52,7 +52,7 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
         }
 
         if (musicManager) musicManager.PlayTreeSnapSFX();
-        Invoke(nameof(BroadcastDestroy), 1f);
+        Invoke(nameof(BroadcastDestroy), 0.1f);
     }
 
     void BroadcastDestroy() {
@@ -66,8 +66,9 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
 
     public override void CrashAction() 
     {
-        if (currentState == 4) {
-            currentState = 3;
+        if (currentState == 2) {
+            currentState = 1;
+            age = stateLists[1].ageThreshold;
             ChangeState(animator);
         }
     }
