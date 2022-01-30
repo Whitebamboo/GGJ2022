@@ -237,6 +237,7 @@ public class GridController : MonoBehaviour
 
             if (successfulMove) 
             {
+                EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
                 EventBus.Broadcast<bool>(EventTypes.PlayerPush, isForward);
 
                 if (GetPositionObject(row, col).IsPassable()) {
@@ -263,7 +264,6 @@ public class GridController : MonoBehaviour
     void TryPlayerAction(PlayerController player, PlayerAction action, Direction playerDirection) 
     {
         if (player.isForward != isForward) return;
-        EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
 
         switch(action) {
             case PlayerAction.Move: 
@@ -309,6 +309,8 @@ public class GridController : MonoBehaviour
                     return;
                 }
                 else {
+                    EventBus.Broadcast<GridSpaceController[,],bool>(EventTypes.GridRecord, grid, isForward);
+                    
                     SetPositionObject(playerRow, playerCol, null);
                     gridObject.SetPassedObject(player);
 
