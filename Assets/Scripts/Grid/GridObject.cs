@@ -65,6 +65,11 @@ public abstract class GridObject : MonoBehaviour
         return passedObject;
     }
 
+    public virtual void RestoreObject() 
+    {
+        return;
+    }
+
 
     public abstract void MoveTo(Vector3 newPosition);
 
@@ -73,6 +78,14 @@ public abstract class GridObject : MonoBehaviour
         this.isForward = isForward;
     }
     
+    /// <summary>
+    /// Returns whether the grid object is interactive
+    /// </summary>
+    public virtual bool IsInteractive() 
+    {
+        return false;
+    }
+
     public virtual void interactive()
     {
         print("player tried to interact with this object");

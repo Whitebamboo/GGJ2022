@@ -9,8 +9,12 @@ public class RecordAndUndo : MonoBehaviour
     {
         public int step;
         public GridSpaceRecoder[,] grids;
-        public List<DeadBody> deadBodies;
-        public List<CreatBody> creatBodies;
+        public List<DeadBody> deadBodies = new List<DeadBody>();
+        public List<CreatBody> creatBodies = new List<CreatBody>();
+
+        public override string ToString() {
+            return $"Step: {step}, # dead bodies: {deadBodies.Count}, # create bodies: {creatBodies.Count}\n";
+        }
     }
 
     public bool isForward = true;
@@ -18,110 +22,97 @@ public class RecordAndUndo : MonoBehaviour
     public GridController gridController;
     GameManager gameManager;
 
-
     /// <summary>
     /// clear all record
     /// </summary>
     public void ClearRecord()
     {
+        foreach (ScreenShot ss in recorders) {
+            foreach (DeadBody body in ss.deadBodies) {
+                Destroy(body.deadObject);
+            }
+        }
         recorders.Clear();
     }
-
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
         EventBus.AddListener<GameObject,GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
-        EventBus.AddListener(EventTypes.LevelComplete, ClearRecord);
+        EventBus.AddListener(EventTypes.RestartLevel, ClearRecord);
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void OnDestroy()
     {
         EventBus.RemoveListener<GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
         EventBus.RemoveListener<GameObject, bool, (int, int)>(EventTypes.DeadRecord, DeadRecord);
-        EventBus.RemoveListener(EventTypes.LevelComplete, ClearRecord);
+        EventBus.AddListener<GameObject,GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
+        EventBus.RemoveListener(EventTypes.RestartLevel, ClearRecord);
         EventBus.RemoveListener<bool>(EventTypes.UndoLastMove, Undo);
     }
-    private void Update()
-    {
-        print(recorders.Count);
-    }
+
+
     /// <summary>
-    /// record before player start the new step like player make step one and record
+    /// Perform a recording of the entire grid before the player takes a step,
+    /// such as pushing or moving. Should record the state of the board
+    /// before the time step
     /// </summary>
-    /// <param name="step"></param>
     /// <param name="grids"></param>
     /// <param name="leftright"></param>
     public void GridRecord(GridSpaceController[,] grids, bool leftright)
     {
-        print("get move info");
-        int step = gameManager.GetStep(leftright);
-        if(isForward == leftright)
+        int step = gameManager.GetStep(leftright); // Gets the current step of the board
+
+        if (isForward == leftright)
         {
-
-            if (step == recorders.Count)
-            {
-
-                ScreenShot ss = new ScreenShot();
-                ss.step = step;//step = recorders.count = n-1
-                //put info into record
-                GetInfoinGrids(ss, grids);
-                recorders.Push(ss);
-            }
-            else//step<recorders.count or step>
-            {
-                print(step);
-                //put info into this step
-                ScreenShot ss = recorders.Peek();
-
-                GetInfoinGrids(ss, grids);
-                print("do peek"+recorders.Peek().grids.GetLength(0));
-            }
+            ScreenShot ss = new ScreenShot();
+            ss.step = step;
+            //put info into record
+            GetInfoinGrids(ss, grids);
+            recorders.Push(ss);
         }
-
     }
 
-    public void DeadRecord(GameObject go, bool leftright,(int,int) grid)
+    /// <summary>
+    /// Stores the death of an object
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="leftright"></param>
+    /// <param name="position"></param>
+    public void DeadRecord(GameObject go, bool leftright,(int,int) position)
     {
-        print("get Dead record");
+        int step = gameManager.GetStep(leftright); // Gets the current step of the board
 
+        if (isForward == leftright)
+        {
+            ScreenShot ss = new ScreenShot();
+            ss.step = step;
+            recorders.Push(ss);
+            GetInfoFromDead(ss, go, position);
+        }
+    }
+
+    /// <summary>
+    /// Stores the creation of an object
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="go"></param>
+    /// <param name="leftright"></param>
+    /// <param name="position"></param>
+    public void CreateRecord(GameObject parent,GameObject go, bool leftright, (int, int) position)
+    {
         int step = gameManager.GetStep(leftright);
 
         if (isForward == leftright)
         {
-            if (step+1 == recorders.Count)
-            {
-
-                ScreenShot ss = new ScreenShot();
-                ss.step = step+1;
-                recorders.Push(ss);
-                GetInfoFromDead(ss, go,grid);
-            }
-
-
-        }
-    }
-
-    public void CreateRecord(GameObject parent,GameObject go, bool leftright, (int, int) grid)
-    {
-
-        int step = gameManager.GetStep(leftright);
-
-        if (isForward == leftright)
-        {
-            if (step == recorders.Count)
-            {
-
-                ScreenShot ss = new ScreenShot();
-                ss.step = step;
-                recorders.Push(ss);
-                GetInfoFromCreate(ss, go, grid);
-                GetInfoFromDead(ss, parent, grid);
-            }
-
-
+            ScreenShot ss = new ScreenShot();
+            ss.step = step;
+            recorders.Push(ss);
+            GetInfoFromCreate(ss, go, position);
+            GetInfoFromDead(ss, parent, position);
         }
     }
 
@@ -137,10 +128,9 @@ public class RecordAndUndo : MonoBehaviour
         ss.creatBodies.Add(cb);
     }
 
-
     private void GetInfoFromDead(ScreenShot ss,GameObject go,(int,int)grid)
     {
-        if(ss.deadBodies == null)
+        if (ss.deadBodies == null)
         {
             ss.deadBodies = new List<DeadBody>();
         }
@@ -166,9 +156,7 @@ public class RecordAndUndo : MonoBehaviour
                     GridObject go = grids[i, j].GetObject();
 
                     ss.grids[i, j].SetEmpty(false);
-                    print(go.gameObject.name);
                     ss.grids[i, j].SetObject(go.gameObject.name);
-
                     ss.grids[i, j].StoreInfo(go.gameObject);
                 }
                 else
@@ -177,79 +165,33 @@ public class RecordAndUndo : MonoBehaviour
                 }
             }
         }
-
-
-
     }
 
     /// <summary>
-    /// when press the button undo
+    /// Run when undo is pressed, should undo everything to the previous step
     /// </summary>
     public void Undo(bool leftright)
     {
-        List<DeadBody> temperarylist = new List<DeadBody>();
-        int step = gameManager.GetStep(leftright);
+        int step = gameManager.GetStep(leftright); // Gets the current step
+        // We need to revert to one step before
+
         if(isForward == leftright)
         {
-            if (recorders.Count > 0)
+            while (recorders.Count > 0 && recorders.Peek().step >= step - 1) 
             {
                 ScreenShot ss = recorders.Pop();
-                print("recorders's length; " + recorders.Count);
-                if(ss.step == step)//step = n at this step their have dead body
+                if (ss.creatBodies != null && ss.creatBodies.Count > 0)
                 {
-                    if (ss.deadBodies != null && ss.deadBodies.Count > 0)
-                    {
-                        print("do dead undo");
-                        temperarylist = ss.deadBodies;
-                    }
-                    if (ss.creatBodies != null && ss.creatBodies.Count > 0)
-                    {
-                        UndoCreate(ss.creatBodies);
-                    }
-                    if (recorders.Count > 0)
-                    {
-                        ss = recorders.Pop();
-                        UndoGrids(ss);
-
-                    }
-                    else
-                    {
-                        ss = new ScreenShot();
-                    }
-                  
-
-
-                    if (temperarylist .Count > 0)
-                    {
-                        print("do undo dead");
-                        UndoDeadBodies(temperarylist);
-                    }
-                    if(ss.deadBodies != null && ss.deadBodies.Count > 0)
-                    {
-                        ScreenShot newss = new ScreenShot();
-                        print(step);
-                        newss.step = step - 1;
-                        newss.deadBodies = ss.deadBodies;
-                        recorders.Push(newss);
-                    }
-
+                    UndoCreate(ss.creatBodies);
                 }
-                else
+                if (ss.deadBodies != null && ss.deadBodies.Count > 0 )
                 {
-                    UndoGrids(ss);
-                    if(ss.deadBodies != null && ss.deadBodies.Count > 0 )
-                    {
-                        ScreenShot newss = new ScreenShot();
-                        newss.step = step - 1;
-                        newss.deadBodies = ss.deadBodies;
-                        recorders.Push(newss);
-                    }
+                    UndoDeadBodies(ss.deadBodies);
                 }
-                gameManager.UndoTimeChange(isForward);
+                UndoGrids(ss);
             }
-
+            gameManager.UndoTimeChange(isForward);
         }
-
     }
 
     private void UndoCreate(List<CreatBody> cbList)
@@ -274,12 +216,14 @@ public class RecordAndUndo : MonoBehaviour
         {
             for(int i=0; i< dbList.Count; i++)
             {
-
                 (int,int) creatPoint = dbList[i].grid;
 
-                dbList[i].deadObject.transform.position = gridController.GetPosition(creatPoint.Item1, creatPoint.Item2);
-                gridController.SetPositionObject(creatPoint.Item1, creatPoint.Item2, dbList[i].deadObject.GetComponent<GridObject>());
-                gridController.objectMapping[dbList[i].deadObject] = (creatPoint.Item1, creatPoint.Item2);
+                GameObject deadObj = dbList[i].deadObject;
+                deadObj.transform.position = gridController.GetPosition(creatPoint.Item1, creatPoint.Item2);
+                gridController.SetPositionObject(creatPoint.Item1, creatPoint.Item2, deadObj.GetComponent<GridObject>());
+                gridController.objectMapping[deadObj] = (creatPoint.Item1, creatPoint.Item2);
+                deadObj.GetComponent<GridObject>().RestoreObject();
+                deadObj.GetComponent<fatherObject>().SetAge(deadObj.GetComponent<fatherObject>().age - 1);
             }
         }
     }
@@ -302,7 +246,7 @@ public class RecordAndUndo : MonoBehaviour
                     if(ss.grids[i,j].t == "Player")
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
-                        print("go.name" + go.name);
+                        // print("go.name" + go.name);
                         (int, int) pasPos = gridController.objectMapping[go];
                         PlayerController player = go.GetComponent<PlayerController>();
                         Vector3 targetPosition = gridController.GetPosition(i, j);
@@ -323,7 +267,7 @@ public class RecordAndUndo : MonoBehaviour
                         {
                             if(paspos != (i, j))
                             {
-                                print("move" + go.name + "from" + paspos + " to " + (i, j));
+                                // print("move" + go.name + "from" + paspos + " to " + (i, j));
                                 Vector3 targetPosition = gridController.GetPosition(i, j);
                                 fatherObject fo = go.GetComponent<fatherObject>();
                                 if (gridController.GetPositionObject(paspos.Item1, paspos.Item2) == fo)
@@ -347,8 +291,5 @@ public class RecordAndUndo : MonoBehaviour
                 }
             }
         }
-
-
     }
-
 }

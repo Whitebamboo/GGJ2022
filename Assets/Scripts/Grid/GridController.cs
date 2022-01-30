@@ -225,8 +225,8 @@ public class GridController : MonoBehaviour
             }
             else if (newPositionObject.IsCrushable()) // Something crushable in pushed spot
             {
-                newPositionObject.CrushAction(dir);
                 EventBus.Broadcast<GameObject, bool, (int, int)>(EventTypes.DeadRecord, newPositionObject.gameObject, isForward, objectMapping[newPositionObject.gameObject]);
+                newPositionObject.CrushAction(dir);
                 successfulMove = true;
             }
             else 
@@ -359,7 +359,7 @@ public class GridController : MonoBehaviour
         int newCol = playerCol + xOff;
 
         if (IsValidPosition(newRow, newCol)) {
-            if (GetPositionObject(newRow, newCol) != null) {
+            if (GetPositionObject(newRow, newCol) != null && GetPositionObject(newRow, newCol).IsInteractive()) {
                 // Something is in the position we can interact with
                 GridObject gridObject = GetPositionObject(newRow, newCol);
                 gridObject.interactive();
@@ -378,7 +378,7 @@ public class GridController : MonoBehaviour
             newCol = playerCol + xOff;
 
             if (IsValidPosition(newRow, newCol)) {
-                if (GetPositionObject(newRow, newCol) != null) {
+                if (GetPositionObject(newRow, newCol) != null && GetPositionObject(newRow, newCol).IsInteractive()) {
                     // Something is in the position we can interact with
                     GridObject gridObject = GetPositionObject(newRow, newCol);
                     gridObject.interactive();

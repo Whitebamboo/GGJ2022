@@ -21,7 +21,6 @@ public class GridSpaceRecoder : MonoBehaviour
         isEmpty = isempty;
     }
 
-
     public string GetObject()
     {
         return gridObjectName;
@@ -32,12 +31,10 @@ public class GridSpaceRecoder : MonoBehaviour
         if(gameObject.tag == "Player")
         {
             t = "Player";
-            haveState = false;//whatever it is
-
+            haveState = false; //whatever it is
         }
         else
         {
-            print(gameObject.name);
             t = "Object";
             fatherObject fo = gameObject.GetComponent<fatherObject>();
             if (fo.stateLists.Count > 0)
@@ -45,7 +42,6 @@ public class GridSpaceRecoder : MonoBehaviour
                 haveState = true;
                 state = fo.currentState;
                 age = fo.age;
-                print("objec" + gameObject.name + "age" + age);
             }
         }
     }

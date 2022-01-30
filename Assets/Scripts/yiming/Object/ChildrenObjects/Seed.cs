@@ -14,6 +14,11 @@ public class Seed : MoveWithoutTimeChange
         if (MM) musicManager = MM.GetComponent<MusicManager>();
     }
 
+    public override bool IsInteractive()
+    {
+        return true;
+    }
+
     public override void interactive()
     {
         base.interactive();
