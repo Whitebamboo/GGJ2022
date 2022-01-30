@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTime: 12
   leftPlayerLevel:
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 0
     col: 4
     HasStartAge: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
     col: 1
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 2
     col: 2
     HasStartAge: 0
@@ -34,18 +34,18 @@ MonoBehaviour:
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 1
     col: 2
     HasStartAge: 0
     StartAge: 0
   rightPlayerLevel:
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 0
     col: 4
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 1
     col: 4
     HasStartAge: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+  - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 2
     col: 5
     HasStartAge: 0

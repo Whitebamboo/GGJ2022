@@ -137,6 +137,7 @@ public class GameManager : CSingletonMono<GameManager>
         {
             if (AreGridsEqual()) {
                 EventBus.Broadcast(EventTypes.StopAll);
+                EventBus.Broadcast(EventTypes.LevelComplete);
                 Debug.Log("WIN");
                 if (currentLevel < levels.Count - 1) {
                     resettingLevel = true;

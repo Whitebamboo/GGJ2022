@@ -14,27 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalTime: 10
   leftPlayerLevel:
-  - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 2
     col: 3
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 4
     col: 4
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 2
     col: 1
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 2
     col: 4
     HasStartAge: 0
     StartAge: 0
-  - prefab: {fileID: 8326334427062695467, guid: dc7617c92120a7946b1b73c1b3bc9480, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 3
     col: 1
     HasStartAge: 0
@@ -50,31 +50,31 @@ MonoBehaviour:
     HasStartAge: 0
     StartAge: 0
   rightPlayerLevel:
-  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 3
     col: 1
-    HasStartAge: 0
-    StartAge: 0
-  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
+    HasStartAge: 1
+    StartAge: 10
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 2
     col: 1
-    HasStartAge: 0
-    StartAge: 0
-  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
+    HasStartAge: 1
+    StartAge: 10
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 2
     col: 3
-    HasStartAge: 0
-    StartAge: 0
-  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
+    HasStartAge: 1
+    StartAge: 10
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 2
     col: 4
-    HasStartAge: 0
-    StartAge: 0
-  - prefab: {fileID: 6240468519846428363, guid: e19ba5646b7e9c74c9f5a9460f088ebb, type: 3}
+    HasStartAge: 1
+    StartAge: 10
+  - prefab: {fileID: 6270645083394696083, guid: be067d7a1b96e4db1bc1c43509d364d8, type: 3}
     row: 4
     col: 4
-    HasStartAge: 0
-    StartAge: 0
+    HasStartAge: 1
+    StartAge: 10
   - prefab: {fileID: 6554922465182773963, guid: 0a3ff606a0e7046568e3794fc96d4fbf, type: 3}
     row: 3
     col: 2

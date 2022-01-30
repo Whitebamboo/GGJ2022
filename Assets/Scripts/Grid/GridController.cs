@@ -218,10 +218,13 @@ public class GridController : MonoBehaviour
             else 
             {
                 newPositionObject.CrashAction();
+                EventBus.Broadcast<bool>(EventTypes.PlayerPush, isForward);
             }
 
             if (successfulMove) 
             {
+                EventBus.Broadcast<bool>(EventTypes.PlayerPush, isForward);
+
                 if (GetPositionObject(row, col).IsPassable()) {
                     GetPositionObject(row, col).SetPassedObject(null);
                 }

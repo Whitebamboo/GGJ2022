@@ -8,6 +8,7 @@ public enum EventTypes
     TimeMove, //when player move one step
     TimeMoveEnd, //when player finishes moving one step
     PlayerAction, // called when player attempts to perform an action (move, action, etc.)
+    PlayerPush, // called when player is trying to push something
     Create,//when new object is creating
     Destroy,//when old object is destroy
     PlayerReachTarget,//when player reach the final target 
@@ -18,4 +19,5 @@ public enum EventTypes
     ShowSeedHint,
     CloseSeedHint,
     UndoLastMove,
+    LevelComplete,
 }
