@@ -15,7 +15,7 @@ public class PlayerController : GridObject
     public KeyCode interactKeycode;
     public KeyCode undoKeycode;
 
-    int moveSpeed = 4;
+    int moveSpeed = 3;
 
     Direction playerDirection
     {
@@ -162,6 +162,8 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
+
+        anim.SetBool("Move", true);
         advanceTimeMove = true;
     }
 
