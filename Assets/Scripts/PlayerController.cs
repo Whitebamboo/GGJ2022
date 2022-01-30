@@ -54,6 +54,7 @@ public class PlayerController : GridObject
 
     float cooldownTime = 0.3f;
     bool canMove = true;
+    bool stopAll = false;
     bool advanceTimeMove = false;
 
     public Animator anim;
@@ -98,7 +99,7 @@ public class PlayerController : GridObject
             }
         }
         
-        if (!canMove) return;
+        if (!canMove || stopAll) return;
         if (!keyDown)
         {
             if (Input.GetKey(upKeycode))
@@ -207,6 +208,7 @@ public class PlayerController : GridObject
     public void StopAll() 
     {
         canMove = false;
+        stopAll = true;
     }
 
     public void LevelComplete() 
