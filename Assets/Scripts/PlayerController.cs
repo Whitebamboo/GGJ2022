@@ -196,7 +196,7 @@ public class PlayerController : GridObject
         if (!isPushing) {
             anim.SetBool("Move", true);
         }
-        advanceTimeMove = true;
+        advanceTimeMove = false;
     }
 
     public void ChangeDirection(Direction dir) 
