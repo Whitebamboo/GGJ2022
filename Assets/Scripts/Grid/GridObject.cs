@@ -41,6 +41,11 @@ public abstract class GridObject : MonoBehaviour
         return;
     }
 
+    public virtual void SetAge(int age)
+    {
+        return;
+    }
+
     public void SetPassedObject(GridObject passedObject) 
     {
         if (!IsPassable()) return;

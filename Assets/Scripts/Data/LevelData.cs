@@ -37,6 +37,8 @@ public class LevelData : ScriptableObject
         }
         rightPlayerLevel.Add(element);
     }
+
+    public List<State> TreeStates = new List<State>();
 }
 
 [System.Serializable]
@@ -54,4 +56,11 @@ public class MapElement
     public GameObject Prefab => prefab;
     public int Row => row;
     public int Col => col;
+}
+
+[System.Serializable]
+public class State
+{
+    public int ageThreshold;
+    public int state;
 }
