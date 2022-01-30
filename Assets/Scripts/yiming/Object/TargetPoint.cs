@@ -6,7 +6,7 @@ public class TargetPoint : fatherObject
 {
     public override void MoveTo(Vector3 newPosition)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     private void OnTriggerEnter(Collider other)

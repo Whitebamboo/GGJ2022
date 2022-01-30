@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RecordAndUndo : MonoBehaviour
 {
-    
+    [System.Serializable]
     public class ScreenShot
     {
         public int step;
@@ -30,6 +30,10 @@ public class RecordAndUndo : MonoBehaviour
         EventBus.RemoveListener<GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
         EventBus.RemoveListener<GameObject, bool>(EventTypes.DeadRecord, DeadRecord);
         EventBus.RemoveListener<bool>(EventTypes.UndoLastMove, Undo);
+    }
+    private void Update()
+    {
+        print(recorders.Count);
     }
     /// <summary>
     /// record before player start the new step like player make step one and record
@@ -161,7 +165,7 @@ public class RecordAndUndo : MonoBehaviour
                 else
                 {
                     UndoGrids(ss);
-                    if(ss.deadBodies.Count > 0 && ss.deadBodies != null)
+                    if(ss.deadBodies != null && ss.deadBodies.Count > 0 )
                     {
                         ScreenShot newss = new ScreenShot();
                         newss.step = step - 1;
@@ -207,7 +211,7 @@ public class RecordAndUndo : MonoBehaviour
                         PlayerController player = go.GetComponent<PlayerController>();
                         Vector3 targetPosition = gridController.GetPosition(i, j);
                         gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
-                        player.MoveTo(targetPosition);
+                        player.MoveTo(targetPosition,true);
 
                         gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
                         gridController.objectMapping[go] = (i, j);
@@ -226,7 +230,7 @@ public class RecordAndUndo : MonoBehaviour
                         gridController.objectMapping[go] = (i, j);
                         if (ss.grids[i, j].haveState)
                         {
-                            go.GetComponent<fatherObject>().currentState = ss.grids[i, j].age;
+                            go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
                             go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
                         }
                     }
