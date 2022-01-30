@@ -163,7 +163,10 @@ public class PlayerController : GridObject
         newPosition.y = transform.position.y;
 
         targetPosition = newPosition;
+        print(targetPosition);
+        
         currentPosition = transform.position;
+        print(currentPosition);
         currentTime = 0;
         isMoving = true;   
 
