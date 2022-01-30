@@ -44,6 +44,7 @@ public class GridController : MonoBehaviour
             int r = mapElement.Row; int c = mapElement.Col;
             GameObject elementPrefab = Instantiate(mapElement.Prefab, transform);
             elementPrefab.transform.position = GetPosition(r, c);
+            elementPrefab.transform.position += new Vector3(0, 0.2f, 0);
 
             GridObject gridObj = elementPrefab.GetComponent<GridObject>();
             SetPositionObject(r, c, gridObj);
