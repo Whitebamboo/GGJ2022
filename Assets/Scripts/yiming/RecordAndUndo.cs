@@ -33,7 +33,7 @@ public class RecordAndUndo : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
-        EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
+        EventBus.AddListener<GameObject,GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
         EventBus.AddListener(EventTypes.LevelComplete, ClearRecord);
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
@@ -46,7 +46,7 @@ public class RecordAndUndo : MonoBehaviour
     }
     private void Update()
     {
-        //print(recorders.Count);
+        print(recorders.Count);
     }
     /// <summary>
     /// record before player start the new step like player make step one and record
@@ -56,7 +56,7 @@ public class RecordAndUndo : MonoBehaviour
     /// <param name="leftright"></param>
     public void GridRecord(GridSpaceController[,] grids, bool leftright)
     {
-        //
+        print("get move info");
         int step = gameManager.GetStep(leftright);
         if(isForward == leftright)
         {
@@ -103,7 +103,7 @@ public class RecordAndUndo : MonoBehaviour
         }
     }
 
-    public void CreateRecord(GameObject go, bool leftright, (int, int) grid)
+    public void CreateRecord(GameObject parent,GameObject go, bool leftright, (int, int) grid)
     {
 
         int step = gameManager.GetStep(leftright);
@@ -117,6 +117,7 @@ public class RecordAndUndo : MonoBehaviour
                 ss.step = step;
                 recorders.Push(ss);
                 GetInfoFromCreate(ss, go, grid);
+                GetInfoFromDead(ss, parent, grid);
             }
 
 
@@ -203,8 +204,17 @@ public class RecordAndUndo : MonoBehaviour
                     {
                         UndoCreate(ss.creatBodies);
                     }
-                    ss = recorders.Pop();
-                    UndoGrids(ss);
+                    if (recorders.Count > 0)
+                    {
+                        ss = recorders.Pop();
+                        UndoGrids(ss);
+
+                    }
+                    else
+                    {
+                        ss = new ScreenShot();
+                    }
+                  
 
 
                     if (temperarylist .Count > 0)
@@ -273,8 +283,13 @@ public class RecordAndUndo : MonoBehaviour
 
     private void UndoGrids(ScreenShot ss)
     {
-        int row = ss.grids.GetLength(0);
-        int col = ss.grids.GetLength(1);
+        int row = 0;
+        int col = 0;
+        if(ss.grids != null) {
+           row = ss.grids.GetLength(0);
+           col = ss.grids.GetLength(1);
+        }
+     
         for(int i = 0; i < row; i++)
         {
             for(int j = 0; j < col; j++)
@@ -288,7 +303,9 @@ public class RecordAndUndo : MonoBehaviour
                         (int, int) pasPos = gridController.objectMapping[go];
                         PlayerController player = go.GetComponent<PlayerController>();
                         Vector3 targetPosition = gridController.GetPosition(i, j);
-                        gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
+                        if (gridController.GetPositionObject(pasPos.Item1, pasPos.Item2) == player) {
+                            gridController.SetPositionObject(pasPos.Item1, pasPos.Item2, null);
+                        }
                         player.MoveTo(targetPosition,true);
 
                         gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
@@ -297,7 +314,7 @@ public class RecordAndUndo : MonoBehaviour
                     else //if(ss.grids[i, j].t == "Object")
                     {
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
-                        print("find object" + go.name);
+                        //print("find object" + go.name);
 
                         if (gridController.objectMapping.TryGetValue(go,out(int, int) paspos))
                         {
@@ -306,16 +323,20 @@ public class RecordAndUndo : MonoBehaviour
                                 print("move" + go.name + "from" + paspos + " to " + (i, j));
                                 Vector3 targetPosition = gridController.GetPosition(i, j);
                                 fatherObject fo = go.GetComponent<fatherObject>();
-                                gridController.SetPositionObject(paspos.Item1, paspos.Item2, null);
+                                if (gridController.GetPositionObject(paspos.Item1, paspos.Item2) == fo)
+                                {
+                                    gridController.SetPositionObject(paspos.Item1, paspos.Item2, null);
+                                }
                                 fo.MoveTo(targetPosition);
 
                                 gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
                                 gridController.objectMapping[go] = (i, j);
-                                if (ss.grids[i, j].haveState)
-                                {
-                                    go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
-                                    go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
-                                }
+                               
+                            }
+                            if (ss.grids[i, j].haveState)
+                            {
+                                go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
+                                go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
                             }
                         }
                     }

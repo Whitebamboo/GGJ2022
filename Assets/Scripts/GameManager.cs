@@ -134,7 +134,7 @@ public class GameManager : CSingletonMono<GameManager>
 
     void ResetLevel()
     {
-        
+        EventBus.Broadcast(EventTypes.RestartLevel);
         leftGridController.SetLevel(levels[currentLevel]);
         rightGridController.SetLevel(levels[currentLevel]);
 
@@ -180,6 +180,7 @@ public class GameManager : CSingletonMono<GameManager>
 
         if (leftTime == rightTime) {
             EventBus.Broadcast(EventTypes.StopAll);
+            EventBus.Broadcast(EventTypes.LevelLost);
             if (musicManager) musicManager.PlayFailSFX();
             Debug.Log("LOSE");
         }

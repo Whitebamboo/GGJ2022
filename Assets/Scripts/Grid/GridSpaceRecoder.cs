@@ -37,7 +37,7 @@ public class GridSpaceRecoder : MonoBehaviour
         }
         else
         {
-            print(name);
+            print(gameObject.name);
             t = "Object";
             fatherObject fo = gameObject.GetComponent<fatherObject>();
             if (fo.stateLists.Count > 0)

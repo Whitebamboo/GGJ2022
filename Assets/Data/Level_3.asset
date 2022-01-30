@@ -59,7 +59,7 @@ MonoBehaviour:
     row: 1
     col: 0
     HasStartAge: 1
-    StartAge: 10
+    StartAge: 11
   - prefab: {fileID: 4528845245171672613, guid: f802e245814a94cafac1d28280339710, type: 3}
     row: 1
     col: 1

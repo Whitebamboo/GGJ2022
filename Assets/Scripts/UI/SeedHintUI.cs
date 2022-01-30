@@ -16,7 +16,8 @@ public class SeedHintUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        EventBus.RemoveListener<GridObject, PlayerController>(EventTypes.ShowSeedHint, OnShowSeedHint);   
+        EventBus.RemoveListener<PlayerController>(EventTypes.CloseSeedHint, OnCloseSeedHint);   
     }
 
     void OnShowSeedHint(GridObject gridObj, PlayerController player)

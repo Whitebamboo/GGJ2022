@@ -52,8 +52,9 @@ public class PlayerController : GridObject
     bool isMoving = false;
     bool isPushing = false;
 
-    float cooldownTime = 0.3f;
+    float cooldownTime = 0.5f;
     bool canMove = true;
+    bool stopAll = false;
     bool advanceTimeMove = false;
 
     public Animator anim;
@@ -98,7 +99,7 @@ public class PlayerController : GridObject
             }
         }
         
-        if (!canMove) return;
+        if (!canMove || stopAll) return;
         if (!keyDown)
         {
             if (Input.GetKey(upKeycode))
@@ -185,10 +186,10 @@ public class PlayerController : GridObject
         newPosition.y = transform.position.y;
 
         targetPosition = newPosition;
-        print(targetPosition);
+        //print(targetPosition);
         
         currentPosition = transform.position;
-        print(currentPosition);
+        //print(currentPosition);
         currentTime = 0;
         isMoving = true;   
 
@@ -207,6 +208,7 @@ public class PlayerController : GridObject
     public void StopAll() 
     {
         canMove = false;
+        stopAll = true;
     }
 
     public void LevelComplete() 
