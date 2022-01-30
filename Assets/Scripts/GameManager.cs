@@ -70,6 +70,7 @@ public class GameManager : CSingletonMono<GameManager>
         if (resetLevel && Input.GetKeyDown(KeyCode.R)) 
         {
             skyMesh.GetComponent<Animator>().SetTrigger("ChangeLevel");
+            resetLevel = false;
             Invoke(nameof(ResetLevel), 3f);
         }
     }
@@ -81,7 +82,6 @@ public class GameManager : CSingletonMono<GameManager>
 
         player1ReachTarget = false;
         player2ReachTarget = false;
-        resetLevel = false;
 
         ResetTime(levels[currentLevel].TotalTime);
     }
