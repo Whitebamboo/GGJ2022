@@ -30,8 +30,7 @@ public abstract class fatherObject : GridObject
     private Vector3 startPoint = Vector3.zero;
     private Vector3 endPoint = Vector3.zero;
     private Rigidbody rb;
-
-   
+    private Sequence mySequence;
     
     // Start is called before the first frame update
     void Awake()
@@ -53,7 +52,9 @@ public abstract class fatherObject : GridObject
         if (objToDestroy == gameObject) {
             // Don't actually destroy - might undo
             //EventBus.Broadcast<GameObject,bool,(int,int)>(EventTypes.DeadRecord, gameObject, isForward,gridController.objectMapping[gameObject]);
-            gameObject.transform.position = new Vector3(5, -5, -22);
+            mySequence.Kill();
+            gameObject.transform.localPosition = new Vector3(5, -5, -22);
+            gameObject.transform.SetParent(null);
 
             // Destroy(gameObject);
         }
@@ -86,10 +87,11 @@ public abstract class fatherObject : GridObject
             //    EventBus.Broadcast(EventTypes.Reach, this.gameObject);//���Լ�����grid manager
             //}
 
-            transform.DOMove(endPoint, 1f).SetEase(Ease.OutCubic).OnComplete(()=> {
+            mySequence = DOTween.Sequence();
+            mySequence.Append(transform.DOMove(endPoint, 1f).SetEase(Ease.OutCubic).OnComplete(()=> {
                 isMove = false;
                 EventBus.Broadcast(EventTypes.Reach, this.gameObject);
-            });
+            }));
         }
     }
     /// <summary>
