@@ -68,22 +68,23 @@ MonoBehaviour:
   stateLists:
   - ageThreshold: 0
     state: 0
-  - ageThreshold: 1
-    state: 1
   - ageThreshold: 2
-    state: 2
-  - ageThreshold: 3
-    state: 3
+    state: 1
   - ageThreshold: 4
+    state: 2
+  - ageThreshold: 6
+    state: 3
+  - ageThreshold: 8
     state: 4
-  - ageThreshold: 5
+  - ageThreshold: 10
     state: 5
-  currentState: 5
+  currentState: 4
   isCycle: 0
   speed: 10
   threshold: 0.02
   isChangeWithTime: 0
-  age: 5
+  age: 8
+  animator: {fileID: 0}
   isIgnite: 0
 --- !u!65 &4776322154535196766
 BoxCollider:
