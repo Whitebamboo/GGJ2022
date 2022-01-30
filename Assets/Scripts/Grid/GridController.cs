@@ -142,22 +142,24 @@ public class GridController : MonoBehaviour
         if (IsValidPosition(newRow, newCol))
         {
             GridObject newPositionObject = GetPositionObject(newRow, newCol);
-            if (newPositionObject == null) 
+            bool successfulMove = false;
+
+            if (newPositionObject == null) // Nothing in pushed spot
             {
-                if (GetPositionObject(row, col).IsPassable()) {
-                    GetPositionObject(row, col).SetPassedObject(null);
-                }
-
-                pushObject.MoveTo(GetPosition(newRow, newCol));
-                if (GetPositionObject(row, col) == pushObject) {
-                    SetPositionObject(row, col, null);
-                }
-                SetPositionObject(newRow, newCol, pushObject);
-
-                objectMapping[pushObject.gameObject] = (newRow, newCol);
-                return true;
+                successfulMove = true;
             }
-            else if (newPositionObject.IsPassable()) 
+            else if (newPositionObject.IsPassable()) // Something passable in pushed spot
+            {
+                newPositionObject.SetPassedObject(pushObject);
+                successfulMove = true;
+            }
+            else if (newPositionObject.IsCrushable()) // Something crushable in pushed spot
+            {
+                EventBus.Broadcast(EventTypes.Destroy, newPositionObject.gameObject);
+                successfulMove = true;
+            }
+
+            if (successfulMove) 
             {
                 if (GetPositionObject(row, col).IsPassable()) {
                     GetPositionObject(row, col).SetPassedObject(null);
@@ -167,7 +169,10 @@ public class GridController : MonoBehaviour
                 if (GetPositionObject(row, col) == pushObject) {
                     SetPositionObject(row, col, null);
                 }
-                newPositionObject.SetPassedObject(pushObject);
+
+                if (newPositionObject == null || !newPositionObject.IsPassable()) {
+                    SetPositionObject(newRow, newCol, pushObject);
+                }
 
                 objectMapping[pushObject.gameObject] = (newRow, newCol);
                 return true;
@@ -267,6 +272,7 @@ public class GridController : MonoBehaviour
         if (objectMapping.TryGetValue(parentObject, out position)) 
         {
             SetPositionObject(position.Item1, position.Item2, newObject.GetComponent<GridObject>());
+            newObject.GetComponent<GridObject>().isForward = isForward;
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);
         }

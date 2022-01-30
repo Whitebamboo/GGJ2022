@@ -69,6 +69,7 @@ public class GameManager : CSingletonMono<GameManager>
     {
         if (isForward) player1ReachTarget = true;
         else player2ReachTarget = true;
+        CheckPassCondition();
     }
 
     void LeaveTarget(bool isForward) 

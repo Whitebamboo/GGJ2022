@@ -37,6 +37,7 @@ public abstract class fatherObject : GridObject
     {
         rigidbody = this.GetComponent<Rigidbody>();
         EventBus.AddListener<bool>(EventTypes.TimeMove, TimeChange);
+        EventBus.AddListener<GameObject>(EventTypes.Destroy, DestroyObject);
         // print("add event Timemove");
         startState = currentState;
         startAge = age;
@@ -46,9 +47,13 @@ public abstract class fatherObject : GridObject
     {
         //EventBus.RemoveListener<Vector3, Vector3>(EventTypes.Move, StartMove);
         EventBus.RemoveListener<bool>(EventTypes.TimeMove, TimeChange);
-
+        EventBus.RemoveListener<GameObject>(EventTypes.Destroy, DestroyObject);
     }
    
+    void DestroyObject() 
+    {
+        Destroy(gameObject);
+    }
  
 
     public override void MoveTo(Vector3 endPoint_)//left =  true ,right = false

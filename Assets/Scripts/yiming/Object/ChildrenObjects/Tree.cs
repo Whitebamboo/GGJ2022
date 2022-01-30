@@ -19,6 +19,11 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
         
     }
 
+    public override bool IsCrushable() 
+    {
+        return currentState < 3; // TODO: change accordingly
+    }
+
     public override bool Equals(GridObject otherObject)
     {
         Tree otherTree = otherObject.GetComponent<Tree>();

@@ -18,9 +18,17 @@ public abstract class GridObject : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns whether the grid object is standable by the player (player can stand on it)
+    /// Returns whether the grid object is passable by the player and other objects
     /// </summary>
     public virtual bool IsPassable() 
+    {
+        return false;
+    }
+
+    /// <summary>
+    /// Returns whether the grid object can be crushed by pushable objects
+    /// </summary>
+    public virtual bool IsCrushable() 
     {
         return false;
     }
