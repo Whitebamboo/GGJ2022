@@ -12,4 +12,7 @@ public enum EventTypes
     PlayerReachTarget,//when player reach the final target 
     PlayerLeaveTarget,//when player leave the final target 
     StopAll, // called to stop everything
+    GridRecord,//to record grid info mation
+    DeadRecord,//when body dead record the info
+
 }
