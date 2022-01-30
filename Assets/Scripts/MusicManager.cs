@@ -16,6 +16,9 @@ public class MusicManager : CSingletonMono<MusicManager>
     public float bufferTime;
     public List<AudioBuffer> audioBuffers = new List<AudioBuffer>();
 
+    public AudioClip winSFX;
+    public AudioClip walkSFX;
+    public AudioClip pushSFX;
 
     void Update()
     {
@@ -64,5 +67,17 @@ public class MusicManager : CSingletonMono<MusicManager>
         buffer.name = clip.name;
         buffer.time = bufferTime;
         audioBuffers.Add(buffer);
+    }
+
+    public void PlayWinSFX() {
+        PlayClip(winSFX);
+    }
+
+    public void PlayWalkSFX() {
+        PlayClip(walkSFX);
+    }
+
+    public void PlayPushSFX() {
+        PlayClip(pushSFX);
     }
 }

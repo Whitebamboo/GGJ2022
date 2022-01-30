@@ -49,6 +49,9 @@ MonoBehaviour:
   bgmAudioSource: {fileID: 4921972889438590993}
   sfxAudioSource: {fileID: 4921972889438590992}
   bufferTime: 0.5
+  winSFX: {fileID: 8300000, guid: fb9aa0fe3dc184ba781aa6da74e5592a, type: 3}
+  walkSFX: {fileID: 8300000, guid: 63e687ddf94cc464c92f603096c9f4d3, type: 3}
+  pushSFX: {fileID: 8300000, guid: 0ad2d43fe9e5ffc4d87489af7c01e418, type: 3}
 --- !u!82 &4921972889438590993
 AudioSource:
   m_ObjectHideFlags: 0
