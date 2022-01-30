@@ -53,6 +53,7 @@ public class PlayerController : GridObject
 
     float cooldownTime = 0.3f;
     bool canMove = true;
+    bool advanceTimeMove = false;
 
     public Animator anim;
 
@@ -84,7 +85,7 @@ public class PlayerController : GridObject
                 canMove = true;
 
                 anim.SetBool("Move", false);
-                EventBus.Broadcast<bool>(EventTypes.TimeMoveEnd, isForward);
+                if (advanceTimeMove) EventBus.Broadcast<bool>(EventTypes.TimeMoveEnd, isForward);
             }
         }
         
@@ -117,7 +118,7 @@ public class PlayerController : GridObject
             }
             else if (Input.GetKey(undoKeycode)) 
             {
-                EventBus.Broadcast<bool>(EventTypes.UndoLastMove, isForward);
+                TryUndo();
             }
         }
     }
@@ -129,6 +130,14 @@ public class PlayerController : GridObject
 
         EventBus.Broadcast<PlayerController, PlayerAction, Direction>
             (EventTypes.PlayerAction, this, PlayerAction.Move, playerDirection);
+    }
+
+    void TryUndo() 
+    {
+        keyDown = true;
+        Invoke(nameof(KeyCooldown), cooldownTime);
+
+        EventBus.Broadcast<bool>(EventTypes.UndoLastMove, isForward);
     }
 
     void TryInteract()
@@ -153,6 +162,7 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
+        advanceTimeMove = true;
     }
 
     public void MoveTo(Vector3 newPosition,bool canmove)
@@ -169,6 +179,7 @@ public class PlayerController : GridObject
         isMoving = true;   
 
         anim.SetBool("Move", true);
+        advanceTimeMove = false;
     }
 
     public void ChangeDirection(Direction dir) 
