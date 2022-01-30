@@ -52,7 +52,7 @@ public class PlayerController : GridObject
     bool isMoving = false;
     bool isPushing = false;
 
-    float cooldownTime = 0.3f;
+    float cooldownTime = 0.5f;
     bool canMove = true;
     bool stopAll = false;
     bool advanceTimeMove = false;
