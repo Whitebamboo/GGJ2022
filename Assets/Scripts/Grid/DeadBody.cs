@@ -11,7 +11,7 @@ public class DeadBody : MonoBehaviour
     public void getdeadInfomation(GameObject go)
     {
         GridObject g = go.GetComponent<GridObject>();
-        this.grid = g.gridController.objectMapping[go];
+        //this.grid = g.gridController.objectMapping[go];
         deadObject = go;
     }
 }
