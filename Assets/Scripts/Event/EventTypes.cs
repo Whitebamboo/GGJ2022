@@ -23,4 +23,5 @@ public enum EventTypes
     LevelComplete,
     RestartLevel,
     LevelLost,
+    SuccessFullyUndo,
 }
