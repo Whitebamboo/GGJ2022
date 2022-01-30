@@ -4,16 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class fatherObject : GridObject
 {
-    [System.Serializable]
-    /// <summary>
-    /// use to fill the state of object base on age
-    /// </summary>
-    public struct State
-    {
-        public int ageThreshold;// left: age need to >= ageThreshold than the state will change
-                         // right:age need to <= ageThreshold than the state will change
-        public int state;// make sure right and lefts
-    }
     public List<State> stateLists = new List<State>();
     public int currentState = 0;//a pointer to State ,will be the same as State.state
 
@@ -57,6 +47,11 @@ public abstract class fatherObject : GridObject
         }
     }
 
+    public override void SetAge(int age) {
+        this.age = age;
+        ChangeState();
+    }
+
     public override void MoveTo(Vector3 endPoint_)//left =  true ,right = false
     {
         isMove = true;
@@ -94,7 +89,6 @@ public abstract class fatherObject : GridObject
             else
             {
                 age--;
-                
             }
         }
     }
@@ -104,7 +98,7 @@ public abstract class fatherObject : GridObject
     /// <summary>
     /// change object's state and call the animator 
     /// </summary>
-    public void ChangeState(Animator animator)
+    public void ChangeState(Animator animator = null)
     {
         int offset = (stateLists[stateLists.Count - 1].ageThreshold - stateLists[0].ageThreshold) / Mathf.Max(stateLists.Count-1,0);
             if (isForward)
@@ -114,8 +108,11 @@ public abstract class fatherObject : GridObject
                     if (age >= stateLists[currentState + 1].ageThreshold)
                     {
                         currentState = stateLists[currentState + 1].state;
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", 1f);
+                        if (animator)
+                        {
+                            animator.SetInteger("State", currentState);
+                            animator.SetFloat("Speed", 1f);
+                        }
                     }
                 }
                 else
@@ -124,8 +121,11 @@ public abstract class fatherObject : GridObject
                     {
                         currentState = 0;
                         age = 0;
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", 1f);
+                        if (animator)
+                        {
+                            animator.SetInteger("State", currentState);
+                            animator.SetFloat("Speed", 1f);
+                        }
                     }
                 }
             }
@@ -138,8 +138,11 @@ public abstract class fatherObject : GridObject
                     if (age <= stateLists[currentState - 1].ageThreshold)
                     {
                         currentState = stateLists[currentState - 1].state;
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", -1f);
+                        if (animator)
+                        {
+                            animator.SetInteger("State", currentState);
+                            animator.SetFloat("Speed", -1f);
+                        }
                     }
                 }
                 else
@@ -148,8 +151,11 @@ public abstract class fatherObject : GridObject
                     {
                         currentState = stateLists.Count-1;
                         age = stateLists[stateLists.Count-1].ageThreshold;
-                        animator.SetInteger("State", currentState);
-                        animator.SetFloat("Speed", -1f);
+                        if (animator)
+                        {
+                            animator.SetInteger("State", currentState);
+                            animator.SetFloat("Speed", -1f);
+                        }
                     }
                 }
             }
