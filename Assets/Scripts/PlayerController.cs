@@ -69,9 +69,9 @@ public class PlayerController : GridObject
             if (currentTime >= 1)
             {
                 transform.position = targetPosition;
-                EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
                 isMoving = false;
                 canMove = true;
+                EventBus.Broadcast<bool>(EventTypes.TimeMoveEnd, isForward);
             }
         }
         
@@ -140,6 +140,8 @@ public class PlayerController : GridObject
         currentPosition = transform.position;
         currentTime = 0;
         isMoving = true;
+
+        EventBus.Broadcast<bool>(EventTypes.TimeMove, isForward);
     }
 
     public void ChangeDirection(Direction dir) 
