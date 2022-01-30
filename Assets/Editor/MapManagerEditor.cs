@@ -84,27 +84,27 @@ public class MapManagerEditor : EditorWindow
         if(m_loadLevelData == null)
         {
             GUILayout.Space(10);
-            m_savedMapName = EditorGUILayout.TextField("输入保存的地图文件名:", m_savedMapName);
+            m_savedMapName = EditorGUILayout.TextField("Enter the name of map:", m_savedMapName);
         }
  
-        if (m_loadLevelData == null && GUILayout.Button("保存当前地图", GUILayout.Width(500), GUILayout.Height(30)))
+        if (m_loadLevelData == null && GUILayout.Button("Save current map", GUILayout.Width(500), GUILayout.Height(30)))
         {
             GUILayout.Space(10);
             if (string.IsNullOrEmpty(m_savedMapName))
             {
-                ShowNotification(new GUIContent("文件名不得为空"));
+                ShowNotification(new GUIContent("map name is empty"));
                 return;
             }
 
             Serialize();
-            ShowNotification(new GUIContent("保存成功"));
+            ShowNotification(new GUIContent("Save successfully"));
         }
         
         GUILayout.Space(10);
-        m_loadLevelData = (LevelData)EditorGUILayout.ObjectField("加载保存的关卡", m_loadLevelData, typeof(LevelData), false);
+        m_loadLevelData = (LevelData)EditorGUILayout.ObjectField("load saved level", m_loadLevelData, typeof(LevelData), false);
         
         GUILayout.Space(10);       
-        if (m_loadLevelData != null && GUILayout.Button("加载", GUILayout.Width(500), GUILayout.Height(30)))
+        if (m_loadLevelData != null && GUILayout.Button("Load", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Clear();
             m_savedMapName = m_loadLevelData.name;
@@ -112,12 +112,12 @@ public class MapManagerEditor : EditorWindow
             Load(m_rightInteractiveLayer.transform);
         }
 
-        if (m_loadLevelData != null && GUILayout.Button("保存修改", GUILayout.Width(500), GUILayout.Height(30)))
+        if (m_loadLevelData != null && GUILayout.Button("Save", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Serialize();
         }
     
-        if (GUILayout.Button("清除地图元素", GUILayout.Width(500), GUILayout.Height(30)))
+        if (GUILayout.Button("Clean map elements", GUILayout.Width(500), GUILayout.Height(30)))
         {
             Clear();
         }
