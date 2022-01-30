@@ -134,6 +134,7 @@ public class GameManager : CSingletonMono<GameManager>
 
     void ResetLevel()
     {
+        
         leftGridController.SetLevel(levels[currentLevel]);
         rightGridController.SetLevel(levels[currentLevel]);
 

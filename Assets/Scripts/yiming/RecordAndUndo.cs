@@ -17,7 +17,16 @@ public class RecordAndUndo : MonoBehaviour
     public Stack<ScreenShot> recorders = new Stack<ScreenShot>();
     public GridController gridController;
     GameManager gameManager;
-   
+
+
+    /// <summary>
+    /// clear all record
+    /// </summary>
+    public void ClearRecord()
+    {
+        recorders.Clear();
+    }
+
 
     private void Start()
     {
@@ -25,12 +34,14 @@ public class RecordAndUndo : MonoBehaviour
         EventBus.AddListener<GridSpaceController[,],bool>(EventTypes.GridRecord, GridRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.DeadRecord, DeadRecord);
         EventBus.AddListener<GameObject,bool,(int,int)>(EventTypes.CreateRecord, CreateRecord);
+        EventBus.AddListener(EventTypes.LevelComplete, ClearRecord);
         EventBus.AddListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void OnDestroy()
     {
         EventBus.RemoveListener<GridSpaceController[,], bool>(EventTypes.GridRecord, GridRecord);
         EventBus.RemoveListener<GameObject, bool, (int, int)>(EventTypes.DeadRecord, DeadRecord);
+        EventBus.RemoveListener(EventTypes.LevelComplete, ClearRecord);
         EventBus.RemoveListener<bool>(EventTypes.UndoLastMove, Undo);
     }
     private void Update()
@@ -153,7 +164,9 @@ public class RecordAndUndo : MonoBehaviour
                     GridObject go = grids[i, j].GetObject();
                     
                     ss.grids[i, j].SetEmpty(false);
+                    print(go.gameObject.name);
                     ss.grids[i, j].SetObject(go.gameObject.name);
+                    
                     ss.grids[i, j].StoreInfo(go.gameObject);
                 }
                 else
@@ -179,16 +192,16 @@ public class RecordAndUndo : MonoBehaviour
             if (recorders.Count > 0)
             {
                 ScreenShot ss = recorders.Pop();
-                
+                print("recorders's length; " + recorders.Count);
                 if(ss.step == step)//step = n at this step their have dead body
                 {
-                    if (ss.deadBodies.Count > 0)
+                    if (ss.deadBodies != null && ss.deadBodies.Count > 0)
                     {
                         temperarylist = ss.deadBodies;
                     }
-                    if (ss.creatBodies.Count > 0)
+                    if (ss.creatBodies != null && ss.creatBodies.Count > 0)
                     {
-                        
+                        UndoCreate(ss.creatBodies);
                     }
                     ss = recorders.Pop();
                     UndoGrids(ss);
@@ -274,7 +287,7 @@ public class RecordAndUndo : MonoBehaviour
                     {
                         
                         GameObject go = GameObject.Find(ss.grids[i, j].GetObject());
-                      
+                        print("go.name" + go.name);
                         (int, int) pasPos = gridController.objectMapping[go];
                         PlayerController player = go.GetComponent<PlayerController>();
                         Vector3 targetPosition = gridController.GetPosition(i, j);
@@ -302,13 +315,14 @@ public class RecordAndUndo : MonoBehaviour
 
                                 gridController.SetPositionObject(i, j, go.GetComponent<GridObject>());
                                 gridController.objectMapping[go] = (i, j);
-                                if (ss.grids[i, j].haveState)
-                                {
-                                    go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
-                                    go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
-                                }
+                              
                             }
-                            
+                            if (ss.grids[i, j].haveState)
+                            {
+                                go.GetComponent<fatherObject>().age = ss.grids[i, j].age;
+                                go.GetComponent<fatherObject>().currentState = ss.grids[i, j].state;
+                            }
+
 
                         }
                          
