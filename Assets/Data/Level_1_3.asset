@@ -12,30 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b0117195793fe4bba6d6df0d69ffc6, type: 3}
   m_Name: Level_1_3
   m_EditorClassIdentifier: 
-  totalTime: 8
+  totalTime: 12
   leftPlayerLevel:
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
-    row: 1
-    col: 3
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
     row: 0
     col: 4
+    HasStartAge: 0
+    StartAge: 0
   - prefab: {fileID: 3400758947935742745, guid: 3f8f0d3296d5b4143bbe5eb2bc3dc992, type: 3}
-    row: 0
-    col: 2
+    row: 4
+    col: 1
+    HasStartAge: 0
+    StartAge: 0
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 2
+    col: 2
+    HasStartAge: 0
+    StartAge: 0
+  - prefab: {fileID: 6554922465182773963, guid: 0a3ff606a0e7046568e3794fc96d4fbf, type: 3}
     row: 3
     col: 3
+    HasStartAge: 0
+    StartAge: 0
+  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 1
+    col: 2
+    HasStartAge: 0
+    StartAge: 0
   rightPlayerLevel:
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
     row: 0
     col: 4
-  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
-    row: 1
-    col: 5
+    HasStartAge: 0
+    StartAge: 0
   - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
     row: 1
     col: 4
+    HasStartAge: 0
+    StartAge: 0
   - prefab: {fileID: 6214402663391313069, guid: 3af60eeeca5904571931dd0c863571e4, type: 3}
     row: 0
     col: 5
+    HasStartAge: 0
+    StartAge: 0
+  - prefab: {fileID: 6554922465182773963, guid: 0a3ff606a0e7046568e3794fc96d4fbf, type: 3}
+    row: 3
+    col: 3
+    HasStartAge: 0
+    StartAge: 0
+  - prefab: {fileID: 6266697286741533633, guid: da5b4101ed06ee3478ae9eafa2e572ad, type: 3}
+    row: 2
+    col: 5
+    HasStartAge: 0
+    StartAge: 0
+  TreeStates: []
