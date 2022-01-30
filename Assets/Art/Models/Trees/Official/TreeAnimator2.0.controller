@@ -109,6 +109,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: ChangeState
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Fallen
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -186089160830605350}
   m_Solo: 0
@@ -133,6 +136,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: ChangeState
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Fallen
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -186089160830605350}
@@ -255,6 +261,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: ChangeState
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Fallen
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -186089160830605350}
   m_Solo: 0
@@ -360,31 +369,37 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FallUp
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FallDown
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FallLeft
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FallRight
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: Fallen
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -430,6 +445,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: ChangeState
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Fallen
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -186089160830605350}
@@ -549,11 +567,11 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: -1351973757157394884}
   - {fileID: 7793324021105214158}
   - {fileID: 8731968359007003901}
   - {fileID: 8890044141400474692}
   - {fileID: -24472766996487492}
+  - {fileID: -1351973757157394884}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -580,7 +598,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 4352993498971975632}
-    m_Position: {x: 215.2767, y: -228.9351, z: 0}
+    m_Position: {x: 220, y: -230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -186089160830605350}
     m_Position: {x: 490, y: -100, z: 0}

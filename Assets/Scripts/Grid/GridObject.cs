@@ -65,6 +65,11 @@ public abstract class GridObject : MonoBehaviour
         return passedObject;
     }
 
+    public virtual void RestoreObject() 
+    {
+        return;
+    }
+
 
     public abstract void MoveTo(Vector3 newPosition);
 
