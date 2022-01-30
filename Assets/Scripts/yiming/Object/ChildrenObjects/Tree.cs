@@ -31,6 +31,7 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
     public override void CrushAction(Direction dir)
     {
         base.CrushAction(dir);
+        animator.SetBool("Fallen", true);
         
         // Rotate by direction
         switch (dir)
@@ -69,6 +70,12 @@ public class Tree : CantMoveWithTimeChange,CanbeIgnite
             currentState = 3;
             ChangeState(animator);
         }
+    }
+
+    public override void RestoreObject()
+    {
+        base.RestoreObject();
+        animator.SetBool("Fallen", false);
     }
 
     public override bool Equals(GridObject otherObject)
