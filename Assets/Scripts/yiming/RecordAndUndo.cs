@@ -196,6 +196,37 @@ public class RecordAndUndo : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// for all back ward
+    /// </summary>
+    /// <param name="leftright"></param>
+    public bool BackUndo(bool leftright)
+    {
+        if (recorders.Count > 0)
+        {
+            Undo(isForward);
+            StartCoroutine(BigBackWard(leftright));
+        }
+        else
+        {
+            EventBus.Broadcast(EventTypes.SuccessFullyUndo, true);
+            ClearRecord();
+        }
+
+        return false;
+           
+            
+        
+    }
+
+    IEnumerator BigBackWard(bool backward)
+    {
+        yield return new WaitForSeconds(.6f);
+        BackUndo(backward);
+    }
+
+
+
     private void UndoCreate(List<CreatBody> cbList)
     {
         if (cbList.Count > 0)

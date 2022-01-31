@@ -429,7 +429,6 @@ public class GridController : MonoBehaviour
             SetPositionObject(position.Item1, position.Item2, newObject.GetComponent<GridObject>());
             newObject.GetComponent<GridObject>().isForward = isForward;
             newObject.transform.SetParent(transform);
-            newObject.transform.position += new Vector3(0, 0.2f, 0);
 
             objectMapping.Remove(parentObject);
             objectMapping.Add(newObject, position);

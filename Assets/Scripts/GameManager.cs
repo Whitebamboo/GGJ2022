@@ -16,7 +16,7 @@ public class GameManager : CSingletonMono<GameManager>
 
     int totalTime, leftTime, rightTime;
 
-    int currentLevel = 0;
+    public int currentLevel = 0;
 
     bool player1ReachTarget, player2ReachTarget = false;
     bool resettingLevel = false;
@@ -128,7 +128,7 @@ public class GameManager : CSingletonMono<GameManager>
         });
     }
 
-    void ResetLevel()
+    public void ResetLevel()
     {
         EventBus.Broadcast(EventTypes.RestartLevel);
 
@@ -194,6 +194,9 @@ public class GameManager : CSingletonMono<GameManager>
                 if (currentLevel < levels.Count - 1) {
                     resettingLevel = true;
                     currentLevel++;
+                } else {
+                    EventBus.Broadcast(EventTypes.GameFinish);
+                    return;
                 }
 
                 if (musicManager) musicManager.PlayWinSFX();

@@ -25,4 +25,5 @@ public enum EventTypes
     LevelLost,
     SuccessFullyUndo,
     InteractionComplete,
+    GameFinish,
 }
