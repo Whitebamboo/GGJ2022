@@ -8,16 +8,21 @@ public class TimeBack : MonoBehaviour
     public bool rightWait = true;
     public bool leftWait = false;
     public RecordAndUndo rightRecorde;
+
+    public List<bool> undoSuccess = new List<bool>();
+   
+       
     //when player defeat turn back the whole game
     private void Start()
     {
         EventBus.AddListener(EventTypes.LevelLost, BackWardStart);
-        EventBus.AddListener<bool>(EventTypes.SuccessFullyUndo, WaitUntilLastAnime);
+        EventBus.AddListener<bool>(EventTypes.SuccessFullyUndo, ResetLevel);
     }
     private void OnDestroy()
     {
         EventBus.RemoveListener(EventTypes.LevelLost, BackWardStart);
-        EventBus.RemoveListener<bool>(EventTypes.SuccessFullyUndo, WaitUntilLastAnime);
+        EventBus.RemoveListener<bool>(EventTypes.SuccessFullyUndo, ResetLevel);
+
     }
     public void BackWardStart()
     {
@@ -29,47 +34,31 @@ public class TimeBack : MonoBehaviour
 
     IEnumerator StarBackward()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(.2f);
         print("startBackward1");
         BackWard();
 
     }
     public void BackWard()
     {
+        leftRecorde.BackUndo(true);
+        rightRecorde.BackUndo(false);
+ 
+    }
+    public void ResetLevel(bool success)
+    {
+        GameManager GM = (GameManager)FindObjectOfType(typeof(GameManager));
         
-        while (leftRecorde.recorders.Count > 0 || rightRecorde.recorders.Count > 0)
+        undoSuccess.Add(success);
+        print(GM.levels[GM.currentLevel].TotalTime);
+        print(undoSuccess.Count);
+        if(undoSuccess.Count >= GM.levels[GM.currentLevel].TotalTime+2)
         {
-            if (leftRecorde.recorders.Count > 0 && leftWait)
-            {
-                leftWait = false;
-                leftRecorde.Undo(true);
-            }
-            if (rightRecorde.recorders.Count > 0 && rightWait)
-            {
-                rightWait = false;
-                rightRecorde.Undo(false);
-            }
-
-        }
-        print("successfully undo the whole level");
-    }
-
-    public void WaitUntilLastAnime(bool leftright)
-    {
-        StartCoroutine(WaitFinished(leftright));
-    }
-
-    IEnumerator WaitFinished(bool leftright)
-    {
-        yield return new WaitForSeconds(1f);
-
-        if (leftright)
-        {
-            leftWait = true;
-        }
-        else
-        {
-            rightWait = true;
+            print("success reset");
+            undoSuccess.Clear();
+            GM.ResetLevel();
         }
     }
+
+
 }
