@@ -26,4 +26,5 @@ public enum EventTypes
     SuccessFullyUndo,
     InteractionComplete,
     GameFinish,
+    SuccessFullyRestart,
 }
