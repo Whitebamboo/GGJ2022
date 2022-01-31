@@ -196,6 +196,7 @@ public class GameManager : CSingletonMono<GameManager>
                     currentLevel++;
                 } else {
                     EventBus.Broadcast(EventTypes.GameFinish);
+                    return;
                 }
 
                 if (musicManager) musicManager.PlayWinSFX();
