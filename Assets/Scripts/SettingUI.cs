@@ -9,6 +9,7 @@ public class SettingUI : MonoBehaviour
     public GameObject settingPage;
     public GameObject controlPage;
     public GameObject creditPage;
+    public GameObject lostPage;
 
     bool isBegin = true;
 
@@ -22,6 +23,8 @@ public class SettingUI : MonoBehaviour
         }
 
         EventBus.AddListener(EventTypes.GameFinish, ShowCredits);
+        EventBus.AddListener(EventTypes.LevelLost, ShowLost);
+        EventBus.AddListener(EventTypes.SuccessFullyRestart, HideLost);
     }
 
     public void OnOpenSetting()
@@ -58,5 +61,15 @@ public class SettingUI : MonoBehaviour
     public void ShowCredits()
     {
         creditPage.SetActive(true);
+    }
+
+    void ShowLost() 
+    {
+        lostPage.SetActive(true);
+    }
+
+    void HideLost() 
+    {
+        lostPage.SetActive(false);
     }
 }

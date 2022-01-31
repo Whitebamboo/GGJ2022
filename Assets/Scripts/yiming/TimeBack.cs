@@ -22,14 +22,12 @@ public class TimeBack : MonoBehaviour
     {
         EventBus.RemoveListener(EventTypes.LevelLost, BackWardStart);
         EventBus.RemoveListener<bool>(EventTypes.SuccessFullyUndo, ResetLevel);
-
     }
+
     public void BackWardStart()
     {
         print("startBackward");
-        StartCoroutine(StarBackward());
-
-     
+        StartCoroutine(StarBackward());     
     }
 
     IEnumerator StarBackward()
@@ -56,9 +54,8 @@ public class TimeBack : MonoBehaviour
         {
             print("success reset");
             undoSuccess.Clear();
+            EventBus.Broadcast(EventTypes.SuccessFullyRestart);
             GM.ResetLevel();
         }
     }
-
-
 }
