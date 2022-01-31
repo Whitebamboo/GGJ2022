@@ -20,6 +20,8 @@ public class SettingUI : MonoBehaviour
             isBegin = false;
             StartCoroutine(CloseControlHint());
         }
+
+        EventBus.AddListener(EventTypes.GameFinish, ShowCredits);
     }
 
     public void OnOpenSetting()
@@ -51,5 +53,10 @@ public class SettingUI : MonoBehaviour
     public void OnClickCreditButton()
     {
         creditPage.SetActive(!creditPage.activeSelf);
+    }
+
+    public void ShowCredits()
+    {
+        creditPage.SetActive(true);
     }
 }

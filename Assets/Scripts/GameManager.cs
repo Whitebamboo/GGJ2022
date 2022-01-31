@@ -194,6 +194,8 @@ public class GameManager : CSingletonMono<GameManager>
                 if (currentLevel < levels.Count - 1) {
                     resettingLevel = true;
                     currentLevel++;
+                } else {
+                    EventBus.Broadcast(EventTypes.GameFinish);
                 }
 
                 if (musicManager) musicManager.PlayWinSFX();
